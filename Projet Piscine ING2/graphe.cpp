@@ -71,7 +71,8 @@ void Graphe::ajout_ponderation(std::string pondFichier)
 
     ifs >> taille;
 
-    for(int i=0;i<taille;++i){
+    for(int i=0; i<taille; ++i)
+    {
         ifs >> indice >> poids;
         m_arrete[indice]->set_poids(poids);
     }
@@ -80,7 +81,7 @@ void Graphe::ajout_ponderation(std::string pondFichier)
 void Graphe::vecteur_propre()
 {
     int n;
-    for(n=0;n<m_ordre;++n)
+    for(n=0; n<m_ordre; ++n)
     {
         m_CVP.push_back(1);
     }
@@ -90,21 +91,21 @@ void Graphe::vecteur_propre()
 
     while(index<1000)
     {
-        for(int i=0;i<m_ordre;++i)
+        for(int i=0; i<m_ordre; ++i)
         {
-            for(int j=0;j<m_adjacent[i].size();++j)
+            for(int j=0; j<m_adjacent[i].size(); ++j)
             {
                 int temp = m_adjacent[i][j];
                 c_Sommet[i] += m_CVP[temp];
             }
         }
-        for(int i=0;i<m_ordre;++i)
+        for(int i=0; i<m_ordre; ++i)
         {
             somme += c_Sommet[i]*c_Sommet[i];
         }
         m_lambda = sqrt(somme);
 
-        for(int i=0;i<m_ordre;++i)
+        for(int i=0; i<m_ordre; ++i)
         {
             m_CVP[i]= c_Sommet[i]/m_lambda;
         }
@@ -115,29 +116,35 @@ void Graphe::vecteur_propre()
     system("pause");
 }
 
-int Graphe::calculdegre(int sommet)
+std::vector <float> Graphe::calculdegre()
 {
-    int degre=0;
-    if (m_orientation == 0)
+    std::vector <float> degres;
+    for (size_t j=0; j<m_ordre; j++)
     {
-        for(size_t i=0; i<m_arrete.size(); i++)
+        int degre=0;
+        if (m_orientation == 0)
         {
-            if (m_arrete[i]->calculdegre(sommet, m_orientation)==1)
+            for(size_t i=0; i<m_arrete.size(); i++)
             {
-                degre++;
+                if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
+                {
+                    degre++;
+                }
             }
         }
-    }
 
-    if (m_orientation == 1)
-    {
-        for(size_t i=0; i<m_arrete.size(); i++)
+        if (m_orientation == 1)
         {
-            if (m_arrete[i]->calculdegre(sommet, m_orientation)==1)
+            for(size_t i=0; i<m_arrete.size(); i++)
             {
-                degre++;
+                if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
+                {
+                    degre++;
+                }
             }
         }
+        std::cout<<degre<<std::endl;
+        degres.push_back(degre);
     }
-    return degre;
+    return degres;
 }

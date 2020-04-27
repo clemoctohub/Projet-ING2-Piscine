@@ -1,6 +1,7 @@
 #include <iostream>
 #include "graphe.h"
 #include <string>
+#include "bibliothèque.h"
 
 int menu()
 {
@@ -9,7 +10,7 @@ int menu()
     std::cout << std::endl;
     std::cout << "1: Afficher le graphe" << std::endl;
     std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
-    std::cout << "3: Aller d'un point a un autre par le plus court chemin" << std::endl;
+    std::cout << "3: Afficher les indices de centralite" << std::endl;
     std::cout << "5: Quitter" << std::endl;
     std::cin >> choix;
     return choix;
@@ -34,11 +35,7 @@ int main()
             mongraphe.afficher();
             break;
         case 3:
-            int sommet;
-            std::cout<<"Rentrez l'indice du sommet dont vous voulez calculer le degre"<<std::endl;
-            std::cin>>sommet;
-            std::cout<<mongraphe.calculdegre(sommet)<<std::endl;
-            system("pause");
+            indicedecentralite(mongraphe);
             break;
         case 4:
             mongraphe.vecteur_propre();

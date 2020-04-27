@@ -20,20 +20,24 @@ void Arrete::set_poids(int poids)
     m_poids = poids;
 }
 
-int Arrete::calculdegre(int sommet, int orientation)
+int Arrete::calculdegre(Sommet* sommet, int orientation)
 {
     if (orientation == 0)
     {
-        if (m_s1->GetIndice()==sommet || m_s2->GetIndice()==sommet)
+        if (m_s1->GetIndice()==sommet->GetIndice() || m_s2->GetIndice()==sommet->GetIndice())
         {
             return 1;
+        }
+        else
+        {
+            return 0;
         }
 
     }
 
     if (orientation == 1)
     {
-        if (m_s1->GetIndice()==sommet)
+        if (m_s1->GetIndice()==sommet->GetIndice())
         {
             return 1;
         }
