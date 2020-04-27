@@ -128,18 +128,14 @@ std::vector <std::vector<float>> Graphe::calculdegre()
             for(size_t i=0; i<m_arrete.size(); i++)
                 if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
                     degre++;
-
-                }
-            }
-        }
         if (m_orientation == 1)
             for(size_t i=0; i<m_arrete.size(); i++)
                 if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
                     degre++;
         std::cout<<degre<<std::endl;
-                
-            
-        
+
+
+
         degres.push_back(degre);
         degre=degre/m_ordre;
         degresnormalise.push_back(degre);

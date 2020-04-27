@@ -26,7 +26,6 @@ public:
     void vecteur_propre();
     int algo_dijkstra(int debut,int fin);
     void centralite_proximite();
-    std::vector <float> calculdegre();
     std::vector <std::vector<float>> calculdegre();
     void afficher();
 };
