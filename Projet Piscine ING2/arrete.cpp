@@ -20,16 +20,26 @@ void Arrete::set_poids(int poids)
     m_poids = poids;
 }
 
-int Arrete::calculdegre(int sommet)
+int Arrete::calculdegre(int sommet, int orientation)
 {
-    if (m_s1->GetIndice()==sommet || m_s2->GetIndice()==sommet)
+    if (orientation == 0)
     {
-        //std::cout<<m_s1->GetIndice()<<"      "<<GetIndice()<<std::endl;
-        return 1;
+        if (m_s1->GetIndice()==sommet || m_s2->GetIndice()==sommet)
+        {
+            return 1;
+        }
+
     }
-    else
+
+    if (orientation == 1)
     {
-        //std::cout<<m_s1<<"      "<<m_s2<<std::endl;
-        return 0;
+        if (m_s1->GetIndice()==sommet)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }
