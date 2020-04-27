@@ -2,6 +2,7 @@
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    Graphe mongraphe("arretes.txt");
+
     return 0;
 }
