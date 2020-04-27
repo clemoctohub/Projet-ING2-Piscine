@@ -14,6 +14,7 @@ private:
     std::vector <Arrete*> m_arrete;
 public:
     Graphe(std::string nomFichier);
+    void ajout_ponderation(std::string pondFichier);
     void afficher();
 };
 

@@ -10,6 +10,7 @@ class Arrete
     public:
         Arrete(int s1, int s2, int indice, int poids);
         void afficher();
+        void set_poids(int poids);
         ~Arrete();
 };
 

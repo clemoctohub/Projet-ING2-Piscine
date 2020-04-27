@@ -49,3 +49,21 @@ void Graphe::afficher()
         m_arrete[i]->afficher();
     }
 }
+
+void Graphe::ajout_ponderation(std::string pondFichier)
+{
+    std::ifstream ifs(pondFichier);
+    if(!ifs)
+        std::cout << "Problème d'ouverture du fichier" << std::endl;
+    if(!ifs)
+        std::cerr << "Impossible d'ouvrir le fichier";
+
+    int taille,indice,poids;
+
+    ifs >> taille;
+
+    for(int i=0;i<taille;++i){
+        ifs >> indice >> poids;
+        m_arrete[indice]->set_poids(poids);
+    }
+}

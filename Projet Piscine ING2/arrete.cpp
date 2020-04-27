@@ -12,3 +12,8 @@ void Arrete::afficher()
 {
     std::cout<<m_s1<<" "<<m_s2<<" "<<m_indice<<" "<<m_poids<<std::endl;
 }
+
+void Arrete::set_poids(int poids)
+{
+    m_poids = poids;
+}

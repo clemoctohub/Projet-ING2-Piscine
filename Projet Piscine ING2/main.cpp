@@ -21,11 +21,18 @@ int main()
     /*std::string nomFichier;
     std::cin>>nomFichier;*/
     Graphe mongraphe("arrete.txt");
-    choix=menu();
-    switch(choix)
+    while(choix!=4)
     {
-    case 1:
-        mongraphe.afficher();
+        choix=menu();
+        switch(choix)
+        {
+        case 1:
+            mongraphe.afficher();
+            break;
+        case 2:
+            mongraphe.ajout_ponderation("ponderation.txt");
+            break;
+        }
     }
     return 0;
 }
