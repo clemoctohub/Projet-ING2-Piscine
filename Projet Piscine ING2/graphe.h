@@ -1,5 +1,6 @@
 #ifndef GRAPHE_H_INCLUDED
 #define GRAPHE_H_INCLUDED
+
 #include <vector>
 #include "sommet.h"
 #include "arrete.h"
@@ -17,13 +18,16 @@ private:
     std::vector <Sommet*> m_sommet;
     std::vector <Arrete*> m_arrete;
     std::vector <double> m_CVP;
-    std::vector <double> m_adjacent[100];
+    std::vector <double> m_CP;
+    std::vector <int> m_adjacent[100];
 public:
     Graphe(std::string nomFichier);
     void ajout_ponderation(std::string pondFichier);
-    void afficher();
     void vecteur_propre();
-    std::vector <float> calculdegre();
+    int algo_dijkstra(int debut,int fin);
+    void centralite_proximite();
+    std::vector <std::vector<float>> calculdegre();
+    void afficher();
 };
 
 #endif // GRAPHE_H_INCLUDED

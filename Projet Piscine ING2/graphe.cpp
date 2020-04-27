@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <queue>
 
 Graphe::Graphe(std::string nomFichier)
 {
@@ -87,13 +88,12 @@ void Graphe::vecteur_propre()
     }
 
     double somme=0,c_Sommet[100],index=0;
-    int temp;
 
     while(index<1000)
     {
         for(int i=0; i<m_ordre; ++i)
         {
-            for(int j=0; j<m_adjacent[i].size(); ++j)
+            for(size_t j=0; j<m_adjacent[i].size(); ++j)
             {
                 int temp = m_adjacent[i][j];
                 c_Sommet[i] += m_CVP[temp];
@@ -116,34 +116,101 @@ void Graphe::vecteur_propre()
     system("pause");
 }
 
-std::vector <float> Graphe::calculdegre()
+std::vector <std::vector<float>> Graphe::calculdegre()
 {
+    std::vector <std::vector <float>> ensemble;
     std::vector <float> degres;
-    for (size_t j=0; j<m_ordre; j++)
+    std::vector <float> degresnormalise;
+    for (int j=0; j<m_ordre; j++)
     {
-        int degre=0;
+        float degre=0;
         if (m_orientation == 0)
-        {
             for(size_t i=0; i<m_arrete.size(); i++)
-            {
                 if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
-                {
                     degre++;
-                }
-            }
+        if (m_orientation == 1)
+            for(size_t i=0; i<m_arrete.size(); i++)
+                if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
+                    degre++;
+        std::cout<<degre<<std::endl;
+
+
+
+        degres.push_back(degre);
+        degre=degre/m_ordre;
+        degresnormalise.push_back(degre);
+    }
+    ensemble.push_back(degres);
+    ensemble.push_back(degresnormalise);
+    return ensemble;
+}
+
+
+int Graphe::algo_dijkstra(int debut, int fin)
+{
+    std::queue<int> que;
+    int actuel;
+    int nbr_aretes=0,pred[100];
+
+    pred[debut] =-1;
+    que.push(debut);
+
+    bool check[100];
+    bool condi = false;
+
+    while(!que.empty() && !condi){
+
+        actuel = que.front();
+        que.pop();
+
+        if(actuel == fin){
+            condi = true;
         }
 
-        if (m_orientation == 1)
-        {
-            for(size_t i=0; i<m_arrete.size(); i++)
-            {
-                if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
-                {
-                    degre++;
-                }
+        if(check[actuel])
+            continue;
+
+        check[actuel] = true;
+        std::cout<<actuel;
+        for(int i = 0; i < m_adjacent[i].size(); ++i){
+            if(!check[m_adjacent[actuel][i]]) {
+                int nouveau;
+                nouveau = m_adjacent[actuel][i];
+                que.push(nouveau);
+                pred[nouveau] = actuel;
             }
         }
-        degres.push_back(degre);
     }
-    return degres;
+
+    while(pred[actuel]!=-1)
+    {
+        actuel=pred[actuel];
+        ++nbr_aretes;
+    }
+    std::cout<<std::endl;
+    return nbr_aretes;
+}
+
+void Graphe::centralite_proximite()
+{//faire le cas si il y a les ponderations
+
+    for(int i=0;i<m_ordre;++i)
+    {
+        m_CP.push_back(0);
+        for(int j=0;j<m_ordre;++j)
+        {
+            if(j!=i){
+                m_CP[i] += algo_dijkstra(i,j);
+                std::cout<<"i ="<<i<<" j = "<<j<<std::endl;
+            }
+                //std::cout<<" i = "<<i<<" "<<m_CP[i]<<"  ";
+        }
+
+    }
+
+//    for(int i=0;i<m_CP.size();++i)
+//    {
+//        std::cout<<"nombre arete du sommet "<<i<<" : "<<m_CP[i]<<std::endl;
+//    }
+    system("pause");
 }
