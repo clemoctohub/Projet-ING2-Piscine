@@ -22,9 +22,9 @@ void Arrete::set_poids(int poids)
 
 int Arrete::calculdegre(int sommet)
 {
-    if (m_s1==sommet || m_s2==sommet)
+    if (m_s1->GetIndice()==sommet || m_s2->GetIndice()==sommet)
     {
-        std::cout<<m_s1<<"      "<<m_s2<<std::endl;
+        //std::cout<<m_s1->GetIndice()<<"      "<<GetIndice()<<std::endl;
         return 1;
     }
     else
