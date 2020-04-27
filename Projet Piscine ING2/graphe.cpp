@@ -93,7 +93,7 @@ void Graphe::vecteur_propre()
     {
         for(int i=0; i<m_ordre; ++i)
         {
-            for(int j=0; j<m_adjacent[i].size(); ++j)
+            for(size_t j=0; j<m_adjacent[i].size(); ++j)
             {
                 int temp = m_adjacent[i][j];
                 c_Sommet[i] += m_CVP[temp];
@@ -116,12 +116,14 @@ void Graphe::vecteur_propre()
     system("pause");
 }
 
-std::vector <float> Graphe::calculdegre()
+std::vector <std::vector<float>> Graphe::calculdegre()
 {
+    std::vector <std::vector <float>> ensemble;
     std::vector <float> degres;
-    for (size_t j=0; j<m_ordre; j++)
+    std::vector <float> degresnormalise;
+    for (int j=0; j<m_ordre; j++)
     {
-        int degre=0;
+        float degre=0;
         if (m_orientation == 0)
         {
             for(size_t i=0; i<m_arrete.size(); i++)
@@ -132,7 +134,6 @@ std::vector <float> Graphe::calculdegre()
                 }
             }
         }
-
         if (m_orientation == 1)
         {
             for(size_t i=0; i<m_arrete.size(); i++)
@@ -143,8 +144,11 @@ std::vector <float> Graphe::calculdegre()
                 }
             }
         }
-        std::cout<<degre<<std::endl;
         degres.push_back(degre);
+        degre=degre/m_ordre;
+        degresnormalise.push_back(degre);
     }
-    return degres;
+    ensemble.push_back(degres);
+    ensemble.push_back(degresnormalise);
+    return ensemble;
 }
