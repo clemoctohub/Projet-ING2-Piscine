@@ -1,7 +1,7 @@
 #include <iostream>
 #include "graphe.h"
 #include <string>
-#include "bibliothèque.h"
+#include "bibliotheque.h"
 
 int menu()
 {
@@ -39,6 +39,7 @@ int main()
             break;
         case 4:
             mongraphe.vecteur_propre();
+            mongraphe.centralite_proximite();
             break;
         }
         system("cls");
