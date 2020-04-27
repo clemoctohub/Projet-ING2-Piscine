@@ -113,6 +113,7 @@ void Graphe::vecteur_propre()
 
     m_CVP.erase(m_CVP.begin(),m_CVP.begin()+n);
     system("pause");
+}
 
 int Graphe::calculdegre(int sommet)
 {

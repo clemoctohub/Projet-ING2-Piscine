@@ -33,14 +33,16 @@ int main()
             mongraphe.ajout_ponderation("ponderation.txt");
             mongraphe.afficher();
             break;
-        case 4:
-            mongraphe.vecteur_propre();
         case 3:
             int sommet;
             std::cout<<"Rentrez l'indice du sommet dont vous voulez calculer le degre"<<std::endl;
             std::cin>>sommet;
             std::cout<<mongraphe.calculdegre(sommet)<<std::endl;
             system("pause");
+            break;
+        case 4:
+            mongraphe.vecteur_propre();
+            break;
         }
         system("cls");
     }
