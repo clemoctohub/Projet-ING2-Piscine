@@ -8,7 +8,7 @@ int menu()
     std::cout << "Choisissez votre action :" << std::endl;
     std::cout << std::endl;
     std::cout << "1: Afficher le graphe" << std::endl;
-    std::cout << "2: Parcourir entier de Dijkstra" << std::endl;
+    std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
     std::cout << "3: Aller d'un point a un autre par le plus court chemin" << std::endl;
     std::cout << "4: Quitter" << std::endl;
     std::cin >> choix;
@@ -31,8 +31,10 @@ int main()
             break;
         case 2:
             mongraphe.ajout_ponderation("ponderation.txt");
+            mongraphe.afficher();
             break;
         }
+        system("cls");
     }
     return 0;
 }

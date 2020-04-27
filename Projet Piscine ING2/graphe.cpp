@@ -48,6 +48,7 @@ void Graphe::afficher()
         std::cout << "          aretes :";
         m_arrete[i]->afficher();
     }
+    system("pause");
 }
 
 void Graphe::ajout_ponderation(std::string pondFichier)
