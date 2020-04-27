@@ -16,7 +16,7 @@ class Arrete
         Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
         void afficher(Svgfile &svgout);
         void set_poids(int poids);
-        ~Arrete();
+        int calculdegre(int sommet, int orientation);
 };
 
 #endif // ARRETE_H_INCLUDED

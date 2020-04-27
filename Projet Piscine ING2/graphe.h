@@ -23,6 +23,7 @@ public:
     void ajout_ponderation(std::string pondFichier);
     void afficher();
     void vecteur_propre();
+    int calculdegre(int sommet);
 };
 
 #endif // GRAPHE_H_INCLUDED

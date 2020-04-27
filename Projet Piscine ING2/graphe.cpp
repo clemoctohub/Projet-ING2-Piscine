@@ -9,7 +9,7 @@ Graphe::Graphe(std::string nomFichier)
 {
     std::ifstream flux(nomFichier);
     if(!flux)
-        std::cout << "Problème d'ouverture du fichier" << std::endl;
+        std::cout << "Problï¿½me d'ouverture du fichier" << std::endl;
     if(!flux)
         std::cerr << "Impossible d'ouvrir le fichier";
 
@@ -63,7 +63,7 @@ void Graphe::ajout_ponderation(std::string pondFichier)
 {
     std::ifstream ifs(pondFichier);
     if(!ifs)
-        std::cout << "Problème d'ouverture du fichier" << std::endl;
+        std::cout << "Problï¿½me d'ouverture du fichier" << std::endl;
     if(!ifs)
         std::cerr << "Impossible d'ouvrir le fichier";
 
@@ -114,4 +114,29 @@ void Graphe::vecteur_propre()
     m_CVP.erase(m_CVP.begin(),m_CVP.begin()+n);
     system("pause");
 
+int Graphe::calculdegre(int sommet)
+{
+    int degre=0;
+    if (m_orientation == 0)
+    {
+        for(size_t i=0; i<m_arrete.size(); i++)
+        {
+            if (m_arrete[i]->calculdegre(sommet, m_orientation)==1)
+            {
+                degre++;
+            }
+        }
+    }
+
+    if (m_orientation == 1)
+    {
+        for(size_t i=0; i<m_arrete.size(); i++)
+        {
+            if (m_arrete[i]->calculdegre(sommet, m_orientation)==1)
+            {
+                degre++;
+            }
+        }
+    }
+    return degre;
 }
