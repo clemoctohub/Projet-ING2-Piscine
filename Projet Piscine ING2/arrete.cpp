@@ -17,3 +17,17 @@ void Arrete::set_poids(int poids)
 {
     m_poids = poids;
 }
+
+int Arrete::calculdegre(int sommet)
+{
+    if (m_s1==sommet || m_s2==sommet)
+    {
+        std::cout<<m_s1<<"      "<<m_s2<<std::endl;
+        return 1;
+    }
+    else
+    {
+        //std::cout<<m_s1<<"      "<<m_s2<<std::endl;
+        return 0;
+    }
+}

@@ -9,9 +9,10 @@ class Arrete
         int m_poids;
     public:
         Arrete(int s1, int s2, int indice, int poids);
+        ~Arrete();
         void afficher();
         void set_poids(int poids);
-        ~Arrete();
+        int calculdegre(int sommet);
 };
 
 #endif // ARRETE_H_INCLUDED

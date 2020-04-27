@@ -68,3 +68,16 @@ void Graphe::ajout_ponderation(std::string pondFichier)
         m_arrete[indice]->set_poids(poids);
     }
 }
+
+int Graphe::calculdegre(int sommet)
+{
+    int degre=0;
+    for(size_t i=0; i<m_arrete.size(); i++)
+    {
+        if (m_arrete[i]->calculdegre(sommet)==1)
+        {
+            degre++;
+        }
+    }
+    return degre;
+}

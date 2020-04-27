@@ -16,6 +16,7 @@ public:
     Graphe(std::string nomFichier);
     void ajout_ponderation(std::string pondFichier);
     void afficher();
+    int calculdegre(int sommet);
 };
 
 #endif // GRAPHE_H_INCLUDED

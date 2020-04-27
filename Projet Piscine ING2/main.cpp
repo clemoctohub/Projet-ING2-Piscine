@@ -9,7 +9,7 @@ int menu()
     std::cout << std::endl;
     std::cout << "1: Afficher le graphe" << std::endl;
     std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
-    std::cout << "3: Aller d'un point a un autre par le plus court chemin" << std::endl;
+    std::cout << "3: Calcul de l'indice d'un sommet" << std::endl;
     std::cout << "4: Quitter" << std::endl;
     std::cin >> choix;
     return choix;
@@ -33,6 +33,11 @@ int main()
             mongraphe.ajout_ponderation("ponderation.txt");
             mongraphe.afficher();
             break;
+        case 3:
+            int sommet;
+            std::cin>>sommet;
+            std::cout<<mongraphe.calculdegre(sommet)<<std::endl;
+            system("pause");
         }
         system("cls");
     }
