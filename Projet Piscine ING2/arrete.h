@@ -9,6 +9,7 @@ class Arrete
         int m_poids;
     public:
         Arrete(int s1, int s2, int indice, int poids);
+        void afficher();
         ~Arrete();
 };
 

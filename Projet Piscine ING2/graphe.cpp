@@ -37,12 +37,15 @@ void Graphe::afficher()
     else
         std::cout << "Graphe oriente"<<std::endl;
     std::cout << "      Ordre = "<<m_ordre<<std::endl;
-    std::cout << "      Liste d'adjacence = "<<std::endl;
-    std::cout <<std::endl;
     for(size_t i=0; i<m_sommet.size(); ++i)
     {
         std::cout << "          sommet :";
         m_sommet[i]->afficher();
     }
-    system("pause");
+    std::cout << std::endl<< "      Taille = "<<m_taille<<std::endl;
+    for(size_t i=0; i<m_arrete.size(); ++i)
+    {
+        std::cout << "          aretes :";
+        m_arrete[i]->afficher();
+    }
 }

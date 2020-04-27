@@ -10,5 +10,5 @@ Sommet::Sommet(int indice, std::string nom, int x, int y)
 
 void Sommet::afficher()
 {
-    std::cout<< m_nom << std::endl;
+    std::cout<<m_indice<<" "<< m_nom <<" "<<m_x<<" "<<m_y<< std::endl;
 }
