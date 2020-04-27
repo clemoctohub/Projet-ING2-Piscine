@@ -33,6 +33,10 @@ Graphe::Graphe(std::string nomFichier)
         m_adjacent[s1].push_back(s2);
         m_adjacent[s2].push_back(s1);
     }
+
+    for(int i=0;i<100;++i)
+        m_dec[i]=false;
+    m_nbr_aretes = 0;
 }
 
 void Graphe::afficher()
@@ -145,50 +149,18 @@ std::vector <std::vector<float>> Graphe::calculdegre()
     return ensemble;
 }
 
-
-int Graphe::algo_dijkstra(int debut, int fin)
+void Graphe::parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes)
 {
-    std::queue<int> que;
-    int actuel;
-    int nbr_aretes=0,pred[100];
+    m_dec[numS] = true;
 
-    pred[debut] =-1;
-    que.push(debut);
-
-    bool check[100];
-    bool condi = false;
-
-    while(!que.empty() && !condi){
-
-        actuel = que.front();
-        que.pop();
-
-        if(actuel == fin){
-            condi = true;
-        }
-
-        if(check[actuel])
-            continue;
-
-        check[actuel] = true;
-        std::cout<<actuel;
-        for(int i = 0; i < m_adjacent[i].size(); ++i){
-            if(!check[m_adjacent[actuel][i]]) {
-                int nouveau;
-                nouveau = m_adjacent[actuel][i];
-                que.push(nouveau);
-                pred[nouveau] = actuel;
-            }
-        }
-    }
-
-    while(pred[actuel]!=-1)
-    {
-        actuel=pred[actuel];
+    if(numS==fin)
+        m_nbr_aretes = nbr_aretes;
+    else
         ++nbr_aretes;
-    }
-    std::cout<<std::endl;
-    return nbr_aretes;
+
+    for(int i=0;i<m_adjacent[numS].size();++i)
+        if(!m_dec[m_adjacent[numS][i]])
+            parcour_DFS_no_ponderation(m_adjacent[numS][i],fin,nbr_aretes);
 }
 
 void Graphe::centralite_proximite()
@@ -198,19 +170,16 @@ void Graphe::centralite_proximite()
     {
         m_CP.push_back(0);
         for(int j=0;j<m_ordre;++j)
-        {
             if(j!=i){
-                m_CP[i] += algo_dijkstra(i,j);
-                std::cout<<"i ="<<i<<" j = "<<j<<std::endl;
+                parcour_DFS_no_ponderation(i,j,0);
+                m_CP[i] += m_nbr_aretes;
+                m_nbr_aretes = 0;
+                for(int i=0;i<100;++i)
+                    m_dec[i]=false;
             }
-                //std::cout<<" i = "<<i<<" "<<m_CP[i]<<"  ";
-        }
-
     }
 
-//    for(int i=0;i<m_CP.size();++i)
-//    {
-//        std::cout<<"nombre arete du sommet "<<i<<" : "<<m_CP[i]<<std::endl;
-//    }
+    for(int i=0;i<m_CP.size();++i)
+        std::cout<<"CP["<<i<<"] = "<<m_CP[i]<<std::endl;
     system("pause");
 }
