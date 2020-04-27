@@ -23,11 +23,12 @@ private:
 public:
     Graphe(std::string nomFichier);
     void ajout_ponderation(std::string pondFichier);
-    void afficher();
     void vecteur_propre();
     int algo_dijkstra(int debut,int fin);
     void centralite_proximite();
     std::vector <float> calculdegre();
+    std::vector <std::vector<float>> calculdegre();
+    void afficher();
 };
 
 #endif // GRAPHE_H_INCLUDED
