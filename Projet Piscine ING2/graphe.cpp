@@ -143,7 +143,6 @@ std::vector <float> Graphe::calculdegre()
                 }
             }
         }
-        std::cout<<degre<<std::endl;
         degres.push_back(degre);
     }
     return degres;
