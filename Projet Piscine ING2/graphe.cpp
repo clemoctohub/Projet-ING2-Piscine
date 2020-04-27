@@ -155,8 +155,10 @@ int Graphe::algo_dijkstra(int debut, int fin)
         actuel = que.front();
         que.pop();
 
-        if(actuel == fin)
+        if(actuel == fin){
             condi = true;
+        }
+
         if(check[actuel])
             continue;
 
@@ -187,7 +189,7 @@ void Graphe::centralite_proximite()
     for(int i=0;i<m_ordre;++i)
     {
         m_CP.push_back(0);
-        for(int j=0;j<m_ordre;j++)
+        for(int j=0;j<m_ordre;++j)
         {
             if(j!=i){
                 m_CP[i] += algo_dijkstra(i,j);
