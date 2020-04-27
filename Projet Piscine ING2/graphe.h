@@ -1,6 +1,8 @@
 #ifndef GRAPHE_H_INCLUDED
 #define GRAPHE_H_INCLUDED
 #include <vector>
+#include "sommet.h"
+#include "arrete.h"
 
 class Graphe
 {
@@ -9,9 +11,9 @@ private:
     int m_ordre;
     int m_taille;
     std::vector <Sommet*> m_sommet;
-    std::vector <Liaison*> m_liaison;
+    std::vector <Arrete*> m_arrete;
 public:
-    Graphe::Graphe(std::string fichier);
+    Graphe(std::string nomFichier);
 
 };
 

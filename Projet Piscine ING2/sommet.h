@@ -10,8 +10,7 @@ private :
     int m_x;
     int m_y;
 public :
-
-    ~Sommet::Sommet();
+    Sommet(int indice, std::string nom, int x, int y);
 };
 
 #endif // SOMMET_H_INCLUDED
