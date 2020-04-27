@@ -10,7 +10,7 @@ int menu()
     std::cout << "1: Afficher le graphe" << std::endl;
     std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
     std::cout << "3: Aller d'un point a un autre par le plus court chemin" << std::endl;
-    std::cout << "4: Quitter" << std::endl;
+    std::cout << "5: Quitter" << std::endl;
     std::cin >> choix;
     return choix;
 }
@@ -21,7 +21,7 @@ int main()
     /*std::string nomFichier;
     std::cin>>nomFichier;*/
     Graphe mongraphe("arrete.txt");
-    while(choix!=4)
+    while(choix!=5)
     {
         choix=menu();
         switch(choix)
@@ -33,6 +33,8 @@ int main()
             mongraphe.ajout_ponderation("ponderation.txt");
             mongraphe.afficher();
             break;
+        case 4:
+            mongraphe.vecteur_propre();
         }
         system("cls");
     }

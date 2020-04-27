@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <cmath>
 
 Graphe::Graphe(std::string nomFichier)
 {
@@ -27,6 +28,9 @@ Graphe::Graphe(std::string nomFichier)
         int indice,s1,s2;
         flux >> indice >> s1 >> s2;
         m_arrete.push_back(new Arrete{m_sommet[s1],m_sommet[s2],indice,0});
+        //graphe non oriente
+        m_adjacent[s1].push_back(s2);
+        m_adjacent[s2].push_back(s1);
     }
 }
 
@@ -71,4 +75,43 @@ void Graphe::ajout_ponderation(std::string pondFichier)
         ifs >> indice >> poids;
         m_arrete[indice]->set_poids(poids);
     }
+}
+
+void Graphe::vecteur_propre()
+{
+    int n;
+    for(n=0;n<m_ordre;++n)
+    {
+        m_CVP.push_back(1);
+    }
+
+    double somme=0,c_Sommet[100],index=0;
+    int temp;
+
+    while(index<1000)
+    {
+        for(int i=0;i<m_ordre;++i)
+        {
+            for(int j=0;j<m_adjacent[i].size();++j)
+            {
+                int temp = m_adjacent[i][j];
+                c_Sommet[i] += m_CVP[temp];
+            }
+        }
+        for(int i=0;i<m_ordre;++i)
+        {
+            somme += c_Sommet[i]*c_Sommet[i];
+        }
+        m_lambda = sqrt(somme);
+
+        for(int i=0;i<m_ordre;++i)
+        {
+            m_CVP[i]= c_Sommet[i]/m_lambda;
+        }
+        ++index;
+    }
+
+    m_CVP.erase(m_CVP.begin(),m_CVP.begin()+n);
+    system("pause");
+
 }

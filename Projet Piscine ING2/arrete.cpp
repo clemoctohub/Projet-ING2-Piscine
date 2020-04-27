@@ -11,7 +11,7 @@ Arrete::Arrete(Sommet* s1, Sommet* s2, int indice, int poids)
 
 void Arrete::afficher(Svgfile &svgout)
 {
-    std::cout<<m_s1->GetIndice()<<" "<<m_s2->GetIndice()<<" "<<m_indice<<" "<<m_poids<<std::endl;
+    std::cout<<m_indice<<" "<<m_s1->GetIndice()<<" "<<m_s2->GetIndice()<<" "<<m_poids<<std::endl;
     svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
 }
 
