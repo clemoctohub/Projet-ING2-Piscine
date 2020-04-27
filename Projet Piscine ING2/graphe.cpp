@@ -26,12 +26,14 @@ Graphe::Graphe(std::string nomFichier)
     {
         int indice,s1,s2;
         flux >> indice >> s1 >> s2;
-        m_arrete.push_back(new Arrete{indice,s1,s2,0});
+        m_arrete.push_back(new Arrete{m_sommet[s1],m_sommet[s2],indice,0});
     }
 }
 
 void Graphe::afficher()
 {
+    Svgfile svgout;
+    svgout.addGrid();
     if(m_orientation==0)
         std::cout << "Graphe non oriente"<<std::endl;
     else
@@ -40,14 +42,16 @@ void Graphe::afficher()
     for(size_t i=0; i<m_sommet.size(); ++i)
     {
         std::cout << "          sommet :";
-        m_sommet[i]->afficher();
+        m_sommet[i]->afficher(svgout);
     }
     std::cout << std::endl<< "      Taille = "<<m_taille<<std::endl;
     for(size_t i=0; i<m_arrete.size(); ++i)
     {
-        std::cout << "          aretes :";
-        m_arrete[i]->afficher();
+        std::cout << "          arretes :";
+        m_arrete[i]->afficher(svgout);
     }
+
+
     system("pause");
 }
 

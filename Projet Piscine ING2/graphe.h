@@ -3,6 +3,9 @@
 #include <vector>
 #include "sommet.h"
 #include "arrete.h"
+#include "svgfile.h"
+#include "couleur.h"
+#include "util.h"
 
 class Graphe
 {

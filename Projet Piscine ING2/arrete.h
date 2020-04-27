@@ -1,15 +1,20 @@
 #ifndef ARRETE_H_INCLUDED
 #define ARRETE_H_INCLUDED
+#include "svgfile.h"
+#include "couleur.h"
+#include "util.h"
+#include "sommet.h"
 
 class Arrete
 {
     private:
-        int m_s1,m_s2;
+        Sommet* m_s1;
+        Sommet* m_s2;
         int m_indice;
         int m_poids;
     public:
-        Arrete(int s1, int s2, int indice, int poids);
-        void afficher();
+        Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
+        void afficher(Svgfile &svgout);
         void set_poids(int poids);
         ~Arrete();
 };
