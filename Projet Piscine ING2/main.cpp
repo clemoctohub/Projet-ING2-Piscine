@@ -17,9 +17,15 @@ int menu()
 
 int main()
 {
+    int choix=0;
     /*std::string nomFichier;
     std::cin>>nomFichier;*/
     Graphe mongraphe("arrete.txt");
-    mongraphe.afficher();
+    choix=menu();
+    switch(choix)
+    {
+    case 1:
+        mongraphe.afficher();
+    }
     return 0;
 }
