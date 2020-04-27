@@ -1,6 +1,9 @@
 #ifndef SOMMET_H_INCLUDED
 #define SOMMET_H_INCLUDED
 #include <string>
+#include "svgfile.h"
+#include "couleur.h"
+#include "util.h"
 
 class Sommet
 {
@@ -11,7 +14,10 @@ private :
     int m_y;
 public :
     Sommet(int indice, std::string nom, int x, int y);
-    void afficher();
+    void afficher(Svgfile &svgout);
+    int GetX();
+    int GetY();
+    int GetIndice();
 };
 
 #endif // SOMMET_H_INCLUDED
