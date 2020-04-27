@@ -137,7 +137,7 @@ std::vector <std::vector<float>> Graphe::calculdegre()
 
 
         degres.push_back(degre);
-        degre=degre/m_ordre;
+        degre=degre/(m_ordre-1);
         degresnormalise.push_back(degre);
     }
     ensemble.push_back(degres);
