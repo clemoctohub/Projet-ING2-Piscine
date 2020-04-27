@@ -7,3 +7,8 @@ Sommet::Sommet(int indice, std::string nom, int x, int y)
 {
 
 }
+
+void Sommet::afficher()
+{
+    std::cout<< m_nom << std::endl;
+}

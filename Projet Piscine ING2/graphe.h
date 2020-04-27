@@ -14,7 +14,7 @@ private:
     std::vector <Arrete*> m_arrete;
 public:
     Graphe(std::string nomFichier);
-
+    void afficher();
 };
 
 #endif // GRAPHE_H_INCLUDED

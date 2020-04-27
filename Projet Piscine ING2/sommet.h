@@ -11,6 +11,7 @@ private :
     int m_y;
 public :
     Sommet(int indice, std::string nom, int x, int y);
+    void afficher();
 };
 
 #endif // SOMMET_H_INCLUDED

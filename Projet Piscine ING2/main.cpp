@@ -5,11 +5,8 @@
 int main()
 {
     std::string nomFichier;
-
-
     std::cin>>nomFichier;
     Graphe mongraphe(nomFichier);
-
-    std::cout << "Salut";
+    mongraphe.afficher();
     return 0;
 }
