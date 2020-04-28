@@ -128,14 +128,14 @@ std::vector <double> Graphe::vecteur_propre()
     return buffer;
 }
 
-std::vector <std::vector<float>> Graphe::calculdegre()
+std::vector <std::vector<double>> Graphe::calculdegre()
 {
-    std::vector <std::vector <float>> ensemble;
-    std::vector <float> degres;
-    std::vector <float> degresnormalise;
+    std::vector <std::vector <double>> ensemble;
+    std::vector <double> degres;
+    std::vector <double> degresnormalise;
     for (int j=0; j<m_ordre; j++)
     {
-        float degre=0;
+        double degre=0;
         if (m_orientation == 0)
             for(size_t i=0; i<m_arrete.size(); i++)
                 if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)

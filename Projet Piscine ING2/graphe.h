@@ -33,7 +33,7 @@ public:
     void parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes);
     void parcour_DFS_with_ponderation(int numS,int fin,int nbr_aretes);
     void centralite_proximite();
-    std::vector <std::vector<float>> calculdegre();
+    std::vector <std::vector<double>> calculdegre();
     void afficher();
 };
 
