@@ -120,14 +120,14 @@ void Graphe::vecteur_propre()
     system("pause");
 }
 
-std::vector <std::vector<float>> Graphe::calculdegre()
+std::vector <std::vector<double>> Graphe::calculdegre()
 {
-    std::vector <std::vector <float>> ensemble;
-    std::vector <float> degres;
-    std::vector <float> degresnormalise;
+    std::vector <std::vector <double>> ensemble;
+    std::vector <double> degres;
+    std::vector <double> degresnormalise;
     for (int j=0; j<m_ordre; j++)
     {
-        float degre=0;
+        double degre=0;
         if (m_orientation == 0)
             for(size_t i=0; i<m_arrete.size(); i++)
                 if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
@@ -179,7 +179,7 @@ void Graphe::centralite_proximite()
             }
     }
 
-    for(int i=0;i<m_CP.size();++i){
+    for(size_t i=0;i<m_CP.size();++i){
         m_CP[i] = (m_ordre-1)/somme[i];
         std::cout<<"CP["<<i<<"] = "<<m_CP[i]<<std::endl;
     }

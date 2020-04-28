@@ -3,7 +3,7 @@
 #include "graphe.h"
 #include <string>
 
-void afficher (std::vector <std::vector <float>> v1)
+void afficher (std::vector <std::vector <double>> v1)
 {
     int h=0;
     std::cout<<"Indice de centralite non normalise"<<std::endl;
@@ -20,7 +20,7 @@ void afficher (std::vector <std::vector <float>> v1)
     system ("pause");
 }
 
-void sauvegarder (std::vector <std::vector <float>> v1)
+void sauvegarder (std::vector <std::vector <double>> v1)
 {
     std::string const nomFichier("C:Sauvegarde.txt");
     std::ofstream monFlux(nomFichier.c_str());
@@ -44,7 +44,7 @@ void sauvegarder (std::vector <std::vector <float>> v1)
 
 void indicedecentralite(Graphe mongraphe)
 {
-    std::vector <std::vector <float>> ensemble;
+    std::vector <std::vector <double>> ensemble;
     ensemble=mongraphe.calculdegre();
     afficher(ensemble);
     sauvegarder(ensemble);

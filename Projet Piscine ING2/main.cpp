@@ -3,7 +3,7 @@
 #include <string>
 #include "bibliotheque.h"
 
-int menu()
+int menu()  //menu d'affichage
 {
     int choix=0;
     std::cout << "Choisissez votre action :" << std::endl;
@@ -16,7 +16,7 @@ int menu()
     return choix;
 }
 
-void calcul_centralite(Graphe mongraphe){
+void calcul_centralite(Graphe mongraphe){    // appel de toutes les fonctions relatives aux indices de centralité
     indicedecentralite(mongraphe);
     mongraphe.vecteur_propre();
     mongraphe.centralite_proximite();
@@ -25,16 +25,16 @@ void calcul_centralite(Graphe mongraphe){
 int main()
 {
     int choix=0;
-    /*std::string nomFichier;
+    /*std::string nomFichier;    // on permet à l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;*/
     Graphe mongraphe("arrete.txt");
-    while(choix!=5)
+    while(choix!=5)              // switch permettant de choisir l'action voulut en fonction du menu énonncé plus haut
     {
         choix=menu();
         switch(choix)
         {
         case 1:
-            mongraphe.afficher();
+            mongraphe.afficher();// pour chaque action, nous appellons la méthode ou la fonction qui correspond
             break;
         case 2:
             mongraphe.ajout_ponderation("ponderation.txt");
@@ -44,7 +44,7 @@ int main()
             calcul_centralite(mongraphe);
             break;
         }
-        system("cls");
+        system("cls");  // efface la console
     }
     return 0;
 }
