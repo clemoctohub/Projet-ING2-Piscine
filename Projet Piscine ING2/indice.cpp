@@ -3,9 +3,9 @@
 #include "graphe.h"
 #include <string>
 
-void afficher (std::vector <std::vector <double>> v1)
+void afficher_indice (std::vector <std::vector <double>> v1) // affichage dans la console
 {
-    int h=0;
+    int h=0; // booléen évitant que "Indice de centralite normalise" s'affiche 2 fois
     std::cout<<"Indice de centralite non normalise"<<std::endl;
     for (size_t j=0; j<v1.size(); j++)
     {
@@ -46,7 +46,7 @@ void indicedecentralite(Graphe mongraphe)
 {
     std::vector <std::vector <double>> ensemble;
     ensemble=mongraphe.calculdegre();
-    afficher(ensemble);
+    afficher_indice(ensemble);
     sauvegarder(ensemble);
     mongraphe.vecteur_propre();
     mongraphe.centralite_proximite();

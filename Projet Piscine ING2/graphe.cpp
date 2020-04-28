@@ -8,11 +8,12 @@
 
 Graphe::Graphe(std::string nomFichier)
 {
-    std::ifstream flux(nomFichier);
+    std::ifstream flux(nomFichier); // ouverture du fichier
     if(!flux)
-        std::cout << "Probl�me d'ouverture du fichier" << std::endl;
-    if(!flux)
-        std::cerr << "Impossible d'ouvrir le fichier";
+        std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
+
+
+///////////////////  Lecture du fichier et remplissage des differents attributs de la classe graphe/////////////////////////
 
     flux >> m_orientation >> m_ordre;
 
@@ -65,16 +66,14 @@ void Graphe::afficher()
     }
 
 
-    system("pause");
+    system("pause");  // afin de ne pas effacer la console
 }
 
 void Graphe::ajout_ponderation(std::string pondFichier)
 {
     std::ifstream ifs(pondFichier);
     if(!ifs)
-        std::cout << "Probl�me d'ouverture du fichier" << std::endl;
-    if(!ifs)
-        std::cerr << "Impossible d'ouvrir le fichier";
+        std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
 
     int taille,indice,poids;
 
@@ -128,27 +127,27 @@ void Graphe::vecteur_propre()
 
 std::vector <std::vector<double>> Graphe::calculdegre()
 {
-    std::vector <std::vector <double>> ensemble;
-    std::vector <double> degres;
-    std::vector <double> degresnormalise;
-    for (int j=0; j<m_ordre; j++)
+    std::vector <std::vector <double>> ensemble; // vecteur de degrés normalisés et non normalisés
+    std::vector <double> degres; // vecteur de degrés
+    std::vector <double> degresnormalise; // vecteur de degrés normalisés
+    for (int j=0; j<m_ordre; j++) // pour chaque sommet du graphe
     {
-        double degre=0;
-        if (m_orientation == 0)
+        double degre=0;  // on initialise le degré a 0
+        if (m_orientation == 0) // si le graphe n'est pas orienté
+            for(size_t i=0; i<m_arrete.size(); i++) // pour toutes les arêtes du graphe
+                if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
+                    degre++;  // on ajoute 1 à degré si la méthode calculdegre return 1
+        if (m_orientation == 1) // si le graphe est orienté
             for(size_t i=0; i<m_arrete.size(); i++)
                 if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
                     degre++;
-        if (m_orientation == 1)
-            for(size_t i=0; i<m_arrete.size(); i++)
-                if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
-                    degre++;
-        degres.push_back(degre);
-        degre=degre/(m_ordre-1);
-        degresnormalise.push_back(degre);
+        degres.push_back(degre); // on pushback le degré du sommet calculé dans le vecteur de degrés
+        degre=degre/(m_ordre-1); // afin de normaliser le degré, on le divise par le nombre de sommets-1
+        degresnormalise.push_back(degre); // on pushback le degré normalisé dans le vecteur de degrés normalisés
     }
     ensemble.push_back(degres);
     ensemble.push_back(degresnormalise);
-    return ensemble;
+    return ensemble; // on return le vecteur contenant les degrés normalisés et non-normalisés
 }
 
 void Graphe::parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes)

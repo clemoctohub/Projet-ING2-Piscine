@@ -35,6 +35,6 @@ int Arrete::calculdegre(Sommet* sommet, int orientation)
             return 1;
         else
             return 0;
-    }
+    } // si la méthode return 1, on ajoute un degré, si elle return 0, on n'en ajoute pas
     return 0;
 }

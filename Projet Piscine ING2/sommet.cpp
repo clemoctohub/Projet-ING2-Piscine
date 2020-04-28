@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-Sommet::Sommet(int indice, std::string nom, int x, int y)
+Sommet::Sommet(int indice, std::string nom, int x, int y) // constructeur
     :m_nom{nom},m_indice{indice},m_x{x},m_y{y}
 {
 
