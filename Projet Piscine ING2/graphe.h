@@ -18,6 +18,7 @@ private:
 
     bool m_dec[100];
     int m_nbr_aretes;
+    bool m_ponderation;
 
     std::vector <Sommet*> m_sommet;
     std::vector <Arrete*> m_arrete;

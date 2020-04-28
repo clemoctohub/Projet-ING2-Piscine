@@ -16,32 +16,27 @@ int menu()  //menu d'affichage
     return choix;
 }
 
-void calcul_centralite(Graphe mongraphe){    // appel de toutes les fonctions relatives aux indices de centralité
-    indicedecentralite(mongraphe);
-    mongraphe.vecteur_propre();
-    mongraphe.centralite_proximite();
-}
 
 int main()
 {
     int choix=0;
-    /*std::string nomFichier;    // on permet à l'utilisateur de choisir le fichier qu'il veut ouvrir
+    /*std::string nomFichier;    // on permet ï¿½ l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;*/
     Graphe mongraphe("arrete.txt");
-    while(choix!=5)              // switch permettant de choisir l'action voulut en fonction du menu énonncé plus haut
+    while(choix!=5)              // switch permettant de choisir l'action voulut en fonction du menu ï¿½nonncï¿½ plus haut
     {
         choix=menu();
         switch(choix)
         {
         case 1:
-            mongraphe.afficher();// pour chaque action, nous appellons la méthode ou la fonction qui correspond
+            mongraphe.afficher();// pour chaque action, nous appellons la mï¿½thode ou la fonction qui correspond
             break;
         case 2:
             mongraphe.ajout_ponderation("ponderation.txt");
             mongraphe.afficher();
             break;
         case 3:
-            calcul_centralite(mongraphe);
+            indicedecentralite(mongraphe);
             break;
         }
         system("cls");  // efface la console
