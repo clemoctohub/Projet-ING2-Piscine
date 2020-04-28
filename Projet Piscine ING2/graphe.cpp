@@ -158,7 +158,7 @@ void Graphe::parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes)
     else
         ++nbr_aretes;
 
-    for(int i=0;i<m_adjacent[numS].size();++i)
+    for(size_t i=0;i<m_adjacent[numS].size();++i)
         if(!m_dec[m_adjacent[numS][i]])
             parcour_DFS_no_ponderation(m_adjacent[numS][i],fin,nbr_aretes);
 }
@@ -179,7 +179,7 @@ void Graphe::centralite_proximite()
             }
     }
 
-    for(int i=0;i<m_CP.size();++i)
+    for(size_t i=0;i<m_CP.size();++i)
         std::cout<<"CP["<<i<<"] = "<<m_CP[i]<<std::endl;
     system("pause");
 }
