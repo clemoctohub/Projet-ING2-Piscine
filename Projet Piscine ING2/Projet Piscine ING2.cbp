@@ -34,7 +34,7 @@
 		</Compiler>
 		<Unit filename="arrete.cpp" />
 		<Unit filename="arrete.h" />
-		<Unit filename="bibliothèque.h" />
+		<Unit filename="bibliotheque.h" />
 		<Unit filename="couleur.cpp" />
 		<Unit filename="couleur.h" />
 		<Unit filename="graphe.cpp" />
