@@ -21,7 +21,6 @@ void afficher_indice (std::vector <std::vector <double>> v1) // affichage dans l
             std::cout<<std::endl<<"Indice de centralite de proximite"<<std::endl;
         h++;
     }
-    system ("pause");
 }
 
 void sauvegarder (std::vector <std::vector <double>> v1)
@@ -50,15 +49,18 @@ void sauvegarder (std::vector <std::vector <double>> v1)
     }
 }
 
-void indicedecentralite(Graphe mongraphe, int k)
+void indicedecentralite(Graphe mongraphe)
 {
+    int sauv=0;
     std::vector <std::vector <double>> ensemble;
     ensemble=mongraphe.calculdegre();
     ensemble.push_back(mongraphe.vecteur_propre());
     ensemble.push_back(mongraphe.centralite_proximite());
-    if(k==0)
     afficher_indice(ensemble);
-    if(k==1)
+    std::cout<<std::endl<<"Voulez-vous sauvegarder ?"<<std::endl;
+    std::cout<<"1:Oui   2:Non"<<std::endl;
+    std::cin>>sauv;
+    if(sauv==1)
     {
         sauvegarder(ensemble);
     }

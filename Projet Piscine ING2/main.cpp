@@ -37,10 +37,10 @@ int main()
             mongraphe.afficher();
             break;
         case 3:
-            indicedecentralite(mongraphe,0);
+            indicedecentralite(mongraphe);
             break;
         case 4:
-            indicedecentralite(mongraphe,1);
+            indicedecentralite(mongraphe);
             break;
         }
         system("cls");  // efface la console

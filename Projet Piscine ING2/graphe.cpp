@@ -128,7 +128,6 @@ std::vector <double> Graphe::vecteur_propre()
     }
     buffer=m_CVP;
     m_CVP.erase(m_CVP.begin(),m_CVP.begin()+n);
-    system("pause");
     return buffer;
 }
 
