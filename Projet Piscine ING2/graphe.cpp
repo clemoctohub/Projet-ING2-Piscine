@@ -22,6 +22,8 @@ Graphe::Graphe(std::string nomFichier)
         int indice, x, y;
         flux>> indice >> nom >> x >> y;
         m_sommet.push_back(new Sommet{indice, nom, x, y});
+
+        m_CP.push_back(0);
     }
     flux>>m_taille;
     for (int i=0; i<m_taille; ++i)
@@ -37,6 +39,8 @@ Graphe::Graphe(std::string nomFichier)
     for(int i=0;i<100;++i)
         m_dec[i]=false;
     m_nbr_aretes = 0;
+
+    m_ponderation = false;
 }
 
 void Graphe::afficher()
@@ -81,6 +85,8 @@ void Graphe::ajout_ponderation(std::string pondFichier)
         ifs >> indice >> poids;
         m_arrete[indice]->set_poids(poids);
     }
+
+    m_ponderation = true;
 }
 
 void Graphe::vecteur_propre()
@@ -171,15 +177,21 @@ void Graphe::centralite_proximite()
         somme.push_back(0);
         for(int j=0;j<m_ordre;++j)
             if(j!=i){
-                parcour_DFS_no_ponderation(i,j,0);
-                somme[i] += m_nbr_aretes;
-                m_nbr_aretes = 0;
-                for(int i=0;i<100;++i)
-                    m_dec[i]=false;
+                if(m_ponderation = true){
+                    parcour_DFS_no_ponderation(i,j,0);
+                    somme[i] += m_nbr_aretes;
+                    m_nbr_aretes = 0;
+                    for(int i=0;i<100;++i)
+                        m_dec[i]=false;
+
+                }
+                else{
+
+                }
             }
     }
 
-    for(int i=0;i<m_CP.size();++i){
+    for(int i=0;i<somme.size();++i){
         m_CP[i] = (m_ordre-1)/somme[i];
         std::cout<<"CP["<<i<<"] = "<<m_CP[i]<<std::endl;
     }
