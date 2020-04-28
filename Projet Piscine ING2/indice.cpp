@@ -44,10 +44,10 @@ void sauvegarder (std::vector <std::vector <float>> v1)
 
 void indicedecentralite(Graphe mongraphe)
 {
-    std::vector <std::vector <float>> ensemble;
+    std::vector <std::vector <double>> ensemble;
     ensemble=mongraphe.calculdegre();
+    ensemble.push_back(mongraphe.vecteur_propre());
+    mongraphe.centralite_proximite();
     afficher(ensemble);
     sauvegarder(ensemble);
-    mongraphe.vecteur_propre();
-    mongraphe.centralite_proximite();
 }

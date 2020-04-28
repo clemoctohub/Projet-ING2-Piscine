@@ -36,7 +36,7 @@ Graphe::Graphe(std::string nomFichier)
         m_adjacent[s2].push_back(s1);
     }
 
-    for(int i=0;i<100;++i)
+    for(int i=0; i<100; ++i)
         m_dec[i]=false;
     m_nbr_aretes = 0;
 
@@ -89,9 +89,10 @@ void Graphe::ajout_ponderation(std::string pondFichier)
     m_ponderation = true;
 }
 
-void Graphe::vecteur_propre()
+std::vector <double> Graphe::vecteur_propre()
 {
     int n;
+    std::vector <double> buffer;
     for(n=0; n<m_ordre; ++n)
     {
         m_CVP.push_back(1);
@@ -121,9 +122,10 @@ void Graphe::vecteur_propre()
         }
         ++index;
     }
-
+    buffer=m_CVP;
     m_CVP.erase(m_CVP.begin(),m_CVP.begin()+n);
     system("pause");
+    return buffer;
 }
 
 std::vector <std::vector<float>> Graphe::calculdegre()
@@ -160,34 +162,38 @@ void Graphe::parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes)
     else
         ++nbr_aretes;
 
-    for(size_t i=0;i<m_adjacent[numS].size();++i)
+    for(size_t i=0; i<m_adjacent[numS].size(); ++i)
         if(!m_dec[m_adjacent[numS][i]])
             parcour_DFS_no_ponderation(m_adjacent[numS][i],fin,nbr_aretes);
 }
 
 void Graphe::centralite_proximite()
-{//faire le cas si il y a les ponderations + cas normalise et non normalise
+{
+    //faire le cas si il y a les ponderations + cas normalise et non normalise
     std::vector<double> somme;
-    for(int i=0;i<m_ordre;++i)
+    for(int i=0; i<m_ordre; ++i)
     {
         somme.push_back(0);
-        for(int j=0;j<m_ordre;++j)
-            if(j!=i){
-                if(m_ponderation = true){
+        for(int j=0; j<m_ordre; ++j)
+            if(j!=i)
+            {
+                if(m_ponderation = true)
+                {
                     parcour_DFS_no_ponderation(i,j,0);
                     somme[i] += m_nbr_aretes;
                     m_nbr_aretes = 0;
-                    for(int i=0;i<100;++i)
+                    for(int i=0; i<100; ++i)
                         m_dec[i]=false;
 
                 }
-                else{
+                else
+                {
 
                 }
             }
     }
-
-    for(int i=0;i<somme.size();++i){
+    for(size_t i=0; i<somme.size(); ++i)
+    {
         m_CP[i] = (m_ordre-1)/somme[i];
         std::cout<<"CP["<<i<<"] = "<<m_CP[i]<<std::endl;
     }

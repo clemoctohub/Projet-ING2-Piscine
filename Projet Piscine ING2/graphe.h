@@ -29,7 +29,7 @@ private:
 public:
     Graphe(std::string nomFichier);
     void ajout_ponderation(std::string pondFichier);
-    void vecteur_propre();
+    std::vector <double> vecteur_propre();
     void parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes);
     void parcour_DFS_with_ponderation(int numS,int fin,int nbr_aretes);
     void centralite_proximite();
