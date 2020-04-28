@@ -136,10 +136,6 @@ std::vector <std::vector<float>> Graphe::calculdegre()
             for(size_t i=0; i<m_arrete.size(); i++)
                 if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
                     degre++;
-        std::cout<<degre<<std::endl;
-
-
-
         degres.push_back(degre);
         degre=degre/(m_ordre-1);
         degresnormalise.push_back(degre);
@@ -179,7 +175,7 @@ void Graphe::centralite_proximite()
             }
     }
 
-    for(int i=0;i<m_CP.size();++i){
+    for(size_t i=0;i<m_CP.size();++i){
         m_CP[i] = (m_ordre-1)/somme[i];
         std::cout<<"CP["<<i<<"] = "<<m_CP[i]<<std::endl;
     }

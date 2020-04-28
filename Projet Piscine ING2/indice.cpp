@@ -48,4 +48,6 @@ void indicedecentralite(Graphe mongraphe)
     ensemble=mongraphe.calculdegre();
     afficher(ensemble);
     sauvegarder(ensemble);
+    mongraphe.vecteur_propre();
+    mongraphe.centralite_proximite();
 }
