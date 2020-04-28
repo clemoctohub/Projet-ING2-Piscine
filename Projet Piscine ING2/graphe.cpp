@@ -100,7 +100,12 @@ std::vector <double> Graphe::vecteur_propre()
 
     double somme=0,c_Sommet[100],index=0;
 
-    while(index<1000)
+    for(size_t k=0; k<m_ordre; ++k)
+    {
+        c_Sommet[k]=0;
+    }
+
+    while(index<50)
     {
         for(int i=0; i<m_ordre; ++i)
         {
