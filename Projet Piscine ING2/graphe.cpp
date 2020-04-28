@@ -5,6 +5,8 @@
 #include <vector>
 #include <cmath>
 #include <queue>
+#include "arrete.h"
+#include "sommet.h"
 
 Graphe::Graphe(std::string nomFichier)
 {
@@ -202,4 +204,98 @@ std::vector <double> Graphe::centralite_proximite()
     }
     somme.erase(somme.begin(),somme.begin()+m_ordre);
     return m_CP;
+}
+
+
+void Graphe::affichercompo(std::vector <int> predecesseurs,int nb)
+{
+    std::cout << "Composante connexe " << nb << ": ";
+    for(size_t i=0; i<predecesseurs.size(); ++i)
+    {
+        if(predecesseurs[i]!=-1)
+        {
+            std::cout << i << " ";
+        }
+    }
+    std::cout << std::endl;
+}
+
+
+std::vector <int> Graphe::parcourBFS(int start)
+{
+    std::vector <int> etats;
+    std::vector <int> predecesseurs;
+    std::vector <int> file;
+    for(int i=0; i<m_ordre; ++i)
+    {
+        etats.push_back(0);
+        predecesseurs.push_back(-1);
+    }
+
+    etats[start]=1;
+    file.push_back(start);
+
+        while(file.size())
+        {
+            m_sommet[file[0]]->BFS(etats,predecesseurs,file,this);
+        }
+    return predecesseurs;
+}
+
+
+void Graphe::connexite()
+{
+    int nb=0;
+    int parcours=0;
+    std::vector <int> etats;
+    std::vector <int> predecesseurs;
+    for(int i=0; i<m_ordre; ++i)
+    {
+        etats.push_back(0);
+    }
+    while(parcours!=-1)
+    {
+        nb++;
+        predecesseurs=this->parcourBFS(parcours);
+        predecesseurs[parcours]=parcours;
+        this->affichercompo(predecesseurs,nb);
+        for(size_t i=0; i<predecesseurs.size(); ++i)
+        {
+            if(predecesseurs[i]!=-1)
+            {
+                etats[i]=1;
+            }
+        }
+        parcours=-1;
+        for(size_t i=0; i<etats.size(); ++i)
+        {
+            if(etats[i]==0 && parcours==-1)
+            {
+                parcours=i;
+            }
+        }
+    }
+    system("pause");
+}
+
+std::vector <int> Graphe::get_adjacent(int sommet)
+{
+    return (m_adjacent[sommet]);
+}
+
+
+void Graphe::afficherBFS(std::vector <int> predecesseur, int start)
+{
+    for(size_t i=0; i<m_sommet.size(); ++i)
+    {
+        int j=i;
+        while(predecesseur[j]!=-1)
+        {
+            m_sommet[j]->affichernum();
+            j=predecesseur[m_sommet[j]->GetIndice()];
+            if(predecesseur[j]==-1)
+                std::cout << start << std::endl;
+        }
+    }
+    system("pause");
 }
