@@ -15,6 +15,7 @@ class Arrete
     public:
         Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
         Arrete(){}
+        ~Arrete(){};
         void afficher(Svgfile &svgout);
         void afficher();
         void set_poids(int poids);

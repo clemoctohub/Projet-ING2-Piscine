@@ -44,6 +44,8 @@ Graphe::Graphe(std::string nomFichier)
     m_nbr_aretes = 0;
 
     m_ponderation = false;
+
+    m_lambda = 0;
 }
 
 void Graphe::afficher()
@@ -66,7 +68,6 @@ void Graphe::afficher()
         std::cout << "          arretes :";
         m_arrete[i]->afficher(svgout);
     }
-
 
     system("pause");  // afin de ne pas effacer la console
 }
@@ -95,42 +96,37 @@ std::vector <double> Graphe::vecteur_propre()
     int n;
     std::vector <double> buffer;
     for(n=0; n<m_ordre; ++n)
-    {
-        m_CVP.push_back(1);
-    }
+        buffer.push_back(1);
 
-    double somme=0,c_Sommet[100],index=0;
+    double somme=0,c_Sommet[100],pred=99999;
 
     for(int k=0; k<m_ordre; ++k)
-    {
         c_Sommet[k]=0;
-    }
 
-    while(index<50)
+    while(abs(pred-m_lambda)>0.1)
     {
+        pred = m_lambda;
         for(int i=0; i<m_ordre; ++i)
-        {
             for(size_t j=0; j<m_adjacent[i].size(); ++j)
-            {
-                int temp = m_adjacent[i][j];
-                c_Sommet[i] += m_CVP[temp];
-            }
-        }
-        for(int i=0; i<m_ordre; ++i)
-        {
-            somme += c_Sommet[i]*c_Sommet[i];
-        }
-        m_lambda = sqrt(somme);
+                c_Sommet[i] += buffer[m_adjacent[i][j]];
 
         for(int i=0; i<m_ordre; ++i)
-        {
-            m_CVP[i]= c_Sommet[i]/m_lambda;
-        }
-        ++index;
+            somme += (c_Sommet[i]*c_Sommet[i]);
+
+        m_lambda = sqrt(somme);
+        std::cout<<m_lambda<<std::endl;
+
+        for(int i=0; i<m_ordre; ++i)
+            buffer[i]= c_Sommet[i]/m_lambda;
+
+        for(int i=0;i<m_ordre;++i)
+            c_Sommet[i]=0;
+
+        somme=0;
     }
-    buffer=m_CVP;
-    m_CVP.erase(m_CVP.begin(),m_CVP.begin()+n);
-    return buffer;
+    m_CVP=buffer;
+    buffer.erase(buffer.begin(),buffer.begin()+n);
+    return m_CVP;
 }
 
 std::vector <std::vector<double>> Graphe::calculdegre()
@@ -185,9 +181,7 @@ int Graphe::algo_dijkstra(int debut, int fin)
     que.push(initial);
 
     for(int i=0;i<m_ordre;++i)
-    {
         dist[i]=999999;
-    }
 
     bool condi = false,condi2=false;
     dist[debut]=0;
@@ -203,6 +197,7 @@ int Graphe::algo_dijkstra(int debut, int fin)
         if(m_dec[temp])
             continue;
         m_dec[temp] = true;
+
         for(size_t i = 0; i < m_adjacent[temp].size(); ++i){
             if(!m_dec[m_adjacent[temp][i]]){
                 Arrete nouveau;
@@ -250,9 +245,8 @@ std::vector <double> Graphe::centralite_proximite()
             }
     }
     for(size_t i=0; i<somme.size(); ++i)
-    {
         m_CP[i] = (m_ordre-1)/somme[i];
-    }
+
     somme.erase(somme.begin(),somme.begin()+m_ordre);
     return m_CP;
 }

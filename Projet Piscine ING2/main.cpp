@@ -36,7 +36,7 @@ int main()
             mongraphe.afficher();
             break;
         case 3:
-            indicedecentralite(mongraphe);
+            indicedecentralite(mongraphe,mongraphe.get_ordre());
             break;
         }
         system("cls");  // efface la console

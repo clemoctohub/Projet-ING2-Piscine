@@ -14,6 +14,7 @@ private :
     int m_y;
 public :
     Sommet(int indice, std::string nom, int x, int y);
+    ~Sommet(){};
     void afficher(Svgfile &svgout);
     int GetX();
     int GetY();
