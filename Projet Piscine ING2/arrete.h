@@ -14,8 +14,20 @@ class Arrete
         int m_poids;
     public:
         Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
+        Arrete(){}
         void afficher(Svgfile &svgout);
+        void afficher();
         void set_poids(int poids);
+        void set_indice(int indice);
+        int get_poids()
+        {
+            return m_poids;
+        }
+        int get_indice()
+        {
+            return m_indice;
+        }
+        bool check_Sommets(Sommet* s1,Sommet* s2);
         int calculdegre(Sommet* sommet, int orientation);
 };
 
