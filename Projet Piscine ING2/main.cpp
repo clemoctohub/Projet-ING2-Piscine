@@ -10,8 +10,7 @@ int menu()  //menu d'affichage
     std::cout << std::endl;
     std::cout << "1: Afficher le graphe" << std::endl;
     std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
-    std::cout << "3: Afficher les indices de centralite" << std::endl;
-    std::cout << "4: Sauvegarder les indices de centralite" << std::endl;
+    std::cout << "3: Afficher et/ou sauvegarder les indices de centralite" << std::endl;
     std::cout << "5: Quitter" << std::endl;
     std::cin >> choix;
     return choix;
@@ -37,9 +36,6 @@ int main()
             mongraphe.afficher();
             break;
         case 3:
-            indicedecentralite(mongraphe);
-            break;
-        case 4:
             indicedecentralite(mongraphe);
             break;
         }
