@@ -16,6 +16,12 @@ int menu()
     return choix;
 }
 
+void calcul_centralite(Graphe mongraphe){
+    indicedecentralite(mongraphe);
+    mongraphe.vecteur_propre();
+    mongraphe.centralite_proximite();
+}
+
 int main()
 {
     int choix=0;
@@ -35,11 +41,7 @@ int main()
             mongraphe.afficher();
             break;
         case 3:
-            indicedecentralite(mongraphe);
-            break;
-        case 4:
-            mongraphe.vecteur_propre();
-            mongraphe.centralite_proximite();
+            calcul_centralite(mongraphe);
             break;
         }
         system("cls");

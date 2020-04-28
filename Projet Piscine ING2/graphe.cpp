@@ -164,22 +164,25 @@ void Graphe::parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes)
 }
 
 void Graphe::centralite_proximite()
-{//faire le cas si il y a les ponderations
-
+{//faire le cas si il y a les ponderations + cas normalise et non normalise
+    std::vector<double> somme;
     for(int i=0;i<m_ordre;++i)
     {
-        m_CP.push_back(0);
+        somme.push_back(0);
         for(int j=0;j<m_ordre;++j)
             if(j!=i){
                 parcour_DFS_no_ponderation(i,j,0);
-                m_CP[i] += m_nbr_aretes;
+                somme[i] += m_nbr_aretes;
                 m_nbr_aretes = 0;
                 for(int i=0;i<100;++i)
                     m_dec[i]=false;
             }
     }
 
-    for(int i=0;i<m_CP.size();++i)
+    for(int i=0;i<m_CP.size();++i){
+        m_CP[i] = (m_ordre-1)/somme[i];
         std::cout<<"CP["<<i<<"] = "<<m_CP[i]<<std::endl;
+    }
+    somme.erase(somme.begin(),somme.begin()+m_ordre);
     system("pause");
 }
