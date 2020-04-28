@@ -3,7 +3,7 @@
 #include <string>
 #include "bibliotheque.h"
 
-int menu()
+int menu()  //menu d'affichage
 {
     int choix=0;
     std::cout << "Choisissez votre action :" << std::endl;
@@ -11,6 +11,7 @@ int menu()
     std::cout << "1: Afficher le graphe" << std::endl;
     std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
     std::cout << "3: Afficher les indices de centralite" << std::endl;
+    std::cout << "4: Sauvegarder les indices de centralite" << std::endl;
     std::cout << "5: Quitter" << std::endl;
     std::cin >> choix;
     return choix;
@@ -20,16 +21,16 @@ int menu()
 int main()
 {
     int choix=0;
-    /*std::string nomFichier;
+    /*std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;*/
     Graphe mongraphe("arrete.txt");
-    while(choix!=5)
+    while(choix!=5)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
     {
         choix=menu();
         switch(choix)
         {
         case 1:
-            mongraphe.afficher();
+            mongraphe.afficher();// pour chaque action, nous appellons la m�thode ou la fonction qui correspond
             break;
         case 2:
             mongraphe.ajout_ponderation("ponderation.txt");
@@ -38,8 +39,11 @@ int main()
         case 3:
             indicedecentralite(mongraphe);
             break;
+        case 4:
+            indicedecentralite(mongraphe);
+            break;
         }
-        system("cls");
+        system("cls");  // efface la console
     }
     return 0;
 }

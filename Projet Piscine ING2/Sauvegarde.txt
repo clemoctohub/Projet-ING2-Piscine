@@ -2,3 +2,7 @@ Indice de centralite non normalise
 1  1  4  1  1  
 Indice de centralite normalise
 0.25  0.25  1  0.25  0.25  
+Indice de vecteur propre
+0.0713032  0.0713032  0.143387  0.0713032  0.0713032  
+Indice de centralite de proximite
+0.571429  0.571429  1  0.571429  0.571429  
