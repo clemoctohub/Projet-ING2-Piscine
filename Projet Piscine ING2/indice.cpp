@@ -50,12 +50,16 @@ void sauvegarder (std::vector <std::vector <double>> v1)
     }
 }
 
-void indicedecentralite(Graphe mongraphe)
+void indicedecentralite(Graphe mongraphe, int k)
 {
     std::vector <std::vector <double>> ensemble;
     ensemble=mongraphe.calculdegre();
     ensemble.push_back(mongraphe.vecteur_propre());
     ensemble.push_back(mongraphe.centralite_proximite());
+    if(k==0)
     afficher_indice(ensemble);
-    sauvegarder(ensemble);
+    if(k==1)
+    {
+        sauvegarder(ensemble);
+    }
 }
