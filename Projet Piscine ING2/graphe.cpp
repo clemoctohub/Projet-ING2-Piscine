@@ -100,7 +100,7 @@ std::vector <double> Graphe::vecteur_propre()
 
     double somme=0,c_Sommet[100],index=0;
 
-    for(size_t k=0; k<m_ordre; ++k)
+    for(int k=0; k<m_ordre; ++k)
     {
         c_Sommet[k]=0;
     }
@@ -172,7 +172,7 @@ void Graphe::parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes)
             parcour_DFS_no_ponderation(m_adjacent[numS][i],fin,nbr_aretes);
 }
 
-void Graphe::centralite_proximite()
+std::vector <double> Graphe::centralite_proximite()
 {
     //faire le cas si il y a les ponderations + cas normalise et non normalise
     std::vector<double> somme;
@@ -200,8 +200,7 @@ void Graphe::centralite_proximite()
     for(size_t i=0; i<somme.size(); ++i)
     {
         m_CP[i] = (m_ordre-1)/somme[i];
-        std::cout<<"CP["<<i<<"] = "<<m_CP[i]<<std::endl;
     }
     somme.erase(somme.begin(),somme.begin()+m_ordre);
-    system("pause");
+    return m_CP;
 }
