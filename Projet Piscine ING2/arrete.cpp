@@ -14,9 +14,19 @@ void Arrete::afficher(Svgfile &svgout)  // recoit le fichier svg afin de faire l
     svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
 }
 
+void Arrete::afficher()
+{
+    std::cout<<m_poids<<std::endl;
+}
+
 void Arrete::set_poids(int poids)
 {
     m_poids = poids;
+}
+
+void Arrete::set_indice(int indice)
+{
+    m_indice = indice;
 }
 
 int Arrete::calculdegre(Sommet* sommet, int orientation)
@@ -37,4 +47,12 @@ int Arrete::calculdegre(Sommet* sommet, int orientation)
             return 0;
     } // si la méthode return 1, on ajoute un degré, si elle return 0, on n'en ajoute pas
     return 0;
+}
+
+bool Arrete::check_Sommets(Sommet* s1,Sommet* s2)
+{
+    if((s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
+       || (s1->GetIndice()==m_s2->GetIndice() && s2->GetIndice()==m_s1->GetIndice()))
+       return true;
+    else return false;
 }

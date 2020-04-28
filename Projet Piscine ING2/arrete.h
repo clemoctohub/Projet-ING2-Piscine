@@ -9,15 +9,28 @@
 class Arrete
 {
     private:
-        Sommet* m_s1;   // sommet d'origine (dans le cas ou le graphe est orienté)
-        Sommet* m_s2;   // sommet d'arrivé (dans le cas ou le graphe est orienté)
-        int m_indice;   // numéro de l'arête
-        int m_poids;    // distance, pondération de l'arête
+        Sommet* m_s1;   // sommet d'origine (dans le cas ou le graphe est orientï¿½)
+        Sommet* m_s2;   // sommet d'arrivï¿½ (dans le cas ou le graphe est orientï¿½)
+        int m_indice;   // numï¿½ro de l'arï¿½te
+        int m_poids;    // distance, pondï¿½ration de l'arï¿½te
     public:
-        Arrete(Sommet* s1,Sommet* s2, int indice, int poids);  //constructeur
-        void afficher(Svgfile &svgout);         // affichage de l'arete dans fichier svg
-        void set_poids(int poids);              // étant donné que le poids peut être ajouté dans un second temps, un set_poids était nécessaire
-        int calculdegre(Sommet* sommet, int orientation); // calcul le degré d'un sommet
+        Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
+        Arrete(){}
+        ~Arrete(){};
+        void afficher(Svgfile &svgout);
+        void afficher();
+        void set_poids(int poids);
+        void set_indice(int indice);
+        int get_poids()
+        {
+            return m_poids;
+        }
+        int get_indice()
+        {
+            return m_indice;
+        }
+        bool check_Sommets(Sommet* s1,Sommet* s2);
+        int calculdegre(Sommet* sommet, int orientation);
 };
 
 #endif // ARRETE_H_INCLUDED

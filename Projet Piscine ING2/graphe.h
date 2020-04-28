@@ -29,18 +29,27 @@ private:
 
 public:
     Graphe(std::string nomFichier); // constructeur
-    void ajout_ponderation(std::string pondFichier); // ajoute du fichier contenant les ponderations
+    ~Graphe(){
+        for(size_t i=0;i<m_arrete.size();++i)
+            delete m_arrete[i];
+        for(size_t i=0;i<m_sommet.size();++i)
+            delete m_sommet[i];
+    }
+    void ajout_ponderation(std::string pondFichier); // ajoute du fichier contenant les pond�rations
     std::vector <double> vecteur_propre();  // calcul de l'indice de vecteur propre
-    void parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes); // parcour DFS sans ponderation
-    void parcour_DFS_with_ponderation(int numS,int fin,int nbr_aretes); // parcour DFS avec ponderation
-    std::vector <double> centralite_proximite(); // calcul de l'indice de centralite de proximite
-    std::vector <std::vector<double>> calculdegre(); // calcul des degres de chaque sommet
+    void parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes); // parcour DFS sans pond�ration
+    int algo_dijkstra(int debut, int fin);//calcul chemin le plus court en fonction ds poids des aretes
+    std::vector <double> centralite_proximite(); // calcul de l'indice de centralit� de proximit�
+    std::vector <std::vector<double>> calculdegre(); // calcul des degr�s de chaque sommet
     void afficher(); // affichage console du graphe
     void affichercompo(std::vector <int> predecesseurs,int nb);
     void connexite();
     void afficherBFS(std::vector <int> predecesseur, int start);
     std::vector <int> get_adjacent(int sommet);
     std::vector <int> parcourBFS(int start);
+    int get_ordre(){
+        return m_ordre;
+    }
 };
 
 #endif // GRAPHE_H_INCLUDED
