@@ -4,6 +4,7 @@
 #include "couleur.h"
 #include "util.h"
 #include "sommet.h"
+#include "graphe.h"
 
 class Arrete
 {

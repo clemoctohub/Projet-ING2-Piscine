@@ -11,6 +11,7 @@ int menu()  //menu d'affichage
     std::cout << "1: Afficher le graphe" << std::endl;
     std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
     std::cout << "3: Afficher et/ou sauvegarder les indices de centralite" << std::endl;
+    std::cout << "4: Afficher les composantes connexes" << std::endl;
     std::cout << "5: Quitter" << std::endl;
     std::cin >> choix;
     return choix;
@@ -40,6 +41,7 @@ int main()
             break;
         case 4:
             mongraphe.centralite_intermediarite();
+            //mongraphe.connexite();
             break;
         }
         system("cls");  // efface la console

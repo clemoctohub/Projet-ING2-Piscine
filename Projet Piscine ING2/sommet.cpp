@@ -30,3 +30,24 @@ int Sommet::GetIndice()
 {
     return m_indice;
 }
+
+void Sommet::BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe)
+{
+    std::vector <int> buffer;
+    for(size_t i=0; i<mongraphe->get_adjacent(m_indice).size(); ++i)
+    {
+        if(etats[mongraphe->get_adjacent(m_indice)[i]]==0)
+        {
+            etats[mongraphe->get_adjacent(m_indice)[i]]=1;
+            predecesseurs[mongraphe->get_adjacent(m_indice)[i]]=m_indice;
+            buffer.push_back(mongraphe->get_adjacent(m_indice)[i]);
+        }
+    }
+    file.insert(file.begin()+file.size(), buffer.begin(), buffer.end());
+    file.erase(file.begin());
+}
+
+void Sommet::affichernum()
+{
+    std::cout << m_indice << "<--";
+}
