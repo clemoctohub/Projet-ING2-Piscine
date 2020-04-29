@@ -54,7 +54,7 @@ public:
     }
     void recup_pred(std::vector<int> pred[100],int actuel,int autre);
     double algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50]);
-    void centralite_intermediarite();
+    std::vector<double> centralite_intermediarite();
 
 };
 

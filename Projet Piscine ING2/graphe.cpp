@@ -118,7 +118,6 @@ std::vector <double> Graphe::vecteur_propre()
             somme += (c_Sommet[i]*c_Sommet[i]);
 
         m_lambda = sqrt(somme);
-        std::cout<<m_lambda<<std::endl;
 
         for(int i=0; i<m_ordre; ++i)
             buffer[i]= c_Sommet[i]/m_lambda;
@@ -328,14 +327,13 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
                 deja_vu[debut][i]=true;
                 recup_pred(pred,i,fin);
                 somme += (m_compteur*1.0)/(m_ppc*1.0);
-                std::cout<<m_compteur<<" "<<m_ppc<<"    ";
                 m_compteur=0;
                 m_ppc=0;
             }
     return somme;
 }
 
-void Graphe::centralite_intermediarite()
+std::vector<double> Graphe::centralite_intermediarite()
 {//tablo somet deja fait + tableau sommet
     std::vector<double> somme;
     bool deja_vu[50][50];
@@ -361,10 +359,13 @@ void Graphe::centralite_intermediarite()
     }
 
     for(int i=0;i<m_ordre;++i)
+    {
         std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
+        somme[i] = (somme[i]*2)/(m_ordre*m_ordre - 3*m_ordre + 2);
+        std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
+    }
 
-
-    system("pause");
+    return somme;
 }
 
 

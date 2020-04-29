@@ -40,8 +40,7 @@ int main()
             indicedecentralite(mongraphe,mongraphe.get_ordre());
             break;
         case 4:
-            mongraphe.centralite_intermediarite();
-            //mongraphe.connexite();
+            mongraphe.connexite();
             break;
         }
         system("cls");  // efface la console

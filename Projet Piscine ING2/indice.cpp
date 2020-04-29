@@ -18,6 +18,8 @@ void afficher_indice (std::vector <std::vector <double>> v1,int ordre) // affich
         if(h==1)
             std::cout<<std::endl<<"Indice de vecteur propre"<<std::endl;
         if(h==2)
+            std::cout<<std::endl<<"Indice de centralite d'intermediarite normalise"<<std::endl;
+        if(h==3)
             std::cout<<std::endl<<"Indice de centralite de proximite normalise"<<std::endl;
         h++;
     }
@@ -47,6 +49,8 @@ void sauvegarder (std::vector <std::vector <double>> v1)
         if(h==1)
             monFlux <<"\n"<< "Indice de vecteur propre\n";
         if(h==2)
+            monFlux <<"\n"<< "Indice de centralite d'intermediarite\n";
+        if(h==3)
             monFlux <<"\n"<< "Indice de centralite de proximite\n";
         h++;
     }
@@ -58,6 +62,7 @@ void indicedecentralite(Graphe mongraphe,int ordre)
     std::vector <std::vector <double>> ensemble;
     ensemble=mongraphe.calculdegre();
     ensemble.push_back(mongraphe.vecteur_propre());
+    ensemble.push_back(mongraphe.centralite_intermediarite());
     ensemble.push_back(mongraphe.centralite_proximite());
     afficher_indice(ensemble,ordre);
     std::cout<<std::endl<<"Voulez-vous sauvegarder ?"<<std::endl;
