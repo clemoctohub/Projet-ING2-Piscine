@@ -44,6 +44,10 @@ int main()
             mongraphe.centralite_intermediarite();
             //mongraphe.connexite();
             break;
+        case 5:
+            mongraphe.suppr_arete();
+            mongraphe.afficher();
+            break;
         }
         system("cls");  // efface la console
     }

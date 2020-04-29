@@ -31,6 +31,7 @@ class Arrete
         }
         bool check_Sommets(Sommet* s1,Sommet* s2);
         int calculdegre(Sommet* sommet, int orientation);
+        void effacer_adj(std::vector <int> m_adjacent[100]);
 };
 
 #endif // ARRETE_H_INCLUDED

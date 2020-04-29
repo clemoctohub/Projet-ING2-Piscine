@@ -460,3 +460,17 @@ void Graphe::afficherBFS(std::vector <int> predecesseur, int start)
     }
     system("pause");
 }
+
+void Graphe::suppr_arete()
+{
+    int i=0;
+    int choix=0;
+    std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
+    std::cin>>choix;
+    while(m_arrete[i]->get_indice()!=choix)
+    {
+        i++;
+    }
+    m_arrete[i]->effacer_adj(m_adjacent);
+    m_arrete.erase(m_arrete.begin()+i);
+}
