@@ -75,3 +75,19 @@ bool Arrete::check_Sommets(Sommet* s1,Sommet* s2)
        return true;
     else return false;
 }
+
+void Arrete::effacer_adj(std::vector <int> m_adjacent[100])
+{
+     for(size_t i=0; i<m_adjacent[m_s1->GetIndice()].size(); ++i)
+    {
+        if(m_adjacent[m_s1->GetIndice()][i]==m_s2->GetIndice())
+        {
+            m_adjacent[m_s1->GetIndice()].erase(m_adjacent[m_s1->GetIndice()].begin()+i);
+        }
+    }
+    for(size_t i=0; i<m_adjacent[m_s2->GetIndice()].size(); ++i)
+    {
+        if(m_adjacent[m_s2->GetIndice()][i]==m_s1->GetIndice())
+            m_adjacent[m_s2->GetIndice()].erase(m_adjacent[m_s2->GetIndice()].begin()+i);
+    }
+}

@@ -81,35 +81,15 @@
 <text x="710" y="715" fill="black" >M</text>
 <text x="685" y="690" fill="green" >12</text>
 <line x1="300" y1="100" x2="200" y2="200" stroke="blue" />
-<polygon points=" 200,200 209.239,203.827 203.827,209.239" style="fill:blue" />
 <line x1="300" y1="100" x2="400" y2="200" stroke="blue" />
-<polygon points=" 400,200 396.173,209.239 390.761,203.827" style="fill:blue" />
 <line x1="200" y1="200" x2="300" y2="300" stroke="blue" />
-<polygon points=" 300,300 296.173,309.239 290.761,303.827" style="fill:blue" />
 <line x1="400" y1="200" x2="300" y2="300" stroke="blue" />
-<polygon points=" 300,300 309.239,303.827 303.827,309.239" style="fill:blue" />
-<line x1="200" y1="400" x2="300" y2="400" stroke="blue" />
-<polygon points=" 300,400 290.761,403.827 290.761,396.173" style="fill:blue" />
 <line x1="300" y1="400" x2="400" y2="400" stroke="blue" />
-<polygon points=" 400,400 390.761,403.827 390.761,396.173" style="fill:blue" />
 <line x1="400" y1="400" x2="500" y2="500" stroke="blue" />
-<polygon points=" 500,500 496.173,509.239 490.761,503.827" style="fill:blue" />
 <line x1="200" y1="400" x2="100" y2="500" stroke="blue" />
-<polygon points=" 100,500 109.239,503.827 103.827,509.239" style="fill:blue" />
 <line x1="100" y1="500" x2="500" y2="500" stroke="blue" />
-<polygon points=" 500,500 490.761,503.827 490.761,496.173" style="fill:blue" />
 <line x1="600" y1="600" x2="700" y2="700" stroke="blue" />
-<polygon points=" 700,700 696.173,709.239 690.761,703.827" style="fill:blue" />
 <line x1="600" y1="700" x2="700" y2="600" stroke="blue" />
-<polygon points=" 700,600 696.173,609.239 690.761,603.827" style="fill:blue" />
-<line x1="600" y1="700" x2="700" y2="600" stroke="blue" />
-<polygon points=" 700,600 696.173,609.239 690.761,603.827" style="fill:blue" />
-<line x1="600" y1="700" x2="700" y2="600" stroke="blue" />
-<polygon points=" 700,600 696.173,609.239 690.761,603.827" style="fill:blue" />
-<line x1="600" y1="700" x2="700" y2="600" stroke="blue" />
-<polygon points=" 700,600 696.173,609.239 690.761,603.827" style="fill:blue" />
-<line x1="600" y1="700" x2="700" y2="600" stroke="blue" />
-<polygon points=" 700,600 696.173,609.239 690.761,603.827" style="fill:blue" />
 
 
 </svg>
