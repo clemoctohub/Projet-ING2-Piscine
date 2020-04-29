@@ -23,7 +23,7 @@ int main()
     int choix=0;
     /*std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;*/
-    Graphe mongraphe("graphe2.txt");
+    Graphe mongraphe("test.txt");
     while(choix!=5)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
     {
         choix=menu();
@@ -40,7 +40,8 @@ int main()
             indicedecentralite(mongraphe,mongraphe.get_ordre());
             break;
         case 4:
-            mongraphe.connexite();
+            mongraphe.centralite_intermediarite();
+            //mongraphe.connexite();
             break;
         }
         system("cls");  // efface la console

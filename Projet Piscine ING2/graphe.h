@@ -18,6 +18,7 @@ private:
     double m_lambda;    // permettant la fonction "vecteur_propre()"
 
     bool m_dec[100];
+    int m_compteur;
     int m_nbr_aretes;
     bool m_ponderation; // O : non pondere ; 1 : pondere
 
@@ -50,6 +51,10 @@ public:
     int get_ordre(){
         return m_ordre;
     }
+    void recup_pred(std::vector<int> pred[100],int actuel,int autre);
+    int algo_dijkstra_intermediarite(int debut, int fin);
+    void centralite_intermediarite();
+
 };
 
 #endif // GRAPHE_H_INCLUDED
