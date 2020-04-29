@@ -5,4 +5,4 @@ Indice de centralite normalise
 Indice de vecteur propre
 0.500433  0.353247  0.353247  0.353247  0.353247  0.500433  
 Indice de centralite de proximite
-0.333333  0.333333  0.333333  0.333333  0.333333  0.333333  
+0.454545  0.294118  0.384615  0.238095  0.333333  0.384615  

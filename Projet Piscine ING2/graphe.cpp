@@ -47,6 +47,7 @@ Graphe::Graphe(std::string nomFichier)
 
     m_ponderation = false;
     m_compteur = 0;
+    m_ppc = 0;
 
     m_lambda = 0;
 }
@@ -248,7 +249,6 @@ std::vector <double> Graphe::centralite_proximite()
     }
     for(size_t i=0; i<somme.size(); ++i)
         m_CP[i] = (m_ordre-1)/somme[i];
-
     somme.erase(somme.begin(),somme.begin()+m_ordre);
     return m_CP;
 }
@@ -261,18 +261,21 @@ void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
         if(pred[actuel][i]!=-1)
             recup_pred(pred,pred[actuel][i],autre);
         if(pred[actuel][i]==autre)
-            ++m_compteur;
+            m_compteur += pred[actuel].size();
+        if(pred[actuel][i]==-1)
+            ++m_ppc;
     }
 
 }
 
-int Graphe::algo_dijkstra_intermediarite(int debut, int fin)
+double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50])
 {
     std::queue<Arrete> que;
     Arrete actuel,initial;
     int temp,k=0;
     int dist[100];
     std::vector<int> pred[100];
+    double somme=0;
 
     initial.set_indice(debut);
     initial.set_poids(0);
@@ -313,47 +316,54 @@ int Graphe::algo_dijkstra_intermediarite(int debut, int fin)
                     pred[nouveau.get_indice()].push_back(temp);
                 }
                 else if(dist[nouveau.get_indice()] == dist[temp] + m_arrete[k]->get_poids())
-                {
                     pred[nouveau.get_indice()].push_back(temp);
-                }
                 k=0;
                 que.push(nouveau);
             }
         }
     }
     for(int i=0;i<m_ordre;++i)
-    {
         if(i!=fin && i!=debut)
-        {
-            recup_pred(pred,i,fin);
-            std::cout<<m_compteur<<"    ";
-            m_compteur=0;
-        }
-    }
-    system("pause");
-
-    return dist[temp];
+            if(deja_vu[debut][i]==false && deja_vu[i][debut]==false){
+                deja_vu[debut][i]=true;
+                recup_pred(pred,i,fin);
+                somme += (m_compteur*1.0)/(m_ppc*1.0);
+                std::cout<<m_compteur<<" "<<m_ppc<<"    ";
+                m_compteur=0;
+                m_ppc=0;
+            }
+    return somme;
 }
 
 void Graphe::centralite_intermediarite()
 {//tablo somet deja fait + tableau sommet
-    int total;
-    std::vector<int> somme;
+    std::vector<double> somme;
+    bool deja_vu[50][50];
     for(int i=0;i<m_ordre;++i)
         somme.push_back(0);
+    for(int i=0;i<50;++i)
+        for(int j=0;j<50;++j)
+            deja_vu[i][j]=false;
 
     for(int x=0;x<m_ordre;++x)
+    {
+
         for(int y=0;y<m_ordre;++y)
             if(y!=x)
             {
-                total = algo_dijkstra_intermediarite(y,x);
-                std::cout<<total;
+                somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
                 for(int i=0;i<100;++i)
                     m_dec[i]=false;
             }
+        for(int i=0;i<50;++i)
+            for(int j=0;j<50;++j)
+                deja_vu[i][j]=false;
+    }
 
     for(int i=0;i<m_ordre;++i)
         std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
+
+
     system("pause");
 }
 

@@ -18,7 +18,8 @@ private:
     double m_lambda;    // permettant la fonction "vecteur_propre()"
 
     bool m_dec[100];
-    int m_compteur;
+    double m_compteur;
+    double m_ppc;
     int m_nbr_aretes;
     bool m_ponderation; // O : non pondere ; 1 : pondere
 
@@ -31,10 +32,10 @@ private:
 public:
     Graphe(std::string nomFichier); // constructeur
     ~Graphe(){
-        for(size_t i=0;i<m_arrete.size();++i)
+        /*for(size_t i=0;i<m_arrete.size();++i)
             delete m_arrete[i];
         for(size_t i=0;i<m_sommet.size();++i)
-            delete m_sommet[i];
+            delete m_sommet[i];*/
     }
     void ajout_ponderation(std::string pondFichier); // ajoute du fichier contenant les pond�rations
     std::vector <double> vecteur_propre();  // calcul de l'indice de vecteur propre
@@ -52,7 +53,7 @@ public:
         return m_ordre;
     }
     void recup_pred(std::vector<int> pred[100],int actuel,int autre);
-    int algo_dijkstra_intermediarite(int debut, int fin);
+    double algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50]);
     void centralite_intermediarite();
 
 };
