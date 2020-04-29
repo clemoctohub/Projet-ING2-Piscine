@@ -41,8 +41,7 @@ int main()
             indicedecentralite(mongraphe,mongraphe.get_ordre());
             break;
         case 4:
-            mongraphe.centralite_intermediarite();
-            //mongraphe.connexite();
+            mongraphe.connexite();
             break;
         case 5:
             mongraphe.suppr_arete();
