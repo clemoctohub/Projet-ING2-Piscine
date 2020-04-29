@@ -12,7 +12,8 @@ int menu()  //menu d'affichage
     std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
     std::cout << "3: Afficher et/ou sauvegarder les indices de centralite" << std::endl;
     std::cout << "4: Afficher les composantes connexes" << std::endl;
-    std::cout << "5: Quitter" << std::endl;
+    std::cout << "5: Supprimer une arete" << std::endl;
+    std::cout << "6: Quitter" << std::endl;
     std::cin >> choix;
     return choix;
 }
@@ -23,8 +24,8 @@ int main()
     int choix=0;
     /*std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;*/
-    Graphe mongraphe("test.txt");
-    while(choix!=5)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
+    Graphe mongraphe("graphe3.txt");
+    while(choix!=6)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
     {
         choix=menu();
         switch(choix)
