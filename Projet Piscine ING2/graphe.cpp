@@ -33,7 +33,7 @@ Graphe::Graphe(std::string nomFichier)
     {
         int indice,s1,s2;
         flux >> indice >> s1 >> s2;
-        m_arrete.push_back(new Arrete{m_sommet[s1],m_sommet[s2],indice,0});
+        m_arrete.push_back(new Arrete{m_sommet[s1],m_sommet[s2],indice,1});
         //cas graphe non oriente a faire
         m_adjacent[s1].push_back(s2);
         m_adjacent[s2].push_back(s1);
@@ -44,6 +44,7 @@ Graphe::Graphe(std::string nomFichier)
     m_nbr_aretes = 0;
 
     m_ponderation = false;
+    m_compteur = 0;
 
     m_lambda = 0;
 }
@@ -220,7 +221,6 @@ int Graphe::algo_dijkstra(int debut, int fin)
         }
     }
 
-
     return dist[temp];
 }
 
@@ -250,3 +250,109 @@ std::vector <double> Graphe::centralite_proximite()
     somme.erase(somme.begin(),somme.begin()+m_ordre);
     return m_CP;
 }
+
+
+void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
+{
+    for(size_t i=0;i<pred[actuel].size();++i)
+    {
+        if(pred[actuel][i]!=-1)
+            recup_pred(pred,pred[actuel][i],autre);
+        if(pred[actuel][i]==autre)
+            ++m_compteur;
+    }
+
+}
+
+int Graphe::algo_dijkstra_intermediarite(int debut, int fin)
+{
+    std::queue<Arrete> que;
+    Arrete actuel,initial;
+    int temp,k=0;
+    int dist[100];
+    std::vector<int> pred[100];
+
+    initial.set_indice(debut);
+    initial.set_poids(0);
+
+    que.push(initial);
+    pred[debut].push_back(-1);
+
+    for(int i=0;i<m_ordre;++i)
+        dist[i]=999999;
+
+    bool condi2=false;
+    dist[debut]=0;
+
+    while(!que.empty()){
+        actuel = que.front();
+        que.pop();
+        temp = actuel.get_indice();
+
+        if(m_dec[temp])
+            continue;
+        m_dec[temp] = true;
+
+        for(size_t i = 0; i < m_adjacent[temp].size(); ++i){
+            if(!m_dec[m_adjacent[temp][i]]){
+                Arrete nouveau;
+                nouveau.set_indice(m_adjacent[temp][i]);
+                while(!condi2)
+                {
+                    condi2 = m_arrete[k]->check_Sommets(m_sommet[temp],m_sommet[m_adjacent[temp][i]]);
+                    if(!condi2)
+                        ++k;
+                }
+                if(condi2==true)
+                    condi2 = false;
+
+                if(dist[nouveau.get_indice()] > dist[temp] + m_arrete[k]->get_poids()){
+                    dist[nouveau.get_indice()] = dist[temp] + m_arrete[k]->get_poids();
+                    pred[nouveau.get_indice()].push_back(temp);
+                }
+                else if(dist[nouveau.get_indice()] == dist[temp] + m_arrete[k]->get_poids())
+                {
+                    pred[nouveau.get_indice()].push_back(temp);
+                }
+                k=0;
+                que.push(nouveau);
+            }
+        }
+    }
+    for(int i=0;i<m_ordre;++i)
+    {
+        if(i!=fin && i!=debut)
+        {
+            recup_pred(pred,i,fin);
+            std::cout<<m_compteur<<"    ";
+            m_compteur=0;
+        }
+    }
+    system("pause");
+
+    return dist[temp];
+}
+
+void Graphe::centralite_intermediarite()
+{//tablo somet deja fait + tableau sommet
+    int total;
+    std::vector<int> somme;
+    for(int i=0;i<m_ordre;++i)
+        somme.push_back(0);
+
+    for(int x=0;x<m_ordre;++x)
+        for(int y=0;y<m_ordre;++y)
+            if(y!=x)
+            {
+                total = algo_dijkstra_intermediarite(y,x);
+                std::cout<<total;
+                for(int i=0;i<100;++i)
+                    m_dec[i]=false;
+            }
+
+    for(int i=0;i<m_ordre;++i)
+        std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
+    system("pause");
+}
+
+
