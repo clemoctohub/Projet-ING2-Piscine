@@ -68,7 +68,7 @@ void Graphe::afficher()
     for(size_t i=0; i<m_arrete.size(); ++i)
     {
         std::cout << "          arretes :";
-        m_arrete[i]->afficher(svgout);
+        m_arrete[i]->afficher(svgout,m_orientation);
     }
 
     system("pause");  // afin de ne pas effacer la console

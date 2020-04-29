@@ -5,7 +5,7 @@
 
 void afficher_indice (std::vector <std::vector <double>> v1,int ordre) // affichage dans la console
 {
-    int h=0; // bool�en �vitant que "Indice de centralite normalise" s'affiche 2 fois
+    int h=0; // booleen evitant que "Indice de centralite normalise" s'affiche 2 fois
     std::cout<<"Indice de centralite non normalise"<<std::endl;
     for (size_t j=0; j<v1.size(); j++)
     {

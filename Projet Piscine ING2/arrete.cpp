@@ -1,6 +1,8 @@
 #include "arrete.h"
 #include <iostream>
 #include <string>
+#include "math.h"
+#include <cmath>
 
 Arrete::Arrete(Sommet* s1, Sommet* s2, int indice, int poids)
     :m_s1{s1},m_s2{s2},m_indice{indice},m_poids{poids}
@@ -8,10 +10,26 @@ Arrete::Arrete(Sommet* s1, Sommet* s2, int indice, int poids)
 
 }
 
-void Arrete::afficher(Svgfile &svgout)  // recoit le fichier svg afin de faire l'affichage dedans
+void Arrete::afficher(Svgfile &svgout, int orientation)  // recoit le fichier svg afin de faire l'affichage dedans ainsi que l'orientation
 {
     std::cout<<m_indice<<" "<<m_s1->GetIndice()<<" "<<m_s2->GetIndice()<<" "<<m_poids<<std::endl;
-    svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
+    if (orientation==0)   // si le graphe n'est pas orienté
+    {
+        svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
+    }
+    else  // si le graphe est orienté
+    {
+        svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
+        int x1,x2,y1,y2,angle=0;
+        x1=0;
+        y1=100;
+        x2=(m_s2->GetX()*100)-(m_s1->GetX()*100);
+        y2=(m_s2->GetY()*100)-(m_s1->GetY()*100);
+        angle=acos((y1*y2)/(100*sqrt(x2^2+y2^2)));
+        angle=angle*180/3.14159265359;
+        std::cout<<angle<<std::endl;
+        svgout.addTriangle(angle, m_s2->GetX()*100, m_s2->GetY()*100, (m_s2->GetX()*100)-10, (m_s2->GetY()*100)-10, (m_s2->GetY()*100)+10, (m_s2->GetY()*100)-10, "blue");
+    }
 }
 
 void Arrete::afficher()

@@ -17,7 +17,7 @@ class Arrete
         Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
         Arrete(){}
         ~Arrete(){};
-        void afficher(Svgfile &svgout);
+        void afficher(Svgfile &svgout,int orientation);
         void afficher();
         void set_poids(int poids);
         void set_indice(int indice);
