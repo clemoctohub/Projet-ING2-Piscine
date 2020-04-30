@@ -48,7 +48,6 @@ int main()
             mongraphe.afficher();
             //mongraphe.difference();
             break;
-
         }
         system("cls");  // efface la console
     }
