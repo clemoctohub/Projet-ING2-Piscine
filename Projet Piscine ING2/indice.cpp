@@ -10,9 +10,7 @@ void afficher_indice (std::vector <std::vector <double>> v1,int ordre) // affich
     for (size_t j=0; j<v1.size(); j++)
     {
         for (size_t i=0; i<v1[1].size(); i++)
-        {
             std::cout<<i<<"   "<<v1[j][i]<<std::endl;
-        }
         if(h==0)
             std::cout<<std::endl<<"Indice de centralite normalise"<<std::endl;
         if(h==1)
@@ -33,18 +31,16 @@ void sauvegarder (std::vector <std::vector <double>> v1)
     std::string const nomFichier("C:Sauvegarde.txt");
     std::ofstream monFlux(nomFichier.c_str());
     if(!monFlux)
-    {
         std::cerr << "Error : Can't open the file" << std::endl;
-    }
+
     monFlux << v1[1].size()<<"\n";
     for (size_t j=1; j<v1.size(); j++)
     {
         for (size_t i=0; i<v1[1].size(); i++)
-        {
             monFlux<<v1[j][i]<<"  ";
-        }
         monFlux << "\n";
     }
+    monFlux.close();
 }
 
 void indicedecentralite(Graphe mongraphe,int ordre)

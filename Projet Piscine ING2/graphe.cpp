@@ -40,6 +40,7 @@ Graphe::Graphe(std::string nomFichier)
         m_adjacent[s1].push_back(s2);
         m_adjacent[s2].push_back(s1);
     }
+    flux.close();
 
     for(int i=0; i<100; ++i)
         m_dec[i]=false;
@@ -359,12 +360,8 @@ std::vector<double> Graphe::centralite_intermediarite()
                 deja_vu[i][j]=false;
     }
 
-    /*for(int i=0;i<m_ordre;++i)
-    {
-        std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
+    for(int i=0;i<m_ordre;++i)
         somme[i] = (somme[i]*2)/(m_ordre*m_ordre - 3*m_ordre + 2);
-        std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
-    }*/
 
     return somme;
 }
@@ -484,9 +481,32 @@ void Graphe::difference()
         std::cerr << "Impossible d'ouvrir le fichier";
 
     int ordre;
-    std::vector<double> degre,vecteur,intermediraire,proximite;
-
+    double temp;
+    std::vector<double> degre,vecteur,intermediaire,proximite;
 
     flux >> ordre;
 
+    for(int i=0;i<ordre;++i)
+    {
+        flux >> temp;
+        degre.push_back(temp);
+    }
+    for(int i=0;i<ordre;++i)
+    {
+        flux >> temp;
+        vecteur.push_back(temp);
+    }
+    for(int i=0;i<ordre;++i)
+    {
+        flux >> temp;
+        intermediaire.push_back(temp);
+    }
+    for(int i=0;i<ordre;++i)
+    {
+        flux >> temp;
+        proximite.push_back(temp);
+    }
+
+
+    system("pause");
 }

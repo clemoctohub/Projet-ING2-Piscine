@@ -46,7 +46,7 @@ int main()
         case 5:
             mongraphe.suppr_arete();
             mongraphe.afficher();
-            //mongraphe.difference();
+            mongraphe.difference();
             break;
         }
         system("cls");  // efface la console
