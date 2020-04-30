@@ -16,6 +16,11 @@ int menu()  //menu d'affichage
     std::cout << "6: Afficher les indices sur le graphe" << std::endl;
     std::cout << "7: Quitter" << std::endl;
     std::cin >> choix;
+    while(choix<1 || choix>6)
+    {
+        std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
+        std::cin >> choix;
+    }
     return choix;
 }
 
@@ -40,14 +45,17 @@ int main()
             mongraphe.afficher(svgout);
             break;
         case 3:
-            indicedecentralite(mongraphe,mongraphe.get_ordre());
+            indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
             break;
         case 4:
             mongraphe.connexite();
             break;
         case 5:
+            indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
             mongraphe.suppr_arete();
+            system("cls");
             mongraphe.afficher(svgout);
+            mongraphe.difference();
             break;
         case 6:
             afficher_indice_svg(mongraphe, svgout);

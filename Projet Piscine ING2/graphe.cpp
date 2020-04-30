@@ -40,6 +40,7 @@ Graphe::Graphe(std::string nomFichier)
         m_adjacent[s1].push_back(s2);
         m_adjacent[s2].push_back(s1);
     }
+    flux.close();
 
     for(int i=0; i<100; ++i)
         m_dec[i]=false;
@@ -319,21 +320,17 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
             }
         }
     }
-    for(int i=0;i<m_ordre;++i)
-        if(i!=fin && i!=debut){
 
+    for(int i=0;i<m_ordre;++i)
+        if(i!=fin && i!=debut)
             if(deja_vu[debut][i]==false && deja_vu[i][debut]==false){
                 deja_vu[debut][i]=true;
                 recup_pred(pred,i,fin);
                 somme += (m_compteur*1.0)/(m_ppc*1.0);
-                std::cout<<m_compteur<<" "<<m_ppc<<std::endl;
                 m_compteur=0;
                 m_ppc=0;
             }
-        }
 
-
-    system("pause");
     return somme;
 }
 
@@ -354,22 +351,16 @@ std::vector<double> Graphe::centralite_intermediarite()
             if(y!=x)
             {
                 somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
-
                 for(int i=0;i<100;++i)
                     m_dec[i]=false;
             }
-        std::cout<<std::endl;
         for(int i=0;i<50;++i)
             for(int j=0;j<50;++j)
                 deja_vu[i][j]=false;
     }
 
     for(int i=0;i<m_ordre;++i)
-    {
-        std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
         somme[i] = (somme[i]*2)/(m_ordre*m_ordre - 3*m_ordre + 2);
-        std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
-    }
 
     return somme;
 }
@@ -473,6 +464,11 @@ void Graphe::suppr_arete()
     int i=0;
     int choix=0;
     std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
+    for(size_t i=0; i<m_arrete.size(); ++i)
+    {
+        std::cout << "    arretes :";
+        m_arrete[i]->afficherIndice();
+    }
     std::cin>>choix;
     while(m_arrete[i]->get_indice()!=choix)
     {
@@ -481,4 +477,41 @@ void Graphe::suppr_arete()
     m_arrete[i]->effacer_adj(m_adjacent);
     m_arrete.erase(m_arrete.begin()+i);
     m_taille--;
+}
+
+void Graphe::difference()
+{
+    std::ifstream flux("Sauvegarde.txt"); // ouverture du fichier
+    if(!flux)
+        std::cerr << "Impossible d'ouvrir le fichier";
+
+    int ordre;
+    double temp;
+    std::vector<double> degre,vecteur,intermediaire,proximite;
+
+    flux >> ordre;
+
+    for(int i=0;i<ordre;++i)
+    {
+        flux >> temp;
+        degre.push_back(temp);
+    }
+    for(int i=0;i<ordre;++i)
+    {
+        flux >> temp;
+        vecteur.push_back(temp);
+    }
+    for(int i=0;i<ordre;++i)
+    {
+        flux >> temp;
+        intermediaire.push_back(temp);
+    }
+    for(int i=0;i<ordre;++i)
+    {
+        flux >> temp;
+        proximite.push_back(temp);
+    }
+
+
+    system("pause");
 }
