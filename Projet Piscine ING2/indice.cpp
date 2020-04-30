@@ -58,12 +58,8 @@ void indicedecentralite(Graphe mongraphe,int ordre, int suppr)
         std::cout<<"1:Oui   2:Non"<<std::endl;
         std::cin>>sauv;
         if(sauv==1)
-        {
             sauvegarder(ensemble);
-        }
     }
     else if(suppr==0)
-    {
-         sauvegarder(ensemble);
-    }
+        sauvegarder(ensemble);
 }

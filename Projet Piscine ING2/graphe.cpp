@@ -6,8 +6,8 @@
 #include <vector>
 #include <cmath>
 #include <queue>
-#include "arrete.h"
 #include "sommet.h"
+#include "bibliotheque.h"
 
 Graphe::Graphe(std::string nomFichier)
 {
@@ -467,7 +467,7 @@ void Graphe::suppr_arete()
     std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
     for(size_t i=0; i<m_arrete.size(); ++i)
     {
-        std::cout << "    arretes :";
+        std::cout << "    arretes ";
         m_arrete[i]->afficherIndice();
     }
     std::cin>>choix;
@@ -479,7 +479,7 @@ void Graphe::suppr_arete()
     m_arrete.erase(m_arrete.begin()+i);
 }
 
-void Graphe::difference()
+void Graphe::difference(Graphe mongraphe)
 {
     std::ifstream flux("Sauvegarde.txt"); // ouverture du fichier
     if(!flux)
@@ -487,7 +487,9 @@ void Graphe::difference()
 
     int ordre;
     double temp;
+    std::vector <std::vector <double>> ensemble;
     std::vector<double> degre,vecteur,intermediaire,proximite;
+    std::vector<double> degre_copi,vecteur_copi,intermediaire_copi,proximite_copi;
 
     flux >> ordre;
 
@@ -512,6 +514,43 @@ void Graphe::difference()
         proximite.push_back(temp);
     }
 
+    for(int i=0;i<ordre;++i)
+        std::cout<<proximite[i]<<" ";
+    std::cout<<std::endl;
+    //ensemble=mongraphe.calculdegre();
+    //ensemble.push_back(mongraphe.vecteur_propre());
+    //ensemble.push_back(mongraphe.centralite_intermediarite());
+    ensemble.push_back(mongraphe.centralite_proximite());
+    for(int i=0;i<ensemble[0].size();++i)
+        std::cout<<ensemble[0][i]<<" ";
 
+    /*afficher_indice(ensemble,mongraphe.get_ordre());
+    system("pause");
+    system("cls");
+    std::cout<<"DIFFERENCE ENTRE LE INDICES PRECEDENTS ET LES ACTUELS : "<<std::endl<<std::endl;
+    for(int i = 1;i<ensemble.size();++i)
+    {
+        if(i==1)
+            std::cout<<"CENTRALITE DE DEGRE : ";
+        if(i==2)
+            std::cout<<"CENTRALITE DE VECTEUR PROPRE : ";
+        if(i==3)
+            std::cout<<"CENTRALITE D'INTERMEDIARITE : ";
+        if(i==4)
+            std::cout<<"CENTRALITE DE PROXIMITE : ";
+
+        for(int j = 0;j<ensemble[i].size();++j)
+        {
+            if(i==1)
+                std::cout<<degre[j]-ensemble[i][j]<<"   ";
+            if(i==2)
+                std::cout<<vecteur[j]-ensemble[i][j]<<"   ";
+            if(i==3)
+                std::cout<<intermediaire[j]-ensemble[i][j]<<"   ";
+            if(i==4)
+                std::cout<<proximite[j]-ensemble[i][j]<<"   ";
+        }
+        std::cout<<std::endl;
+    }*/
     system("pause");
 }

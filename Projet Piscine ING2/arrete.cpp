@@ -40,7 +40,7 @@ void Arrete::afficher()
 
 void Arrete::afficherIndice()
 {
-    std::cout<<m_indice<<std::endl;
+    std::cout<<m_indice<<" : "<<m_s1->GetIndice()<<" "<<m_s2->GetIndice()<<" "<<m_poids<<std::endl;
 }
 
 void Arrete::set_poids(int poids)
