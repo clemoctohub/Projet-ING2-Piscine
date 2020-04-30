@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "graphe.h"
+#include "bibliotheque.h"
 #include <string>
 
 void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal) // affichage dans la console
@@ -8,6 +9,10 @@ void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal
     int h=0; // booleen evitant que "Indice de centralite normalise" s'affiche 2 fois
     if(normal==0)
         std::cout<<"Indice de centralite non normalise"<<std::endl;
+    else{
+        std::cout<<std::endl<<"Indice de centralite normalise"<<std::endl;
+        ++h;
+    }
     for (size_t j=normal; j<v1.size(); j++)
     {
         for (size_t i=0; i<v1[1].size(); i++)
@@ -22,9 +27,12 @@ void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal
             std::cout<<std::endl<<"Indice de centralite de proximite normalise"<<std::endl;
         h++;
     }
-    std::cout<<std::endl<<"Indice de centralité de proximite non normalise"<<std::endl;
-    for (size_t i=0; i<v1[1].size(); i++)
-        std::cout<<i<<"   "<<v1[2][i]/(ordre-1)<<std::endl;
+    if(normal == 0)
+    {
+        std::cout<<std::endl<<"Indice de centralité de proximite non normalise"<<std::endl;
+        for (size_t i=0; i<v1[1].size(); i++)
+            std::cout<<i<<"   "<<v1[2][i]/(ordre-1)<<std::endl;
+    }
 }
 
 
@@ -45,7 +53,7 @@ void sauvegarder (std::vector <std::vector <double>> v1)
     monFlux.close();
 }
 
-void indicedecentralite(Graphe mongraphe,int ordre, int suppr)
+std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre, int suppr)
 {
     int sauv=0;
     std::vector <std::vector <double>> ensemble;
@@ -70,6 +78,8 @@ void indicedecentralite(Graphe mongraphe,int ordre, int suppr)
     {
          afficher_indice(ensemble,ordre,1);
     }
+
+    return ensemble;
 }
 
 void afficher_indice_svg(Graphe mongraphe, Svgfile& svgout)

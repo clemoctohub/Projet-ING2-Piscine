@@ -12,7 +12,7 @@ Arrete::Arrete(Sommet* s1, Sommet* s2, int indice, int poids)
 
 void Arrete::afficher(Svgfile &svgout, int orientation)  // recoit le fichier svg afin de faire l'affichage dedans ainsi que l'orientation
 {
-    std::cout<<m_indice<<" "<<m_s1->GetIndice()<<" "<<m_s2->GetIndice()<<" "<<m_poids<<std::endl;
+    std::cout<<m_indice<<"/ sommet 1 :"<<m_s1->GetIndice()<<" / sommet 2 : "<<m_s2->GetIndice()<<" / poids : "<<m_poids<<std::endl;
     if (orientation==0)   // si le graphe n'est pas orienté
     {
         svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
@@ -40,7 +40,7 @@ void Arrete::afficher()
 
 void Arrete::afficherIndice()
 {
-    std::cout<<m_indice<<" : "<<m_s1->GetIndice()<<" "<<m_s2->GetIndice()<<" "<<m_poids<<std::endl;
+    std::cout<<m_indice<<"/ sommet 1 :"<<m_s1->GetIndice()<<" / sommet 2 : "<<m_s2->GetIndice()<<" / poids : "<<m_poids<<std::endl;
 }
 
 void Arrete::set_poids(int poids)

@@ -16,7 +16,7 @@ int menu()  //menu d'affichage
     std::cout << "6: Afficher les indices sur le graphe" << std::endl;
     std::cout << "7: Quitter" << std::endl;
     std::cin >> choix;
-    while(choix<1 || choix>6)
+    while(choix<1 || choix>7)
     {
         std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
         std::cin >> choix;
@@ -24,10 +24,10 @@ int menu()  //menu d'affichage
     return choix;
 }
 
-
 int main()
 {
     int choix=0;
+    std::vector <std::vector <double>> ensemble;
     /*std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;*/
     Graphe mongraphe("test.txt");
@@ -56,8 +56,8 @@ int main()
             system("cls");
             mongraphe.afficher(svgout);
             std::cout<<"Voici les nouveau indices"<<std::endl;
-            indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
-            mongraphe.difference(mongraphe);
+            ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
+            mongraphe.difference(ensemble);
             break;
         case 6:
             afficher_indice_svg(mongraphe, svgout);

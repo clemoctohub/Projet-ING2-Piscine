@@ -56,7 +56,7 @@ public:
     double algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50]);
     std::vector<double> centralite_intermediarite();
     void suppr_arete();
-    void difference(Graphe mongraphe);
+    void difference(std::vector <std::vector <double>> ensemble);
 };
 
 #endif // GRAPHE_H_INCLUDED
