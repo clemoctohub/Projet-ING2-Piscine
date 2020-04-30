@@ -32,27 +32,18 @@ void sauvegarder (std::vector <std::vector <double>> v1)
 {
     std::string const nomFichier("C:Sauvegarde.txt");
     std::ofstream monFlux(nomFichier.c_str());
-    int h=0;
     if(!monFlux)
     {
         std::cerr << "Error : Can't open the file" << std::endl;
     }
-    monFlux << "Indice de centralite non normalise\n";
-    for (size_t j=0; j<v1.size(); j++)
+    monFlux << v1[1].size()<<"\n";
+    for (size_t j=1; j<v1.size(); j++)
     {
         for (size_t i=0; i<v1[1].size(); i++)
         {
             monFlux<<v1[j][i]<<"  ";
         }
-        if(h==0)
-            monFlux <<"\n"<< "Indice de centralite normalise\n";
-        if(h==1)
-            monFlux <<"\n"<< "Indice de vecteur propre\n";
-        if(h==2)
-            monFlux <<"\n"<< "Indice de centralite d'intermediarite\n";
-        if(h==3)
-            monFlux <<"\n"<< "Indice de centralite de proximite\n";
-        h++;
+        monFlux << "\n";
     }
 }
 

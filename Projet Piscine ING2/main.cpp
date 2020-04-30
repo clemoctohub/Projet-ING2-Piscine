@@ -47,8 +47,8 @@ int main()
             mongraphe.suppr_arete();
             system("cls");
             mongraphe.afficher();
+            //mongraphe.difference();
             break;
-
         }
         system("cls");  // efface la console
     }
