@@ -55,6 +55,7 @@ int main()
             mongraphe.suppr_arete();
             system("cls");
             mongraphe.afficher(svgout);
+            system("cls");
             std::cout<<"Voici les nouveau indices"<<std::endl;
             ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
             mongraphe.difference(ensemble);
