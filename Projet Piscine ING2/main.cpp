@@ -28,21 +28,20 @@ int main()
 {
     int choix=0;
     std::vector <std::vector <double>> ensemble;
-    /*std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
-    std::cin>>nomFichier;*/
-    Graphe mongraphe("test.txt");
-    Svgfile svgout;
+    std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
+    std::cin>>nomFichier;
+    Graphe mongraphe(nomFichier);
     while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
     {
         choix=menu();
         switch(choix)
         {
         case 1:
-            mongraphe.afficher(svgout);// pour chaque action, nous appellons la m�thode ou la fonction qui correspond
+            mongraphe.afficher();// pour chaque action, nous appellons la m�thode ou la fonction qui correspond
             break;
         case 2:
             mongraphe.ajout_ponderation("ponderation.txt");
-            mongraphe.afficher(svgout);
+            mongraphe.afficher();
             break;
         case 3:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
@@ -54,14 +53,14 @@ int main()
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
             mongraphe.suppr_arete();
             system("cls");
-            mongraphe.afficher(svgout);
+            mongraphe.afficher();
             system("cls");
             std::cout<<"Voici les nouveau indices"<<std::endl;
             ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
             mongraphe.difference(ensemble);
             break;
         case 6:
-            afficher_indice_svg(mongraphe, svgout);
+            afficher_indice_svg(mongraphe);
             break;
         }
         system("cls");  // efface la console
