@@ -59,6 +59,11 @@ void indicedecentralite(Graphe mongraphe,int ordre, int suppr)
         std::cout<<std::endl<<"Voulez-vous sauvegarder ?"<<std::endl;
         std::cout<<"1:Oui   2:Non"<<std::endl;
         std::cin>>sauv;
+        while(sauv<1 || sauv>2)
+        {
+            std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
+            std::cin >> sauv;
+        }
         if(sauv==1)
             sauvegarder(ensemble);
     }

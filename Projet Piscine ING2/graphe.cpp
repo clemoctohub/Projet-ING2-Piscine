@@ -470,6 +470,11 @@ void Graphe::suppr_arete()
         m_arrete[i]->afficherIndice();
     }
     std::cin>>choix;
+    while(choix<0 || choix>m_arrete.size())
+    {
+        std::cout << "Veuillez choisir une arete existante" << std::endl;
+        std::cin >> choix;
+    }
     while(m_arrete[i]->get_indice()!=choix)
     {
         i++;

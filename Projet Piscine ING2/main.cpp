@@ -16,7 +16,7 @@ int menu()  //menu d'affichage
     std::cout << "6: Afficher les indices sur le graphe" << std::endl;
     std::cout << "7: Quitter" << std::endl;
     std::cin >> choix;
-    while(choix<1 || choix>6)
+    while(choix<1 || choix>7)
     {
         std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
         std::cin >> choix;
@@ -55,6 +55,7 @@ int main()
             mongraphe.suppr_arete();
             system("cls");
             mongraphe.afficher(svgout);
+            system("cls");
             std::cout<<"Voici les nouveau indices"<<std::endl;
             indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
             mongraphe.difference(mongraphe);
