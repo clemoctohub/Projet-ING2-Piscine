@@ -29,6 +29,7 @@ int main()
     int choix=0;
     std::vector <std::vector <double>> ensemble;
     std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
+    std::cout << "Rentrez le nom du fichier" << std::endl;
     std::cin>>nomFichier;
     Graphe mongraphe(nomFichier);
     while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
