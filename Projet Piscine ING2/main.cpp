@@ -15,6 +15,11 @@ int menu()  //menu d'affichage
     std::cout << "5: Supprimer une arete" << std::endl;
     std::cout << "6: Quitter" << std::endl;
     std::cin >> choix;
+    while(choix<1 || choix>6)
+    {
+        std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
+        std::cin >> choix;
+    }
     return choix;
 }
 
@@ -38,13 +43,14 @@ int main()
             mongraphe.afficher();
             break;
         case 3:
-            indicedecentralite(mongraphe,mongraphe.get_ordre());
+            indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
             break;
         case 4:
             mongraphe.connexite();
             break;
         case 5:
             mongraphe.suppr_arete();
+            indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
             system("cls");
             mongraphe.afficher();
             //mongraphe.difference();
