@@ -13,7 +13,8 @@ int menu()  //menu d'affichage
     std::cout << "3: Afficher et/ou sauvegarder les indices de centralite" << std::endl;
     std::cout << "4: Afficher les composantes connexes" << std::endl;
     std::cout << "5: Supprimer une arete" << std::endl;
-    std::cout << "6: Quitter" << std::endl;
+    std::cout << "6: Afficher les indices sur le graphe" << std::endl;
+    std::cout << "7: Quitter" << std::endl;
     std::cin >> choix;
     while(choix<1 || choix>6)
     {
@@ -30,17 +31,18 @@ int main()
     /*std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;*/
     Graphe mongraphe("test.txt");
-    while(choix!=6)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
+    Svgfile svgout;
+    while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
     {
         choix=menu();
         switch(choix)
         {
         case 1:
-            mongraphe.afficher();// pour chaque action, nous appellons la m�thode ou la fonction qui correspond
+            mongraphe.afficher(svgout);// pour chaque action, nous appellons la m�thode ou la fonction qui correspond
             break;
         case 2:
             mongraphe.ajout_ponderation("ponderation.txt");
-            mongraphe.afficher();
+            mongraphe.afficher(svgout);
             break;
         case 3:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
@@ -52,10 +54,13 @@ int main()
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
             mongraphe.suppr_arete();
             system("cls");
-            mongraphe.afficher();
+            mongraphe.afficher(svgout);
             std::cout<<"Voici les nouveau indices"<<std::endl;
             indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
             mongraphe.difference();
+            break;
+        case 6:
+            afficher_indice_svg(mongraphe, svgout);
             break;
         }
         system("cls");  // efface la console
