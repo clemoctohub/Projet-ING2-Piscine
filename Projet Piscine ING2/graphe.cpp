@@ -52,9 +52,8 @@ Graphe::Graphe(std::string nomFichier)
     m_lambda = 0;
 }
 
-void Graphe::afficher()
+void Graphe::afficher(Svgfile& svgout)
 {
-    Svgfile svgout;
     svgout.addGrid();
     if(m_orientation==0)
         std::cout << "Graphe non oriente"<<std::endl;
@@ -481,4 +480,5 @@ void Graphe::suppr_arete()
     }
     m_arrete[i]->effacer_adj(m_adjacent);
     m_arrete.erase(m_arrete.begin()+i);
+    m_taille--;
 }

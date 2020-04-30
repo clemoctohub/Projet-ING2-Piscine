@@ -73,3 +73,27 @@ void indicedecentralite(Graphe mongraphe,int ordre)
         sauvegarder(ensemble);
     }
 }
+
+void afficher_indice_svg(Graphe mongraphe, Svgfile& svgout)
+{
+    int choix1=0;
+    while (choix1!=5)
+    {
+        system("cls");
+        std::cout << "Choisissez l'indice que vous voulez afficher :" << std::endl;
+        std::cout << std::endl;
+        std::cout << "1: Indice de centralite de degre" << std::endl;
+        std::cout << "2: Indice de vecteur propre" << std::endl;
+        std::cout << "3: Indice de proximite" << std::endl;
+        std::cout << "4: Indice de centralite d'intermediarite" << std::endl;
+        std::cout << "5: Retour" << std::endl;
+        std::cin >> choix1;
+    }
+    switch(choix1)
+        {
+        case 1:
+            //afficher_centralite();
+            break;
+        }
+
+}
