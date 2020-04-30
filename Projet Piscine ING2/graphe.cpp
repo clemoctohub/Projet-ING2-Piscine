@@ -17,7 +17,6 @@ Graphe::Graphe(std::string nomFichier)
     if(!flux)
         std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
 
-
 ///////////////////  Lecture du fichier et remplissage des differents attributs de la classe graphe/////////////////////////
 
     flux >> m_orientation >> m_ordre;
@@ -55,8 +54,9 @@ Graphe::Graphe(std::string nomFichier)
     m_lambda = 0;
 }
 
-void Graphe::afficher(Svgfile& svgout)
+void Graphe::afficher()
 {
+    Svgfile svgout;
     svgout.addGrid();
     if(m_orientation==0)
         std::cout << "Graphe non oriente"<<std::endl;

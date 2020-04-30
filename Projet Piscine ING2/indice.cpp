@@ -31,7 +31,7 @@ void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal
     {
         std::cout<<std::endl<<"Indice de centralité de proximite non normalise"<<std::endl;
         for (size_t i=0; i<v1[1].size(); i++)
-            std::cout<<i<<"   "<<v1[2][i]/(ordre-1)<<std::endl;
+            std::cout<<i<<"   "<<v1[4][i]/(ordre-1)<<std::endl;
     }
 }
 
@@ -87,8 +87,9 @@ std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre
     return ensemble;
 }
 
-void afficher_indice_svg(Graphe mongraphe, Svgfile& svgout)
+void afficher_indice_svg(Graphe mongraphe)
 {
+    Svgfile svgout;
     int choix1=0;
     while (choix1!=5)
     {
@@ -108,5 +109,4 @@ void afficher_indice_svg(Graphe mongraphe, Svgfile& svgout)
             //afficher_centralite();
             break;
         }
-
 }
