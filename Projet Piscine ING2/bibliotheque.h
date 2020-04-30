@@ -3,6 +3,6 @@
 
 void afficher (std::vector <float> v1);
 std::vector <float> calculdegrenorma(std::vector <float> degresnorma);
-void indicedecentralite(Graphe mongraphe,int ordre);
+void indicedecentralite(Graphe mongraphe,int ordre, int suppr);
 
 #endif // BIBLIOTHEQUE_H_INCLUDED

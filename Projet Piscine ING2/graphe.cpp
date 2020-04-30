@@ -465,6 +465,11 @@ void Graphe::suppr_arete()
     int i=0;
     int choix=0;
     std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
+    for(size_t i=0; i<m_arrete.size(); ++i)
+    {
+        std::cout << "    arretes :";
+        m_arrete[i]->afficherIndice();
+    }
     std::cin>>choix;
     while(m_arrete[i]->get_indice()!=choix)
     {

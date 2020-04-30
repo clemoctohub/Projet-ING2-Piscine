@@ -43,7 +43,7 @@ void sauvegarder (std::vector <std::vector <double>> v1)
     monFlux.close();
 }
 
-void indicedecentralite(Graphe mongraphe,int ordre)
+void indicedecentralite(Graphe mongraphe,int ordre, int suppr)
 {
     int sauv=0;
     std::vector <std::vector <double>> ensemble;
@@ -51,12 +51,19 @@ void indicedecentralite(Graphe mongraphe,int ordre)
     ensemble.push_back(mongraphe.vecteur_propre());
     ensemble.push_back(mongraphe.centralite_intermediarite());
     ensemble.push_back(mongraphe.centralite_proximite());
-    afficher_indice(ensemble,ordre);
-    std::cout<<std::endl<<"Voulez-vous sauvegarder ?"<<std::endl;
-    std::cout<<"1:Oui   2:Non"<<std::endl;
-    std::cin>>sauv;
-    if(sauv==1)
+    if(suppr==1)
     {
-        sauvegarder(ensemble);
+        afficher_indice(ensemble,ordre);
+        std::cout<<std::endl<<"Voulez-vous sauvegarder ?"<<std::endl;
+        std::cout<<"1:Oui   2:Non"<<std::endl;
+        std::cin>>sauv;
+        if(sauv==1)
+        {
+            sauvegarder(ensemble);
+        }
+    }
+    else if(suppr==0)
+    {
+         sauvegarder(ensemble);
     }
 }
