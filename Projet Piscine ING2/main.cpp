@@ -49,10 +49,12 @@ int main()
             mongraphe.connexite();
             break;
         case 5:
-            mongraphe.suppr_arete();
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
+            mongraphe.suppr_arete();
             system("cls");
             mongraphe.afficher();
+            std::cout<<"Voici les nouveau indices"<<std::endl;
+            indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
             mongraphe.difference();
             break;
         }
