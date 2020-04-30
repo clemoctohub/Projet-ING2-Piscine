@@ -320,21 +320,17 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
             }
         }
     }
-    for(int i=0;i<m_ordre;++i)
-        if(i!=fin && i!=debut){
 
+    for(int i=0;i<m_ordre;++i)
+        if(i!=fin && i!=debut)
             if(deja_vu[debut][i]==false && deja_vu[i][debut]==false){
                 deja_vu[debut][i]=true;
                 recup_pred(pred,i,fin);
                 somme += (m_compteur*1.0)/(m_ppc*1.0);
-                std::cout<<m_compteur<<" "<<m_ppc<<std::endl;
                 m_compteur=0;
                 m_ppc=0;
             }
-        }
 
-
-    system("pause");
     return somme;
 }
 
@@ -355,22 +351,20 @@ std::vector<double> Graphe::centralite_intermediarite()
             if(y!=x)
             {
                 somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
-
                 for(int i=0;i<100;++i)
                     m_dec[i]=false;
             }
-        std::cout<<std::endl;
         for(int i=0;i<50;++i)
             for(int j=0;j<50;++j)
                 deja_vu[i][j]=false;
     }
 
-    for(int i=0;i<m_ordre;++i)
+    /*for(int i=0;i<m_ordre;++i)
     {
         std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
         somme[i] = (somme[i]*2)/(m_ordre*m_ordre - 3*m_ordre + 2);
         std::cout<<"somme["<<i<<"] = "<<somme[i]<<" ";
-    }
+    }*/
 
     return somme;
 }
@@ -481,4 +475,18 @@ void Graphe::suppr_arete()
     }
     m_arrete[i]->effacer_adj(m_adjacent);
     m_arrete.erase(m_arrete.begin()+i);
+}
+
+void Graphe::difference()
+{
+    std::ifstream flux("Sauvegarde.txt"); // ouverture du fichier
+    if(!flux)
+        std::cerr << "Impossible d'ouvrir le fichier";
+
+    int ordre;
+    std::vector<double> degre,vecteur,intermediraire,proximite;
+
+
+    flux >> ordre;
+
 }
