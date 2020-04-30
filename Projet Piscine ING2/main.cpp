@@ -45,6 +45,7 @@ int main()
             break;
         case 5:
             mongraphe.suppr_arete();
+            system("cls");
             mongraphe.afficher();
             break;
 
