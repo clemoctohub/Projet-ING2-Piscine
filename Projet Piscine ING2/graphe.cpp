@@ -259,12 +259,11 @@ void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
     {
         if(pred[actuel][i]!=-1)
             recup_pred(pred,pred[actuel][i],autre);
-        if(pred[actuel][i]==autre)
+        if(actuel==autre)
             m_compteur += pred[actuel].size();
         if(pred[actuel][i]==-1)
             ++m_ppc;
     }
-
 }
 
 double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50])
@@ -322,14 +321,20 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
         }
     }
     for(int i=0;i<m_ordre;++i)
-        if(i!=fin && i!=debut)
+        if(i!=fin && i!=debut){
+
             if(deja_vu[debut][i]==false && deja_vu[i][debut]==false){
                 deja_vu[debut][i]=true;
                 recup_pred(pred,i,fin);
                 somme += (m_compteur*1.0)/(m_ppc*1.0);
+                std::cout<<m_compteur<<" "<<m_ppc<<std::endl;
                 m_compteur=0;
                 m_ppc=0;
             }
+        }
+
+
+    system("pause");
     return somme;
 }
 
@@ -350,9 +355,11 @@ std::vector<double> Graphe::centralite_intermediarite()
             if(y!=x)
             {
                 somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
+
                 for(int i=0;i<100;++i)
                     m_dec[i]=false;
             }
+        std::cout<<std::endl;
         for(int i=0;i<50;++i)
             for(int j=0;j<50;++j)
                 deja_vu[i][j]=false;

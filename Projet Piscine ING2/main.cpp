@@ -24,7 +24,7 @@ int main()
     int choix=0;
     /*std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;*/
-    Graphe mongraphe("graphe1.txt");
+    Graphe mongraphe("test.txt");
     while(choix!=6)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
     {
         choix=menu();
