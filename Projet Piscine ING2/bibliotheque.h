@@ -1,6 +1,7 @@
 #ifndef BIBLIOTHEQUE_H_INCLUDED
 #define BIBLIOTHEQUE_H_INCLUDED
 
+int boucle(int choix, Graphe mongraphe);
 void afficher (std::vector <float> v1);
 std::vector <float> calculdegrenorma(std::vector <float> degresnorma);
 std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre, int suppr);
