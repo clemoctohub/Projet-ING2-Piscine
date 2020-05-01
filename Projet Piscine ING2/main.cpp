@@ -78,6 +78,7 @@ int main()
     }
     system("cls");
     Graphe mongraphe(nomFichier);
+    mongraphe.k_connexite();
     while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
     {
         choix=menu();
