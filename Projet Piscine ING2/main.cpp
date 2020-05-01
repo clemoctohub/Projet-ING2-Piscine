@@ -93,7 +93,7 @@ int main()
             indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
             break;
         case 4:
-            mongraphe.connexite();
+            mongraphe.connexite(1);
             break;
         case 5:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
