@@ -43,15 +43,16 @@ public:
     int algo_dijkstra(int debut, int fin);//calcul chemin le plus court en fonction ds poids des aretes
     std::vector <double> centralite_proximite(); // calcul de l'indice de centralit� de proximit�
     std::vector <std::vector<double>> calculdegre(); // calcul des degr�s de chaque sommet
-    void afficher(); // affichage le graphe
+    void afficher(int choix); // affichage le graphe
     void affichercompo(std::vector <int> predecesseurs,int nb);
-    void connexite();
+    bool connexite(int truc);
     void afficherBFS(std::vector <int> predecesseur, int start);
     std::vector <int> get_adjacent(int sommet);
     std::vector <int> parcourBFS(int start);
     int get_ordre(){
         return m_ordre;
     }
+    void k_connexite();
     void recup_pred(std::vector<int> pred[100],int actuel,int autre);
     double algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50]);
     std::vector<double> centralite_intermediarite();

@@ -37,12 +37,21 @@ Graphe::Graphe(std::string nomFichier)
         int indice,s1,s2;
         flux >> indice >> s1 >> s2;
         m_arrete.push_back(new Arrete{m_sommet[s1],m_sommet[s2],indice,1});
-        //cas graphe non oriente a faire
-        m_adjacent[s1].push_back(s2);
-        m_adjacent[s2].push_back(s1);
-    }
-    flux.close();
 
+        //cas graphe non oriente a faire
+        if(m_orientation==0)
+        {
+            m_adjacent[s1].push_back(s2);
+            m_adjacent[s2].push_back(s1);
+        }
+        else if(m_orientation==1)
+        {
+            m_adjacent[s1].push_back(s2);
+        }
+
+    }
+
+    flux.close();
     for(int i=0; i<100; ++i)
         m_dec[i]=false;
     m_nbr_aretes = 0;
@@ -54,7 +63,69 @@ Graphe::Graphe(std::string nomFichier)
     m_lambda = 0;
 }
 
-void Graphe::afficher()
+void Graphe::k_connexite()
+{
+    int minimun=999999,index=0,k=0,x=0;
+    bool condi = false, condi2 = false;
+    bool etat;
+    std::vector<Arrete*> aretes;
+
+    for(int i = 0;i<m_ordre;++i)
+        if(minimun>m_adjacent[i].size())
+        {
+            minimun = m_adjacent[i].size();
+            index = i;
+        }
+
+    while(condi==false)
+    {
+        while(!condi2)
+        {
+            condi2 = m_arrete[k]->check_Sommets(m_sommet[index],m_sommet[m_adjacent[index][x]]);
+            if(!condi2)
+                ++k;
+        }
+        if(condi2==true)
+        {
+            aretes.push_back(m_arrete[k]);
+            condi2=false;
+        }
+        //suppr
+        m_arrete[k]->effacer_adj(m_adjacent);
+        m_arrete.erase(m_arrete.begin()+k);
+        m_taille--;
+        etat = connexite(0);
+
+        if(etat==false)
+        {
+            ++x;
+        }
+        else if(etat==true)
+        {
+            condi = true;
+        }
+        k=0;
+    }
+
+    std::cout<<"Le composant est "<<aretes.size()<<"-aretes connexes, il faut supprimer les aretes : ";
+    for(int i=0;i<aretes.size();++i)
+    {
+        std::cout<<aretes[i]->get_indice()<<" ";
+        ++m_taille;
+        m_arrete.insert(m_arrete.begin()+aretes[i]->get_indice(),aretes[i]);
+        if(m_orientation==0)
+        {
+            m_adjacent[aretes[i]->get_s1()].push_back(aretes[i]->get_s2());
+            m_adjacent[aretes[i]->get_s2()].push_back(aretes[i]->get_s1());
+        }
+        else if(m_orientation==1)
+            m_adjacent[aretes[i]->get_s1()].push_back(aretes[i]->get_s2());
+    }
+    system("pause");
+
+}
+
+void Graphe::afficher(int choix)
 {
     Svgfile svgout;
     svgout.addGrid();
@@ -88,6 +159,43 @@ void Graphe::afficher()
         m_sommet[i]->afficher(svgout,classement,nomin);
     }
     system("pause");  // afin de ne pas effacer la console
+    /*if (choix==2)
+    {
+        std::vector <std::vector <double>> ensemble;
+        int choix1=0;
+        ensemble=indicedecentralite(*this, m_ordre, 3);
+        while (choix1!=5)
+        {
+            system("cls");
+            std::cout << "Choisissez l'indice que vous voulez afficher :" << std::endl;
+            std::cout << std::endl;
+            std::cout << "1: Indice de centralite de degre" << std::endl;
+            std::cout << "2: Indice de vecteur propre" << std::endl;
+            std::cout << "3: Indice de proximite" << std::endl;
+            std::cout << "4: Indice de centralite d'intermediarite" << std::endl;
+            std::cout << "5: Retour" << std::endl;
+            std::cin >> choix1;
+
+
+           /* for(size_t i=0; i<ensemble[choix1].size(); i++)
+            {
+                    std::cout<< ensemble[choix1][i]<<std::endl;
+                    svgout.addText(m_sommet[i]->GetX(),m_sommet[i]->GetY(),ensemble[choix1][i],"black");
+            }
+            system("pause");
+
+            switch(choix1)
+            {
+            case 1:
+                for(size_t i=0; i<ensemble[choix1].size(); i++)
+                {
+                    svgout.addText(m_sommet[i]->GetX()*100,m_sommet[i]->GetY()*100,ensemble[choix1][i],"black");
+                }
+                break;
+
+            }
+        }
+    }*/
 }
 
 void Graphe::ajout_ponderation(std::string pondFichier)
@@ -138,7 +246,7 @@ std::vector <double> Graphe::vecteur_propre()
 
         for(int i=0; i<m_ordre; ++i)
             c_Sommet[i]=0;
-
+        std::cout<<"     "<< m_lambda<<std::endl;
         somme=0;
     }
     m_CVP=buffer;
@@ -430,11 +538,12 @@ std::vector <int> Graphe::parcourBFS(int start)
 }
 
 
-void Graphe::connexite()
+bool Graphe::connexite(int truc)
 {
     int nb=0;
     int parcours=0;
     std::vector <int> etats;
+    bool condi = false;
     std::vector <int> predecesseurs;
     for(int i=0; i<m_ordre; ++i)
     {
@@ -445,7 +554,8 @@ void Graphe::connexite()
         nb++;
         predecesseurs=this->parcourBFS(parcours);
         predecesseurs[parcours]=parcours;
-        this->affichercompo(predecesseurs,nb);
+        if(truc==1)
+            this->affichercompo(predecesseurs,nb);
         for(size_t i=0; i<predecesseurs.size(); ++i)
         {
             if(predecesseurs[i]!=-1)
@@ -458,11 +568,14 @@ void Graphe::connexite()
         {
             if(etats[i]==0 && parcours==-1)
             {
+                condi = true;
                 parcours=i;
             }
         }
     }
-    system("pause");
+    if(truc==1)
+        system("pause");
+    return condi;
 }
 
 std::vector <int> Graphe::get_adjacent(int sommet)
