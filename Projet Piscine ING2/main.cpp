@@ -76,6 +76,7 @@ int main()
         std::cout << "Rentrez le nom du fichier" << std::endl;
         std::cin>>nomFichier;
     }
+    system("cls");
     Graphe mongraphe(nomFichier);
     while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
     {
@@ -93,7 +94,7 @@ int main()
             indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
             break;
         case 4:
-            mongraphe.connexite();
+            mongraphe.connexite(1);
             break;
         case 5:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
