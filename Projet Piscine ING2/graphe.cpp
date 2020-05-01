@@ -65,7 +65,7 @@ Graphe::Graphe(std::string nomFichier)
 
 void Graphe::k_connexite()
 {
-    int minimun=999999,index=0,k=0,x=0;
+    size_t minimun=999999,index=0,k=0,x=0;
     bool condi = false, condi2 = false;
     bool etat;
     std::vector<Arrete*> aretes;
@@ -108,7 +108,7 @@ void Graphe::k_connexite()
     }
 
     std::cout<<"Le composant est "<<aretes.size()<<"-aretes connexes, il faut supprimer les aretes : ";
-    for(int i=0;i<aretes.size();++i)
+    for(size_t i=0; i<aretes.size(); ++i)
     {
         std::cout<<aretes[i]->get_indice()<<" ";
         ++m_taille;
@@ -121,8 +121,14 @@ void Graphe::k_connexite()
         else if(m_orientation==1)
             m_adjacent[aretes[i]->get_s1()].push_back(aretes[i]->get_s2());
     }
-    std::cout<<std::endl<<std::endl;
+    std::cout<<std::endl;
+    system("pause");
+    system("cls");
+}
 
+bool Graphe::get_ponderation()
+{
+    return m_ponderation;
 }
 
 void Graphe::afficher(int choix)
@@ -652,15 +658,55 @@ void Graphe::afficherBFS(std::vector <int> predecesseur, int start)
     system("pause");
 }
 
-void Graphe::suppr_arete()
+void Graphe::suppr_arete(int suppr)
 {
-    int i=0;
-    int choix=0;
-    std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
-    for(size_t i=0; i<m_arrete.size(); ++i)
+    if (suppr==-1)
     {
-        std::cout << "    arretes ";
-        m_arrete[i]->afficherIndice();
+        int i=0;
+        size_t choix=0;
+        std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
+        for(size_t i=0; i<m_arrete.size(); ++i)
+        {
+            std::cout << "    arretes ";
+            m_arrete[i]->afficherIndice();
+        }
+        std::cin>>choix;
+        while(choix<0 || choix>m_arrete.size())
+        {
+            std::cout << "Veuillez choisir une arete existante" << std::endl;
+            std::cin >> choix;
+        }
+        while(m_arrete[i]->get_indice()!=choix)
+        {
+            i++;
+        }
+        m_arrete[i]->effacer_adj(m_adjacent);
+        m_arrete.erase(m_arrete.begin()+i);
+        m_taille--;
+    }
+    else
+    {
+        int i=0;
+        while(m_arrete[i]->get_indice()!=suppr)
+        {
+            i++;
+        }
+        m_arrete[i]->effacer_adj(m_adjacent);
+        m_arrete.erase(m_arrete.begin()+i);
+        m_taille--;
+    }
+}
+
+void Graphe::suppr_sommet()
+{
+    size_t choix=0;
+    int k=0;
+    std::cout<<"Saisir l'indice du sommet que vous souhaitez supprimer"<<std::endl;
+    for(size_t i=0; i<m_sommet.size(); ++i)
+    {
+        std::cout << "    sommet ";
+        m_sommet[i]->affichernum();
+        std::cout<<std::endl;
     }
     std::cin>>choix;
     while(choix<0 || choix>m_arrete.size())
@@ -668,13 +714,20 @@ void Graphe::suppr_arete()
         std::cout << "Veuillez choisir une arete existante" << std::endl;
         std::cin >> choix;
     }
-    while(m_arrete[i]->get_indice()!=choix)
+    while(m_sommet[k]->GetIndice()!=choix)
     {
-        i++;
+        k++;
     }
-    m_arrete[i]->effacer_adj(m_adjacent);
-    m_arrete.erase(m_arrete.begin()+i);
-    m_taille--;
+    int taille_arete = m_arrete.size();
+    for (int i=0; i<taille_arete; i++)
+    {
+        if (m_arrete[i]->calculdegre(m_sommet[k],0))
+        {
+            suppr_arete(i);
+        }
+    }
+    m_sommet.erase(m_sommet.begin()+k);
+    m_ordre--;
 }
 
 void Graphe::difference(std::vector <std::vector <double>> ensemble)

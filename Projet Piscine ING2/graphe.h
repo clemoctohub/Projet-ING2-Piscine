@@ -56,8 +56,10 @@ public:
     void recup_pred(std::vector<int> pred[100],int actuel,int autre);
     double algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50]);
     std::vector<double> centralite_intermediarite();
-    void suppr_arete();
+    void suppr_arete(int suppr);
     void difference(std::vector <std::vector <double>> ensemble);
+    bool get_ponderation();
+    void suppr_sommet();
 };
 
 #endif // GRAPHE_H_INCLUDED
