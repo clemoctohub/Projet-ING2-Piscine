@@ -37,12 +37,21 @@ Graphe::Graphe(std::string nomFichier)
         int indice,s1,s2;
         flux >> indice >> s1 >> s2;
         m_arrete.push_back(new Arrete{m_sommet[s1],m_sommet[s2],indice,1});
-        //cas graphe non oriente a faire
-        m_adjacent[s1].push_back(s2);
-        m_adjacent[s2].push_back(s1);
-    }
-    flux.close();
 
+        //cas graphe non oriente a faire
+        if(m_orientation==0)
+        {
+            m_adjacent[s1].push_back(s2);
+            m_adjacent[s2].push_back(s1);
+        }
+        else if(m_orientation==1)
+        {
+            m_adjacent[s1].push_back(s2);
+        }
+
+    }
+
+    flux.close();
     for(int i=0; i<100; ++i)
         m_dec[i]=false;
     m_nbr_aretes = 0;
@@ -104,8 +113,13 @@ void Graphe::k_connexite()
         std::cout<<aretes[i]->get_indice()<<" ";
         ++m_taille;
         m_arrete.insert(m_arrete.begin()+aretes[i]->get_indice(),aretes[i]);
-        m_adjacent[aretes[i]->get_s1()].push_back(aretes[i]->get_s2());
-        m_adjacent[aretes[i]->get_s2()].push_back(aretes[i]->get_s1());
+        if(m_orientation==0)
+        {
+            m_adjacent[aretes[i]->get_s1()].push_back(aretes[i]->get_s2());
+            m_adjacent[aretes[i]->get_s2()].push_back(aretes[i]->get_s1());
+        }
+        else if(m_orientation==1)
+            m_adjacent[aretes[i]->get_s1()].push_back(aretes[i]->get_s2());
     }
     system("pause");
 

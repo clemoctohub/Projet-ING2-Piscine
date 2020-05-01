@@ -1,12 +1,33 @@
 0
-12
+13
 0 St-Denis 5 1
-1 Aeroport 6 2
-2 St-Andre 8 3
-3 St-Benoit 8 4
-4 St-Rose 7 9
-5 St-Pierre 6 8
-6 Universite 6 7
-7 St-Louis 5 8
-8 Eglise 5 7
-9
+1 Garros 6 1
+2 St-Andre 9 3
+3 St-Benoit 10 4
+4 St-Rose 8 12
+5 St-Pierre 6 11
+6 Universite 6 10
+7 St-Louis 3 10
+8 Eglise 5 9
+9 St-Leu 1 7
+10 Pierrefonds 4 11
+11 St-Paul 1 4
+12 Leport 2 2
+17
+0 0 1
+1 1 2
+2 2 3
+3 3 4
+4 6 3
+5 4 5
+6 5 10
+7 10 8
+8 10 7
+9 7 9
+10 9 11
+11 11 12
+12 12 0
+13 5 6
+14 4 6
+15 0 11
+16 0 9
