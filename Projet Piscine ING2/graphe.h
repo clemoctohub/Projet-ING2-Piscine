@@ -58,6 +58,7 @@ public:
     std::vector<double> centralite_intermediarite();
     void suppr_arete();
     void difference(std::vector <std::vector <double>> ensemble);
+    bool get_ponderation();
 };
 
 #endif // GRAPHE_H_INCLUDED
