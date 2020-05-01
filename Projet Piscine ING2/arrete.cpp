@@ -31,8 +31,7 @@ void Arrete::afficher(Svgfile &svgout, int orientation)  // recoit le fichier sv
         {
             angle=-angle;
         }
-        system("pause");
-        svgout.addTriangle(m_s2->GetX()*100, m_s2->GetY()*100, (m_s2->GetX()*100)+10*cos(angle-3.14159265359/8), (m_s2->GetY()*100)+10*sin(angle-3.14159265359/8), (m_s2->GetX()*100)+10*cos(angle+3.14159265359/8), (m_s2->GetY()*100)+10*sin(angle+3.14159265359/8), "blue");
+        svgout.addTriangle(m_s2->GetX()*100, m_s2->GetY()*100, (m_s2->GetX()*100)+12*cos(angle-3.14159265359/8), (m_s2->GetY()*100)+12*sin(angle-3.14159265359/8), (m_s2->GetX()*100)+12*cos(angle+3.14159265359/8), (m_s2->GetY()*100)+12*sin(angle+3.14159265359/8), "blue");
     }
 }
 
