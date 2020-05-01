@@ -17,10 +17,11 @@ int menu(bool ponderation)  //menu d'affichage
     std::cout << "3: Afficher et/ou sauvegarder les indices de centralite" << std::endl;
     std::cout << "4: Afficher les composantes connexes" << std::endl;
     std::cout << "5: Supprimer une arete" << std::endl;
-    std::cout << "6: Afficher les indices sur le graphe" << std::endl;
-    std::cout << "7: Quitter" << std::endl;
+    std::cout << "6: Supprimer un sommet" << std::endl;
+    std::cout << "7: Afficher les indices sur le graphe" << std::endl;
+    std::cout << "8: Quitter" << std::endl;
     std::cin >> choix;
-    while(choix<1 || choix>7)
+    while(choix<1 || choix>8)
     {
         std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
         std::cin >> choix;
@@ -69,10 +70,10 @@ std::string menu2()  //menu d'affichage
         return fichier;
 }
 
-int boucle(int choix, Graphe mongraphe)
+void boucle(int choix, Graphe mongraphe)
 {
         std::vector <std::vector <double>> ensemble;
-        while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
+        while(choix!=8)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
     {
         choix=menu(mongraphe.get_ponderation());
         switch(choix)
@@ -92,7 +93,7 @@ int boucle(int choix, Graphe mongraphe)
             break;
         case 5:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
-            mongraphe.suppr_arete();
+            mongraphe.suppr_arete(-1);
             system("cls");
             mongraphe.afficher(1);
             system("cls");
@@ -101,6 +102,16 @@ int boucle(int choix, Graphe mongraphe)
             mongraphe.difference(ensemble);
             break;
         case 6:
+            indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
+            mongraphe.suppr_sommet();
+            system("cls");
+            mongraphe.afficher(1);
+            system("cls");
+            std::cout<<"Voici les nouveau indices"<<std::endl;
+            ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
+            mongraphe.difference(ensemble);
+            break;
+        case 7:
             mongraphe.afficher(2);
             break;
         }
