@@ -66,45 +66,120 @@ Graphe::Graphe(std::string nomFichier)
 void Graphe::k_connexite()
 {
     size_t minimun=999999,index=0,k=0,x=0;
+    int compteur=0,memoire;
     bool condi = false, condi2 = false;
     bool etat;
+    std::vector<int> pred1,pred2;
     std::vector<Arrete*> aretes;
 
-    for(int i = 0;i<m_ordre;++i)
-        if(minimun>m_adjacent[i].size() && m_adjacent[i].size()>0)
-        {
-            minimun = m_adjacent[i].size();
-            index = i;
-        }
-    while(condi==false)
+    if(m_orientation==0)
+        for(int i = 0;i<m_ordre;++i)
+            if(minimun>m_adjacent[i].size() && m_adjacent[i].size()>0)
+            {
+                minimun = m_adjacent[i].size();
+                index = i;
+            }
+    else if(m_orientation==1)
     {
-        while(!condi2)
+        for(int index=0;index<m_ordre;++index)
         {
-            condi2 = m_arrete[k]->check_Sommets(m_sommet[index],m_sommet[m_adjacent[index][x]],m_orientation);
-            if(!condi2)
-                ++k;
-        }
-        if(condi2==true)
-        {
-            aretes.push_back(m_arrete[k]);
-            condi2=false;
-        }
+            for(int i = 0;i<m_ordre;++i)
+                for(int j=0;j<m_adjacent[i].size();++j)
+                    if(m_adjacent[i][j]==index)
+                    {
+                        ++compteur;
+                        pred2.push_back(i);
+                        pred1.push_back(j);
+                    }
 
-        //suppr
-        m_arrete[k]->effacer_adj(m_adjacent);
-        m_arrete.erase(m_arrete.begin()+k);
-        m_taille--;
-        etat = connexite(0);
+            if(minimun>m_adjacent[i].size()+compteur)
+            {
+                minimun = m_adjacent[i].size()+compteur;
+                memoire = compteur;
+                index = i;
+            }
+            else
+            {
+                for(int i=0;i<pred1.size();++i)
+                {
+                    pred1.erase(pred1.begin()+i);
+                    pred2.erase(pred2.begin()+i);
+                }
+            }
+            compteur=0;
+        }
+    }
 
-        if(etat==false)
+    if(m_orientation==0)
+        while(condi==false)
         {
-            ++x;
+            while(!condi2)
+            {
+                condi2 = m_arrete[k]->check_Sommets(m_sommet[index],m_sommet[m_adjacent[index][x]],m_orientation);
+                if(!condi2)
+                    ++k;
+            }
+            if(condi2==true)
+            {
+                aretes.push_back(m_arrete[k]);
+                condi2=false;
+            }
+
+            //suppr
+            m_arrete[k]->effacer_adj(m_adjacent);
+
+            m_arrete.erase(m_arrete.begin()+k);
+            m_taille--;
+            etat = connexite(0);
+            if(etat==false)
+            {
+                ++x;
+            }
+            else if(etat==true)
+            {
+                condi = true;
+            }
+            k=0;
         }
-        else if(etat==true)
+    else if(m_orientation==1)
+    {
+        int temp = m_adjacent[index].size();
+        for(int i=0;i<temp;++i)
         {
-            condi = true;
+            while(!condi2)
+            {
+                condi2 = m_arrete[k]->check_Sommets(m_sommet[index],m_sommet[m_adjacent[index][i]],m_orientation);
+                if(!condi2)
+                    ++k;
+            }
+            if(condi2==true)
+            {
+                aretes.push_back(m_arrete[k]);
+                condi2=false;
+            }
+            m_arrete[k]->effacer_adj(m_adjacent);
+            m_arrete.erase(m_arrete.begin()+k);
+            m_taille--;
+            k=0;
         }
-        k=0;
+        for(int i=0;i<memoire;++i)
+        {
+            while(!condi2)
+            {
+                condi2 = m_arrete[k]->check_Sommets(m_sommet[pred2[i]],m_sommet[m_adjacent[pred2[i]][pred1[i]]],m_orientation);
+                if(!condi2)
+                    ++k;
+            }
+            if(condi2==true)
+            {
+                aretes.push_back(m_arrete[k]);
+                condi2=false;
+            }
+            m_arrete[k]->effacer_adj(m_adjacent);
+            m_arrete.erase(m_arrete.begin()+k);
+            m_taille--;
+            k=0;
+        }
     }
 
     std::cout<<"Le composant est "<<aretes.size()<<"-aretes connexes, il faut supprimer les aretes : ";
@@ -206,21 +281,32 @@ void Graphe::afficher(int choix)
 
 void Graphe::ajout_ponderation(std::string pondFichier)
 {
-    std::ifstream ifs(pondFichier);
-    if(!ifs)
-        std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
-
-    int taille,indice,poids;
-
-    ifs >> taille;
-
-    for(int i=0; i<taille; ++i)
+    if(m_ponderation==false)
     {
-        ifs >> indice >> poids;
-        m_arrete[indice]->set_poids(poids);
-    }
+        std::ifstream ifs(pondFichier);
+        if(!ifs)
+            std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
 
-    m_ponderation = true;
+        int taille,indice,poids;
+
+        ifs >> taille;
+
+        for(int i=0; i<taille; ++i)
+        {
+            ifs >> indice >> poids;
+            m_arrete[indice]->set_poids(poids);
+        }
+        ifs.close();
+        m_ponderation = true;
+    }
+    else if(m_ponderation==true)
+    {
+        for(int i=0; i<m_taille; ++i)
+        {
+            m_arrete[i]->set_poids(1);
+        }
+        m_ponderation = false;
+    }
 }
 
 std::vector <double> Graphe::vecteur_propre()
@@ -746,19 +832,10 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
     {
         flux >> temp;
         degre.push_back(temp);
-    }
-    for(int i=0; i<ordre; ++i)
-    {
         flux >> temp;
         vecteur.push_back(temp);
-    }
-    for(int i=0; i<ordre; ++i)
-    {
         flux >> temp;
         intermediaire.push_back(temp);
-    }
-    for(int i=0; i<ordre; ++i)
-    {
         flux >> temp;
         proximite.push_back(temp);
     }
