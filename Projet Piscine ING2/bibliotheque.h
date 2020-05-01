@@ -6,5 +6,7 @@ std::vector <float> calculdegrenorma(std::vector <float> degresnorma);
 std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre, int suppr);
 void afficher_indice(std::vector <std::vector <double>> v1,int ordre);
 void afficher_indice_svg(Graphe mongraphe);
+int menu(bool m_ponderation);
+std::string menu2();
 
 #endif // BIBLIOTHEQUE_H_INCLUDED

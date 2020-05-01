@@ -125,6 +125,11 @@ void Graphe::k_connexite()
 
 }
 
+bool Graphe::get_ponderation()
+{
+    return m_ponderation;
+}
+
 void Graphe::afficher(int choix)
 {
     Svgfile svgout;

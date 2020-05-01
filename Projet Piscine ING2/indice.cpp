@@ -3,6 +3,7 @@
 #include "graphe.h"
 #include "bibliotheque.h"
 #include <string>
+#include <vector>
 
 void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal) // affichage dans la console
 {
