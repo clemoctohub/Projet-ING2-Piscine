@@ -8,10 +8,16 @@ Sommet::Sommet(int indice, std::string nom, int x, int y) // constructeur
 
 }
 
-void Sommet::afficher(Svgfile &svgout)
+void Sommet::afficher(Svgfile &svgout, std::vector <int> classement, int nomin)
 {
+    int compteur=0;
+    for(size_t i=0; i<classement.size(); ++i)
+    {
+        if(classement[i]>classement[m_indice])
+            ++compteur;
+    }
     std::cout<<m_indice<<" "<< m_nom <<" "<<m_x<<" "<<m_y<< std::endl;
-    svgout.addDisk(m_x*100, m_y*100, 5, "red");
+    svgout.addDisk(m_x*100, m_y*100, 5, svgout.makeRGB(255,75+(nomin*compteur),75+(nomin*compteur)));
     svgout.addText(m_x*100+10, m_y*100+15, m_nom, "black");
     svgout.addText(m_x*100-15, m_y*100-10, m_indice, "green");
 }

@@ -12,12 +12,12 @@ class Sommet
 private :
     std::string m_nom;
     int m_indice;
-    int m_x;  // coordonn�e pour affichage dans fichier svg
-    int m_y;  // coordonn�e pour affichage dans fichier svg
+    int m_x;  // coordonnee pour affichage dans fichier svg
+    int m_y;  // coordonnee pour affichage dans fichier svg
 public :
     Sommet(int indice, std::string nom, int x, int y);
     ~Sommet(){};
-    void afficher(Svgfile &svgout);
+    void afficher(Svgfile &svgout, std::vector <int> classement,int nomin);
     int GetX();
     int GetY();
     int GetIndice();

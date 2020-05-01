@@ -115,23 +115,35 @@ void Graphe::afficher()
 {
     Svgfile svgout;
     svgout.addGrid();
+    std::vector <int> classement;
+    int h=0;
+    int nomin=180/m_ordre;
     if(m_orientation==0)
         std::cout << "Graphe non oriente"<<std::endl;
     else
         std::cout << "Graphe oriente"<<std::endl;
-    std::cout << "      Ordre = "<<m_ordre<<std::endl;
-    for(size_t i=0; i<m_sommet.size(); ++i)
-    {
-        std::cout << "          sommet :";
-        m_sommet[i]->afficher(svgout);
-    }
     std::cout << std::endl<< "      Taille = "<<m_taille<<std::endl;
     for(size_t i=0; i<m_arrete.size(); ++i)
     {
         std::cout << "          arretes :";
         m_arrete[i]->afficher(svgout,m_orientation);
     }
-
+    std::cout << "      Ordre = "<<m_ordre<<std::endl;
+    for(size_t i=0; i<m_sommet.size(); ++i)
+    {
+        for(size_t j=0; j<m_arrete.size(); ++j)
+        {
+            if(m_arrete[j]->calculdegre(m_sommet[i],0))
+                ++h;
+        }
+        classement.push_back(h);
+        h=0;
+    }
+    for(size_t i=0; i<m_sommet.size(); ++i)
+    {
+        std::cout << "          sommet :";
+        m_sommet[i]->afficher(svgout,classement,nomin);
+    }
     system("pause");  // afin de ne pas effacer la console
 }
 
@@ -181,7 +193,7 @@ std::vector <double> Graphe::vecteur_propre()
         for(int i=0; i<m_ordre; ++i)
             buffer[i]= c_Sommet[i]/m_lambda;
 
-        for(int i=0;i<m_ordre;++i)
+        for(int i=0; i<m_ordre; ++i)
             c_Sommet[i]=0;
 
         somme=0;
@@ -242,13 +254,14 @@ int Graphe::algo_dijkstra(int debut, int fin)
 
     que.push(initial);
 
-    for(int i=0;i<m_ordre;++i)
+    for(int i=0; i<m_ordre; ++i)
         dist[i]=999999;
 
     bool condi = false,condi2=false;
     dist[debut]=0;
 
-    while(!que.empty() && condi!=true){
+    while(!que.empty() && condi!=true)
+    {
 
         actuel = que.front();
         que.pop();
@@ -260,8 +273,10 @@ int Graphe::algo_dijkstra(int debut, int fin)
             continue;
         m_dec[temp] = true;
 
-        for(size_t i = 0; i < m_adjacent[temp].size(); ++i){
-            if(!m_dec[m_adjacent[temp][i]]){
+        for(size_t i = 0; i < m_adjacent[temp].size(); ++i)
+        {
+            if(!m_dec[m_adjacent[temp][i]])
+            {
                 Arrete nouveau;
                 nouveau.set_indice(m_adjacent[temp][i]);
                 while(!condi2)
@@ -273,7 +288,8 @@ int Graphe::algo_dijkstra(int debut, int fin)
                 if(condi2==true)
                     condi2 = false;
 
-                if(dist[nouveau.get_indice()] > dist[temp] + m_arrete[k]->get_poids()){
+                if(dist[nouveau.get_indice()] > dist[temp] + m_arrete[k]->get_poids())
+                {
                     dist[nouveau.get_indice()] = dist[temp] + m_arrete[k]->get_poids();
                 }
                 k=0;
@@ -286,22 +302,26 @@ int Graphe::algo_dijkstra(int debut, int fin)
 }
 
 std::vector <double> Graphe::centralite_proximite()
-{//faire le cas si il y a les ponderations + cas normalise et non normalise
+{
+    //faire le cas si il y a les ponderations + cas normalise et non normalise
     std::vector<double> somme;
     for(int i=0; i<m_ordre; ++i)
     {
         somme.push_back(0);
-        for(int j=0;j<m_ordre;++j)
-            if(j!=i){
-                if(m_ponderation == false){
+        for(int j=0; j<m_ordre; ++j)
+            if(j!=i)
+            {
+                if(m_ponderation == false)
+                {
                     parcour_DFS_no_ponderation(i,j,0);
                     somme[i] += m_nbr_aretes;
                     m_nbr_aretes = 0;
                 }
-                else if(m_ponderation==true){
+                else if(m_ponderation==true)
+                {
                     somme[i] += algo_dijkstra(i,j);
                 }
-                for(int i=0;i<100;++i)
+                for(int i=0; i<100; ++i)
                     m_dec[i]=false;
             }
     }
@@ -314,7 +334,7 @@ std::vector <double> Graphe::centralite_proximite()
 
 void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
 {
-    for(size_t i=0;i<pred[actuel].size();++i)
+    for(size_t i=0; i<pred[actuel].size(); ++i)
     {
         if(pred[actuel][i]!=-1)
             recup_pred(pred,pred[actuel][i],autre);
@@ -340,13 +360,14 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
     que.push(initial);
     pred[debut].push_back(-1);
 
-    for(int i=0;i<m_ordre;++i)
+    for(int i=0; i<m_ordre; ++i)
         dist[i]=999999;
 
     bool condi2=false;
     dist[debut]=0;
 
-    while(!que.empty()){
+    while(!que.empty())
+    {
         actuel = que.front();
         que.pop();
         temp = actuel.get_indice();
@@ -355,8 +376,10 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
             continue;
         m_dec[temp] = true;
 
-        for(size_t i = 0; i < m_adjacent[temp].size(); ++i){
-            if(!m_dec[m_adjacent[temp][i]]){
+        for(size_t i = 0; i < m_adjacent[temp].size(); ++i)
+        {
+            if(!m_dec[m_adjacent[temp][i]])
+            {
                 Arrete nouveau;
                 nouveau.set_indice(m_adjacent[temp][i]);
                 while(!condi2)
@@ -368,7 +391,8 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
                 if(condi2==true)
                     condi2 = false;
 
-                if(dist[nouveau.get_indice()] > dist[temp] + m_arrete[k]->get_poids()){
+                if(dist[nouveau.get_indice()] > dist[temp] + m_arrete[k]->get_poids())
+                {
                     dist[nouveau.get_indice()] = dist[temp] + m_arrete[k]->get_poids();
                     pred[nouveau.get_indice()].push_back(temp);
                 }
@@ -380,9 +404,10 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
         }
     }
 
-    for(int i=0;i<m_ordre;++i)
+    for(int i=0; i<m_ordre; ++i)
         if(i!=fin && i!=debut)
-            if(deja_vu[debut][i]==false && deja_vu[i][debut]==false){
+            if(deja_vu[debut][i]==false && deja_vu[i][debut]==false)
+            {
                 deja_vu[debut][i]=true;
                 recup_pred(pred,i,fin);
                 somme += (m_compteur*1.0)/(m_ppc*1.0);
@@ -394,31 +419,32 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
 }
 
 std::vector<double> Graphe::centralite_intermediarite()
-{//tablo somet deja fait + tableau sommet
+{
+    //tablo somet deja fait + tableau sommet
     std::vector<double> somme;
     bool deja_vu[50][50];
-    for(int i=0;i<m_ordre;++i)
+    for(int i=0; i<m_ordre; ++i)
         somme.push_back(0);
-    for(int i=0;i<50;++i)
-        for(int j=0;j<50;++j)
+    for(int i=0; i<50; ++i)
+        for(int j=0; j<50; ++j)
             deja_vu[i][j]=false;
 
-    for(int x=0;x<m_ordre;++x)
+    for(int x=0; x<m_ordre; ++x)
     {
 
-        for(int y=0;y<m_ordre;++y)
+        for(int y=0; y<m_ordre; ++y)
             if(y!=x)
             {
                 somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
-                for(int i=0;i<100;++i)
+                for(int i=0; i<100; ++i)
                     m_dec[i]=false;
             }
-        for(int i=0;i<50;++i)
-            for(int j=0;j<50;++j)
+        for(int i=0; i<50; ++i)
+            for(int j=0; j<50; ++j)
                 deja_vu[i][j]=false;
     }
 
-    for(int i=0;i<m_ordre;++i)
+    for(int i=0; i<m_ordre; ++i)
         somme[i] = (somme[i]*2)/(m_ordre*m_ordre - 3*m_ordre + 2);
 
     return somme;
@@ -560,22 +586,22 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
 
     flux >> ordre;
 
-    for(int i=0;i<ordre;++i)
+    for(int i=0; i<ordre; ++i)
     {
         flux >> temp;
         degre.push_back(temp);
     }
-    for(int i=0;i<ordre;++i)
+    for(int i=0; i<ordre; ++i)
     {
         flux >> temp;
         vecteur.push_back(temp);
     }
-    for(int i=0;i<ordre;++i)
+    for(int i=0; i<ordre; ++i)
     {
         flux >> temp;
         intermediaire.push_back(temp);
     }
-    for(int i=0;i<ordre;++i)
+    for(int i=0; i<ordre; ++i)
     {
         flux >> temp;
         proximite.push_back(temp);
@@ -584,7 +610,7 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
     system("pause");
     system("cls");
     std::cout<<"DIFFERENCE ENTRE LE INDICES PRECEDENTS ET LES ACTUELS : "<<std::endl<<std::endl;
-    for(size_t i = 1;i<ensemble.size();++i)
+    for(size_t i = 1; i<ensemble.size(); ++i)
     {
         if(i==1)
             std::cout<<"CENTRALITE DE DEGRE : ";
@@ -595,7 +621,7 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
         if(i==4)
             std::cout<<"CENTRALITE DE PROXIMITE : ";
 
-        for(size_t j = 0;j<ensemble[i].size();++j)
+        for(size_t j = 0; j<ensemble[i].size(); ++j)
         {
             if(i==1)
                 printf("%.2f",degre[j]-ensemble[i][j]);
