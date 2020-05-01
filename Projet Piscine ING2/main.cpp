@@ -76,6 +76,7 @@ int main()
         std::cout << "Rentrez le nom du fichier" << std::endl;
         std::cin>>nomFichier;
     }
+    system("cls");
     Graphe mongraphe(nomFichier);
     while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
     {
