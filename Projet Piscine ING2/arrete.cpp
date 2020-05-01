@@ -29,7 +29,6 @@ void Arrete::afficher(Svgfile &svgout, int orientation)  // recoit le fichier sv
         angle=-acos((x1*x2)/(100*sqrt(x2*x2+y2*y2)));
         angle=angle-3.14159265359;
         //angle=angle*(180/3.14159265359);
-        std::cout<<angle<< std::endl;
         svgout.addTriangle(m_s2->GetX()*100, m_s2->GetY()*100, (m_s2->GetX()*100)+10*cos(angle-3.14159265359/8), (m_s2->GetY()*100)+10*sin(angle-3.14159265359/8), (m_s2->GetX()*100)+10*cos(angle+3.14159265359/8), (m_s2->GetY()*100)+10*sin(angle+3.14159265359/8), "blue");
     }
 }
@@ -74,12 +73,21 @@ int Arrete::calculdegre(Sommet* sommet, int orientation)
     return 0;
 }
 
-bool Arrete::check_Sommets(Sommet* s1,Sommet* s2)
+bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation)
 {
-    if((s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
-       || (s1->GetIndice()==m_s2->GetIndice() && s2->GetIndice()==m_s1->GetIndice()))
-       return true;
-    else return false;
+    if(orientation==0)
+    {
+        if((s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
+        || (s1->GetIndice()==m_s2->GetIndice() && s2->GetIndice()==m_s1->GetIndice()))
+            return true;
+        else return false;
+    }
+    else if(orientation==1)
+    {
+        if(s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
+            return true;
+        else return false;
+    }
 }
 
 void Arrete::effacer_adj(std::vector <int> m_adjacent[100])
