@@ -26,10 +26,15 @@ void Arrete::afficher(Svgfile &svgout, int orientation)  // recoit le fichier sv
         y1=0;
         x2=(m_s2->GetX()*100)-(m_s1->GetX()*100);
         y2=(m_s2->GetY()*100)-(m_s1->GetY()*100);
-        angle=-acos((x1*x2)/(100*sqrt(x2*x2+y2*y2)));
+        angle=acos((x1*x2)/(100*sqrt(x2*x2+y2*y2)));
         angle=angle-3.14159265359;
+        if (y2<0)
+        {
+            angle=-angle;
+        }
         //angle=angle*(180/3.14159265359);
         std::cout<<angle<< std::endl;
+        system("pause");
         svgout.addTriangle(m_s2->GetX()*100, m_s2->GetY()*100, (m_s2->GetX()*100)+10*cos(angle-3.14159265359/8), (m_s2->GetY()*100)+10*sin(angle-3.14159265359/8), (m_s2->GetX()*100)+10*cos(angle+3.14159265359/8), (m_s2->GetY()*100)+10*sin(angle+3.14159265359/8), "blue");
     }
 }
