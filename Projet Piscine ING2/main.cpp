@@ -31,6 +31,7 @@ int main()
     std::string nomFichier;    // on permet � l'utilisateur de choisir le fichier qu'il veut ouvrir
     std::cin>>nomFichier;
     Graphe mongraphe(nomFichier);
+    mongraphe.k_connexite();
     while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu �nonnc� plus haut
     {
         choix=menu();
@@ -47,7 +48,7 @@ int main()
             indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
             break;
         case 4:
-            mongraphe.connexite();
+            mongraphe.connexite(1);
             break;
         case 5:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);

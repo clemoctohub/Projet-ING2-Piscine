@@ -21,6 +21,14 @@ class Arrete
         void afficher();
         void set_poids(int poids);
         void set_indice(int indice);
+        int get_s1()
+        {
+            return m_s1->GetIndice();
+        }
+        int get_s2()
+        {
+            return m_s2->GetIndice();
+        }
         int get_poids()
         {
             return m_poids;
@@ -32,6 +40,7 @@ class Arrete
         bool check_Sommets(Sommet* s1,Sommet* s2);
         int calculdegre(Sommet* sommet, int orientation);
         void effacer_adj(std::vector <int> m_adjacent[100]);
+        void add_adjacent(std::vector <int> m_adjacent[100],Arrete* aretes);
         void afficherIndice();
 };
 

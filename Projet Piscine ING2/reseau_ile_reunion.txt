@@ -1,0 +1,12 @@
+0
+12
+0 St-Denis 5 1
+1 Aeroport 6 2
+2 St-Andre 8 3
+3 St-Benoit 8 4
+4 St-Rose 7 9
+5 St-Pierre 6 8
+6 Universite 6 7
+7 St-Louis 5 8
+8 Eglise 5 7
+9

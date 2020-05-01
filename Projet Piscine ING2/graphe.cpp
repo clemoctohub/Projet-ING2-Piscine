@@ -54,6 +54,63 @@ Graphe::Graphe(std::string nomFichier)
     m_lambda = 0;
 }
 
+void Graphe::k_connexite()
+{
+    int minimun=999999,index=0,k=0,x=0;
+    bool condi = false, condi2 = false;
+    bool etat;
+    std::vector<Arrete*> aretes;
+
+    for(int i = 0;i<m_ordre;++i)
+        if(minimun>m_adjacent[i].size())
+        {
+            minimun = m_adjacent[i].size();
+            index = i;
+        }
+
+    while(condi==false)
+    {
+        while(!condi2)
+        {
+            condi2 = m_arrete[k]->check_Sommets(m_sommet[index],m_sommet[m_adjacent[index][x]]);
+            if(!condi2)
+                ++k;
+        }
+        if(condi2==true)
+        {
+            aretes.push_back(m_arrete[k]);
+            condi2=false;
+        }
+        //suppr
+        m_arrete[k]->effacer_adj(m_adjacent);
+        m_arrete.erase(m_arrete.begin()+k);
+        m_taille--;
+        etat = connexite(0);
+
+        if(etat==false)
+        {
+            ++x;
+        }
+        else if(etat==true)
+        {
+            condi = true;
+        }
+        k=0;
+    }
+
+    std::cout<<"Le composant est "<<aretes.size()<<"-aretes connexes, il faut supprimer les aretes : ";
+    for(int i=0;i<aretes.size();++i)
+    {
+        std::cout<<aretes[i]->get_indice()<<" ";
+        ++m_taille;
+        m_arrete.insert(m_arrete.begin()+aretes[i]->get_indice(),aretes[i]);
+        m_adjacent[aretes[i]->get_s1()].push_back(aretes[i]->get_s2());
+        m_adjacent[aretes[i]->get_s2()].push_back(aretes[i]->get_s1());
+    }
+    system("pause");
+
+}
+
 void Graphe::afficher()
 {
     Svgfile svgout;
@@ -396,19 +453,20 @@ std::vector <int> Graphe::parcourBFS(int start)
     etats[start]=1;
     file.push_back(start);
 
-        while(file.size())
-        {
-            m_sommet[file[0]]->BFS(etats,predecesseurs,file,this);
-        }
+    while(file.size())
+    {
+        m_sommet[file[0]]->BFS(etats,predecesseurs,file,this);
+    }
     return predecesseurs;
 }
 
 
-void Graphe::connexite()
+bool Graphe::connexite(int truc)
 {
     int nb=0;
     int parcours=0;
     std::vector <int> etats;
+    bool condi = false;
     std::vector <int> predecesseurs;
     for(int i=0; i<m_ordre; ++i)
     {
@@ -419,7 +477,8 @@ void Graphe::connexite()
         nb++;
         predecesseurs=this->parcourBFS(parcours);
         predecesseurs[parcours]=parcours;
-        this->affichercompo(predecesseurs,nb);
+        if(truc==1)
+            this->affichercompo(predecesseurs,nb);
         for(size_t i=0; i<predecesseurs.size(); ++i)
         {
             if(predecesseurs[i]!=-1)
@@ -432,11 +491,14 @@ void Graphe::connexite()
         {
             if(etats[i]==0 && parcours==-1)
             {
+                condi = true;
                 parcours=i;
             }
         }
     }
-    system("pause");
+    if(truc==1)
+        system("pause");
+    return condi;
 }
 
 std::vector <int> Graphe::get_adjacent(int sommet)

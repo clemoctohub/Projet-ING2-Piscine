@@ -3,6 +3,7 @@
 #include <string>
 #include "math.h"
 #include <cmath>
+#include <vector>
 
 Arrete::Arrete(Sommet* s1, Sommet* s2, int indice, int poids)
     :m_s1{s1},m_s2{s2},m_indice{indice},m_poids{poids}
@@ -83,16 +84,22 @@ bool Arrete::check_Sommets(Sommet* s1,Sommet* s2)
 
 void Arrete::effacer_adj(std::vector <int> m_adjacent[100])
 {
-     for(size_t i=0; i<m_adjacent[m_s1->GetIndice()].size(); ++i)
-    {
+    for(size_t i=0; i<m_adjacent[m_s1->GetIndice()].size(); ++i)
         if(m_adjacent[m_s1->GetIndice()][i]==m_s2->GetIndice())
-        {
             m_adjacent[m_s1->GetIndice()].erase(m_adjacent[m_s1->GetIndice()].begin()+i);
-        }
-    }
+
     for(size_t i=0; i<m_adjacent[m_s2->GetIndice()].size(); ++i)
-    {
         if(m_adjacent[m_s2->GetIndice()][i]==m_s1->GetIndice())
             m_adjacent[m_s2->GetIndice()].erase(m_adjacent[m_s2->GetIndice()].begin()+i);
-    }
+}
+
+void Arrete::add_adjacent(std::vector <int> m_adjacent[100],Arrete* aretes)
+{
+    for(size_t i=0; i<m_adjacent[m_s1->GetIndice()].size(); ++i)
+        if(m_adjacent[m_s1->GetIndice()][i]==m_s2->GetIndice())
+            m_adjacent[m_s1->GetIndice()].insert(m_adjacent[m_s1->GetIndice()].begin()+i,aretes->get_indice());
+
+    for(size_t i=0; i<m_adjacent[m_s2->GetIndice()].size(); ++i)
+        if(m_adjacent[m_s2->GetIndice()][i]==m_s1->GetIndice())
+            m_adjacent[m_s2->GetIndice()].insert(m_adjacent[m_s2->GetIndice()].begin()+i,aretes->get_indice());
 }
