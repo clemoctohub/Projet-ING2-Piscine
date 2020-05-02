@@ -9,23 +9,23 @@
 class Arrete
 {
 private:
-    Sommet* m_s1;   // sommet d'origine (dans le cas ou le graphe est oriente)
-    Sommet* m_s2;   // sommet d'arrive (dans le cas ou le graphe est oriente)
-    int m_indice;   // num�ro de l'arete
-    int m_poids;    // distance, ponderation de l'arete
+    Sommet* m_s1;   /// sommet d'origine (dans le cas ou le graphe est oriente)
+    Sommet* m_s2;   /// sommet d'arrive (dans le cas ou le graphe est oriente)
+    int m_indice;   /// num�ro de l'arete
+    int m_poids;    /// distance, ponderation de l'arete
 public:
     Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
     Arrete(){}
     ~Arrete(){}
-    void afficher();
-    void afficherIndice();
+    void afficher(); /// affiche le poids de l'arete
+    void afficherIndice(); /// affiche les indices des sommets de l'arete
     void set_poids(int poids);
     void set_indice(int indice);
-    void afficher(Svgfile &svgout,int orientation);
-    void effacer_adj(std::vector <int> m_adjacent[100]);
-    void add_adjacent(std::vector <int> m_adjacent[100],Arrete* aretes);
-    bool check_Sommets(Sommet* s1,Sommet* s2,int orientation);
-    int calculdegre(Sommet* sommet, int orientation);
+    void afficher(Svgfile &svgout,int orientation); /// affiche l'arete en svg et dans la console
+    void effacer_adj(std::vector <int> m_adjacent[100]); /// efface les adjacents d'une arete
+    void add_adjacent(std::vector <int> m_adjacent[100],Arrete* aretes); /// ajoute les adjacents lorsqu'il y a une arete
+    bool check_Sommets(Sommet* s1,Sommet* s2,int orientation); /// permet de verifier l'existance d'une arete
+    int calculdegre(Sommet* sommet, int orientation); /// booleen verifiant l'existance d'une arete sur un sommet
     int get_s1()
     {
         return m_s1->GetIndice();
@@ -44,4 +44,4 @@ public:
     }
 };
 
-#endif // ARRETE_H_INCLUDED
+#endif /// ARRETE_H_INCLUDED

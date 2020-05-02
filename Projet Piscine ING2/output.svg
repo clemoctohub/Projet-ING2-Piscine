@@ -85,25 +85,31 @@
 <text x="1905" y="15" fill="lightgrey" >1900</text>
 <line x1="2000" y1="0" x2="2000" y2="2000" stroke="lightgrey" />
 <text x="2005" y="15" fill="lightgrey" >2000</text>
-<line x1="200" y1="100" x2="200" y2="200" stroke="blue" />
-<line x1="100" y1="200" x2="200" y2="200" stroke="blue" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="blue" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="blue" />
-<circle cx="200" cy="100" r="4" fill="rgb(255,111,111)" />
+<line x1="200" y1="100" x2="400" y2="100" stroke="blue" />
+<polygon points=" 400,100 388.913,104.592 388.913,95.4078" style="fill:blue" />
+<line x1="200" y1="200" x2="200" y2="400" stroke="blue" />
+<polygon points=" 200,400 195.408,388.913 204.592,388.913" style="fill:blue" />
+<line x1="200" y1="400" x2="400" y2="100" stroke="blue" />
+<polygon points=" 400,100 397.671,111.772 390.029,106.677" style="fill:blue" />
+<line x1="500" y1="300" x2="200" y2="200" stroke="blue" />
+<polygon points=" 200,200 211.97,199.149 209.065,207.862" style="fill:blue" />
+<line x1="500" y1="300" x2="200" y2="400" stroke="blue" />
+<polygon points=" 200,400 209.065,392.138 211.97,400.851" style="fill:blue" />
+<circle cx="200" cy="100" r="4" fill="rgb(255,219,219)" />
 <text x="210" y="115" fill="black" >A</text>
 <text x="185" y="90" fill="green" >0</text>
-<circle cx="100" cy="200" r="4" fill="rgb(255,111,111)" />
-<text x="110" y="215" fill="black" >B</text>
-<text x="85" y="190" fill="green" >1</text>
-<circle cx="200" cy="200" r="4" fill="rgb(255,75,75)" />
+<circle cx="400" cy="100" r="4" fill="rgb(255,111,111)" />
+<text x="410" y="115" fill="black" >B</text>
+<text x="385" y="90" fill="green" >1</text>
+<circle cx="200" cy="200" r="4" fill="rgb(255,111,111)" />
 <text x="210" y="215" fill="black" >C</text>
 <text x="185" y="190" fill="green" >2</text>
-<circle cx="300" cy="200" r="4" fill="rgb(255,111,111)" />
-<text x="310" y="215" fill="black" >D</text>
-<text x="285" y="190" fill="green" >3</text>
-<circle cx="200" cy="300" r="4" fill="rgb(255,111,111)" />
-<text x="210" y="315" fill="black" >E</text>
-<text x="185" y="290" fill="green" >4</text>
+<circle cx="200" cy="400" r="4" fill="rgb(255,75,75)" />
+<text x="210" y="415" fill="black" >D</text>
+<text x="185" y="390" fill="green" >3</text>
+<circle cx="500" cy="300" r="4" fill="rgb(255,111,111)" />
+<text x="510" y="315" fill="black" >E</text>
+<text x="485" y="290" fill="green" >4</text>
 
 
 </svg>

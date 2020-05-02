@@ -16,21 +16,21 @@ void Arrete::afficher(Svgfile &svgout, int orientation)  /// recoit le fichier s
     std::cout<<m_indice<<"/ sommet 1 :"<<m_s1->GetIndice()<<" / sommet 2 : "<<m_s2->GetIndice()<<" / poids : "<<m_poids<<std::endl;
     if (orientation==0)   /// si le graphe n'est pas oriente
     {
-        svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
+        svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue"); /// on dessine l'arete
     }
-    else  /// si le graphe est orient�
+    else  /// si le graphe est oriente
     {
-        svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
-        double x1,x2,y2,angle=0;
-        x1=100;
-        x2=(m_s2->GetX()*100)-(m_s1->GetX()*100);
+        svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue"); /// on dessine l'arete
+        double x2,y2,angle=0;
+        x2=(m_s2->GetX()*100)-(m_s1->GetX()*100); /// on "deplace" le vecteur de l'arete pour le mettre a 0
         y2=(m_s2->GetY()*100)-(m_s1->GetY()*100);
-        angle=acos((x1*x2)/(100*sqrt(x2*x2+y2*y2)));
-        angle=angle-3.14159265359;
-        if (y2<0)
+        angle=acos((100*x2)/(100*sqrt(x2*x2+y2*y2))); /// on calcule l'angle entre le vecteur et l'axe des abcisses
+        angle=angle-3.14159265359; /// on enleve pi afin de calculer l'angle complementaire de ce dernier
+        if (y2<0) /// si l'arete est orientee vers le haut
         {
-            angle=-angle;
+            angle=-angle; /// on prend l'inverse de son angle
         }
+        ///pour les valeurs des 2 points manquant du triangle pour dessiner la fleche, on enleve/rajoute un peut de valeur a l'angle afin d'avoir l'ecart entre les 2 points
         svgout.addTriangle(m_s2->GetX()*100, m_s2->GetY()*100, (m_s2->GetX()*100)+12*cos(angle-3.14159265359/8), (m_s2->GetY()*100)+12*sin(angle-3.14159265359/8), (m_s2->GetX()*100)+12*cos(angle+3.14159265359/8), (m_s2->GetY()*100)+12*sin(angle+3.14159265359/8), "blue");
     }
 }
@@ -74,16 +74,16 @@ int Arrete::calculdegre(Sommet* sommet, int orientation)
     return 0;
 }
 
-bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation) /// permet de recuperer l'arete entre deux sommets
+bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation) /// permet de verifier l'existance d'une arete
 {
-    if(orientation==0)
+    if(orientation==0) /// si le graphe n'est pas oriente
     {
         if((s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
         || (s1->GetIndice()==m_s2->GetIndice() && s2->GetIndice()==m_s1->GetIndice()))
             return true;
         else return false;
     }
-    else if(orientation==1)
+    else if(orientation==1) /// si le graphe est oriente
     {
         if(s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
             return true;
@@ -103,7 +103,7 @@ void Arrete::effacer_adj(std::vector <int> m_adjacent[100]) /// efface les adjac
             m_adjacent[m_s2->GetIndice()].erase(m_adjacent[m_s2->GetIndice()].begin()+i);
 }
 
-void Arrete::add_adjacent(std::vector <int> m_adjacent[100],Arrete* aretes)
+void Arrete::add_adjacent(std::vector <int> m_adjacent[100],Arrete* aretes) /// ajoute les adjacents lorsqu'il y a une arete
 {
     for(size_t i=0; i<m_adjacent[m_s1->GetIndice()].size(); ++i)
         if(m_adjacent[m_s1->GetIndice()][i]==m_s2->GetIndice())
