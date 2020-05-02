@@ -755,7 +755,7 @@ void Graphe::suppr_arete(int suppr)
 {
     if (suppr==-1)
     {
-        int i=0;
+        int i=0,maximun=0;
         size_t choix=0;
         std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
         for(size_t i=0; i<m_arrete.size(); ++i)
@@ -763,8 +763,13 @@ void Graphe::suppr_arete(int suppr)
             std::cout << "    arretes ";
             m_arrete[i]->afficherIndice();
         }
+        for(int i=0;i<m_arrete.size();++i)
+        {
+            if(maximun < m_arrete[i]->get_indice())
+                maximun = m_arrete[i]->get_indice();
+        }
         std::cin>>choix;
-        while(choix<0 || choix>m_arrete.size())
+        while(choix<0 || choix>maximun)
         {
             std::cout << "Veuillez choisir une arete existante" << std::endl;
             std::cin >> choix;
@@ -876,4 +881,9 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
         std::cout<<std::endl;
     }
     system("pause");
+}
+
+void Graphe::tarjan()
+{
+
 }
