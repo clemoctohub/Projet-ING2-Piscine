@@ -424,7 +424,6 @@ int Graphe::algo_dijkstra(int debut, int fin)
 
 std::vector <double> Graphe::centralite_proximite()
 {
-    ///faire le cas si il y a les ponderations + cas normalise et non normalise
     std::vector<double> somme;
     for(int i=0; i<m_ordre; ++i)
     {
@@ -432,9 +431,9 @@ std::vector <double> Graphe::centralite_proximite()
         for(int j=0; j<m_ordre; ++j)
             if(j!=i)
             {
-                if(m_ponderation == false)
+                if(m_ponderation == false) ///On adapte le cose en fonction de la ponderation
                 {
-                    parcour_DFS_no_ponderation(i,j,0);
+                    parcour_DFS_no_ponderation(i,j,0); ///On utilise le DFS pour cet indice
                     somme[i] += m_nbr_aretes;
                     m_nbr_aretes = 0;
                 }
@@ -463,7 +462,7 @@ std::vector <double> Graphe::centralite_proximite()
 }
 
 
-void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
+void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre) ///Recuperer les prececeurs d'un sommet
 {
     if(pred[actuel].size()>0)
     {
@@ -489,7 +488,7 @@ void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
     }
 }
 
-double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50])
+double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50]) ///Algoritme de dijkstra adapter pour l'indice d'intermediarite
 {
     std::queue<Arrete> que;
     Arrete actuel,initial;
@@ -607,7 +606,7 @@ std::vector<double> Graphe::centralite_intermediarite()
                 }
             for(int i=0; i<50; ++i)
                 for(int j=0; j<50; ++j)
-                    deja_vu[i][j]=false;
+                    deja_vu[i][j]=false; ///On remet les cases du tableau a false pour la prochaine boucle
         }
         else if(m_adjacent[x].size()==0)
         {
@@ -622,7 +621,7 @@ std::vector<double> Graphe::centralite_intermediarite()
 }
 
 
-void Graphe::affichercompo(std::vector <int> predecesseurs,int nb)
+void Graphe::affichercompo(std::vector <int> predecesseurs,int nb) ///Fonction affichage des composantes connexes
 {
     std::cout << "Composante connexe " << nb << ": ";
     for(size_t i=0; i<predecesseurs.size(); ++i)
@@ -658,7 +657,7 @@ std::vector <int> Graphe::parcourBFS(int start)
 }
 
 
-bool Graphe::connexite(int truc)
+bool Graphe::connexite(int truc) ///Calcul des composantes connexes
 {
     int nb=0;
     int parcours=0;
@@ -704,7 +703,7 @@ std::vector <int> Graphe::get_adjacent(int sommet)
 }
 
 
-void Graphe::afficherBFS(std::vector <int> predecesseur, int start)
+void Graphe::afficherBFS(std::vector <int> predecesseur, int start) ///Fonction d'affichage du BFS
 {
     for(size_t i=0; i<m_sommet.size(); ++i)
     {
@@ -720,9 +719,9 @@ void Graphe::afficherBFS(std::vector <int> predecesseur, int start)
     system("pause");
 }
 
-void Graphe::suppr_arete(int suppr)
+void Graphe::suppr_arete(int suppr) ///Recois en parametre l'arete a effacer
 {
-    if (suppr==-1)
+    if (suppr==-1) ///Condition pour utiliser cette mathode de plusieurs manieres
     {
         size_t i=0,maximun=0;
         size_t choix=0;
@@ -738,7 +737,7 @@ void Graphe::suppr_arete(int suppr)
                 maximun = m_arrete[i]->get_indice();
         }
         std::cin>>choix;
-        while(choix<0 || choix>maximun)
+        while(choix<0 || choix>maximun) ///Blindage
         {
             std::cout << "Veuillez choisir une arete existante" << std::endl;
             std::cin >> choix;
