@@ -58,7 +58,6 @@ std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre
 {
     int sauv=0;
     std::vector <std::vector <double>> ensemble;
-     std::cout<<"cc"<<std::endl;
     ensemble=mongraphe.calculdegre();
     ensemble.push_back(mongraphe.vecteur_propre());
     ensemble.push_back(mongraphe.centralite_intermediarite());

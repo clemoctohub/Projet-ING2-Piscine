@@ -93,7 +93,7 @@ void boucle(int choix, Graphe mongraphe)
             indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
             break;
         case 4:
-            mongraphe.connexite(-1);
+            mongraphe.connexite(1);
             break;
         case 5:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);

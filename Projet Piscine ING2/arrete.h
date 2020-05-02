@@ -17,8 +17,6 @@ class Arrete
         Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
         Arrete(){}
         ~Arrete(){
-            delete m_s1;
-            delete m_s2;
         };
         void afficher(Svgfile &svgout,int orientation);
         void afficher();

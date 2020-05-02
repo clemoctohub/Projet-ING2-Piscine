@@ -540,7 +540,6 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
             }
         }
     }
-
     for(int i=0; i<m_ordre; ++i)
         if(i!=fin && i!=debut)
         {
@@ -573,7 +572,6 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
 
 std::vector<double> Graphe::centralite_intermediarite()
 {
-    //tablo somet deja fait + tableau sommet
     std::vector<double> somme;
     bool deja_vu[50][50];
     for(int i=0; i<m_ordre; ++i)
@@ -603,7 +601,6 @@ std::vector<double> Graphe::centralite_intermediarite()
             for(int i=0; i<50; ++i)
                 for(int j=0; j<50; ++j)
                     deja_vu[i][j]=false;
-
         }
         else if(m_adjacent[x].size()==0)
         {
@@ -762,7 +759,7 @@ void Graphe::suppr_arete(int suppr)
 
 void Graphe::suppr_sommet()
 {
-    size_t choix=0;
+    size_t choix=0,maximun=0;
     int k=0;
     std::cout<<"Saisir l'indice du sommet que vous souhaitez supprimer"<<std::endl;
     for(size_t i=0; i<m_sommet.size(); ++i)
@@ -771,8 +768,13 @@ void Graphe::suppr_sommet()
         m_sommet[i]->affichernum();
         std::cout<<std::endl;
     }
+    for(int i=0;i<m_arrete.size();++i)
+    {
+        if(maximun < m_arrete[i]->get_indice())
+            maximun = m_arrete[i]->get_indice();
+    }
     std::cin>>choix;
-    while(choix<0 || choix>m_arrete.size())
+    while(choix<0 || choix>maximun)
     {
         std::cout << "Veuillez choisir une arete existante" << std::endl;
         std::cin >> choix;
@@ -788,6 +790,20 @@ void Graphe::suppr_sommet()
         {
             suppr_arete(i);
         }
+        for (int i=0; i<taille_arete; i++)
+    {
+        }
+    }
+    for (int i=0; i<taille_arete; i++)
+    {
+        if (m_arrete[i]->calculdegre(m_sommet[k],0))
+        {
+            suppr_arete(i);
+        }
+    }
+    if(m_orientation==1)
+    {
+
     }
     m_sommet.erase(m_sommet.begin()+k);
     m_ordre--;
