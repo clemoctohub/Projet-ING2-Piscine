@@ -74,6 +74,41 @@ std::string menu2()  //menu d'affichage
         return fichier;
 }
 
+std::string menuPonderation()  //menu d'affichage pour le choix des ponderation
+{
+    int choix;
+    std::string fichier;
+    system("cls");
+    std::cout << "Choisissez un des fichiers suivants ou rentrer le nom du fichier :" << std::endl;
+    std::cout << std::endl;
+    std::cout << "1: ponderation_graphe1.txt" << std::endl;
+    std::cout << "2: ponderation_graphe2.txt" << std::endl;
+    std::cout << "3: ponderation_metro_lyon.txt" << std::endl;
+    std::cout << "4: Rentrer le nom du fichier a la main" << std::endl;
+    std::cin >> choix;
+    while(choix<1 || choix>4)
+    {
+        std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
+        std::cin >> choix;
+    }
+    switch(choix)
+        {
+        case 1:
+            fichier="ponderation_graphe1.txt"; // pour chaque action, nous appellons la methode ou la fonction qui correspond
+            break;
+        case 2:
+            fichier="ponderation_graphe2.txt";
+            break;
+        case 3:
+            fichier="ponderation_metro_lyon.txt";
+            break;
+        case 4:
+            fichier="rien";
+            break;
+        }
+    return fichier;
+}
+
 void boucle(int choix, Graphe mongraphe)
 {
         std::vector <std::vector <double>> ensemble;
@@ -86,7 +121,7 @@ void boucle(int choix, Graphe mongraphe)
             mongraphe.afficher(-1,ensemble);// pour chaque action, nous appellons la methode ou la fonction qui correspond
             break;
         case 2:
-            mongraphe.ajout_ponderation("ponderation.txt");
+            mongraphe.ajout_ponderation();
             mongraphe.afficher(-1,ensemble);
             break;
         case 3:

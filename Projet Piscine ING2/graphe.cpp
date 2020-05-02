@@ -111,7 +111,6 @@ void Graphe::k_connexite()
             compteur=0;
         }
     }
-
     if(m_orientation==0)
         while(condi==false)
         {
@@ -244,8 +243,15 @@ void Graphe::afficher(int indice, std::vector <std::vector <double>> ensemble)
     system("pause");  // afin de ne pas effacer la console
 }
 
-void Graphe::ajout_ponderation(std::string pondFichier)
+void Graphe::ajout_ponderation()
 {
+    std::string pondFichier;
+    pondFichier=menuPonderation();
+    if(pondFichier=="rien") // on permet a l'utilisateur de choisir le fichier qu'il veut ouvrir
+    {
+        std::cout << "Rentrez le nom du fichier" << std::endl;
+        std::cin>>pondFichier;
+    }
     if(m_ponderation==false)
     {
         std::ifstream ifs(pondFichier);

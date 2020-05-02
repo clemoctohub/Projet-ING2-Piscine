@@ -37,7 +37,7 @@ public:
         for(size_t i=0;i<m_sommet.size();++i)
             delete m_sommet[i];*/
     }
-    void ajout_ponderation(std::string pondFichier); // ajoute du fichier contenant les pond�rations
+    void ajout_ponderation(); // ajoute du fichier contenant les pond�rations
     std::vector <double> vecteur_propre();  // calcul de l'indice de vecteur propre
     void parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes); // parcour DFS sans pond�ration
     int algo_dijkstra(int debut, int fin);//calcul chemin le plus court en fonction ds poids des aretes
