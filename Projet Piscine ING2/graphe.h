@@ -63,6 +63,7 @@ public:
     void difference(std::vector <std::vector <double>> ensemble);
     bool get_ponderation();
     void suppr_sommet();
+    void tarjan();
 };
 
 #endif // GRAPHE_H_INCLUDED
