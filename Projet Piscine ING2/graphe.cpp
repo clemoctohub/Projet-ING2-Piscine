@@ -87,6 +87,7 @@ void Graphe::k_connexite()
                 for(int j=0;j<m_adjacent[i].size();++j)
                     if(m_adjacent[i][j]==index)
                     {
+
                         ++compteur;
                         pred2.push_back(i);
                         pred1.push_back(j);
@@ -206,7 +207,7 @@ bool Graphe::get_ponderation()
     return m_ponderation;
 }
 
-void Graphe::afficher(int choix)
+void Graphe::afficher(int indice, std::vector <std::vector <double>> ensemble)
 {
     Svgfile svgout;
     svgout.addGrid();
@@ -237,46 +238,9 @@ void Graphe::afficher(int choix)
     for(size_t i=0; i<m_sommet.size(); ++i)
     {
         std::cout << "          sommet :";
-        m_sommet[i]->afficher(svgout,classement,nomin);
+        m_sommet[i]->afficher(svgout,classement,nomin,this,indice,ensemble);
     }
     system("pause");  // afin de ne pas effacer la console
-    /*if (choix==2)
-    {
-        std::vector <std::vector <double>> ensemble;
-        int choix1=0;
-        ensemble=indicedecentralite(*this, m_ordre, 3);
-        while (choix1!=5)
-        {
-            system("cls");
-            std::cout << "Choisissez l'indice que vous voulez afficher :" << std::endl;
-            std::cout << std::endl;
-            std::cout << "1: Indice de centralite de degre" << std::endl;
-            std::cout << "2: Indice de vecteur propre" << std::endl;
-            std::cout << "3: Indice de proximite" << std::endl;
-            std::cout << "4: Indice de centralite d'intermediarite" << std::endl;
-            std::cout << "5: Retour" << std::endl;
-            std::cin >> choix1;
-
-
-            for(size_t i=0; i<ensemble[choix1].size(); i++)
-            {
-                    std::cout<< ensemble[choix1][i]<<std::endl;
-                    svgout.addText(m_sommet[i]->GetX(),m_sommet[i]->GetY(),ensemble[choix1][i],"black");
-            }
-            system("pause");
-
-            switch(choix1)
-            {
-            case 1:
-                for(size_t i=0; i<ensemble[choix1].size(); i++)
-                {
-                    svgout.addText(m_sommet[i]->GetX()*100,m_sommet[i]->GetY()*100,ensemble[choix1][i],"black");
-                }
-                break;
-
-            }
-        }
-    }*/
 }
 
 void Graphe::ajout_ponderation(std::string pondFichier)

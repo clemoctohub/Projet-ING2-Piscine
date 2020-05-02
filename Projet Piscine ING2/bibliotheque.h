@@ -9,5 +9,6 @@ void afficher_indice(std::vector <std::vector <double>> v1,int ordre);
 void afficher_indice_svg(Graphe mongraphe);
 int menu(bool m_ponderation);
 std::string menu2();
+void menuAfficherIndiceSVG();
 
 #endif // BIBLIOTHEQUE_H_INCLUDED
