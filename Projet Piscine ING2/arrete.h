@@ -37,7 +37,7 @@ class Arrete
         {
             return m_indice;
         }
-        bool check_Sommets(Sommet* s1,Sommet* s2);
+        bool check_Sommets(Sommet* s1,Sommet* s2,int orientation);
         int calculdegre(Sommet* sommet, int orientation);
         void effacer_adj(std::vector <int> m_adjacent[100]);
         void add_adjacent(std::vector <int> m_adjacent[100],Arrete* aretes);

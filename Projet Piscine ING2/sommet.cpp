@@ -16,7 +16,7 @@ void Sommet::afficher(Svgfile &svgout, std::vector <int> classement, int nomin)
         if(classement[i]>classement[m_indice])
             ++compteur;
     }
-    std::cout<<m_indice<<" "<< m_nom <<" "<<m_x<<" "<<m_y<< std::endl;
+    std::cout<<m_indice<<" :    nom : "<< m_nom <<", X : "<<m_x<<", Y : "<<m_y<< std::endl;
     svgout.addDisk(m_x*100, m_y*100, 4, svgout.makeRGB(255,75+(nomin*compteur),75+(nomin*compteur)));
     svgout.addText(m_x*100+10, m_y*100+15, m_nom, "black");
     svgout.addText(m_x*100-15, m_y*100-10, m_indice, "green");

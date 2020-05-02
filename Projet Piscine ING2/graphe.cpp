@@ -66,45 +66,120 @@ Graphe::Graphe(std::string nomFichier)
 void Graphe::k_connexite()
 {
     size_t minimun=999999,index=0,k=0,x=0;
+    int compteur=0,memoire;
     bool condi = false, condi2 = false;
     bool etat;
+    std::vector<int> pred1,pred2;
     std::vector<Arrete*> aretes;
 
-    for(int i = 0; i<m_ordre; ++i)
-        if(minimun>m_adjacent[i].size())
-        {
-            minimun = m_adjacent[i].size();
-            index = i;
-        }
-
-    while(condi==false)
+    if(m_orientation==0)
+        for(int i = 0;i<m_ordre;++i)
+            if(minimun>m_adjacent[i].size() && m_adjacent[i].size()>0)
+            {
+                minimun = m_adjacent[i].size();
+                index = i;
+            }
+    else if(m_orientation==1)
     {
-        while(!condi2)
+        for(int index=0;index<m_ordre;++index)
         {
-            condi2 = m_arrete[k]->check_Sommets(m_sommet[index],m_sommet[m_adjacent[index][x]]);
-            if(!condi2)
-                ++k;
-        }
-        if(condi2==true)
-        {
-            aretes.push_back(m_arrete[k]);
-            condi2=false;
-        }
-        //suppr
-        m_arrete[k]->effacer_adj(m_adjacent);
-        m_arrete.erase(m_arrete.begin()+k);
-        m_taille--;
-        etat = connexite(0);
+            for(int i = 0;i<m_ordre;++i)
+                for(int j=0;j<m_adjacent[i].size();++j)
+                    if(m_adjacent[i][j]==index)
+                    {
+                        ++compteur;
+                        pred2.push_back(i);
+                        pred1.push_back(j);
+                    }
 
-        if(etat==false)
-        {
-            ++x;
+            if(minimun>m_adjacent[i].size()+compteur)
+            {
+                minimun = m_adjacent[i].size()+compteur;
+                memoire = compteur;
+                index = i;
+            }
+            else
+            {
+                for(int i=0;i<pred1.size();++i)
+                {
+                    pred1.erase(pred1.begin()+i);
+                    pred2.erase(pred2.begin()+i);
+                }
+            }
+            compteur=0;
         }
-        else if(etat==true)
+    }
+
+    if(m_orientation==0)
+        while(condi==false)
         {
-            condi = true;
+            while(!condi2)
+            {
+                condi2 = m_arrete[k]->check_Sommets(m_sommet[index],m_sommet[m_adjacent[index][x]],m_orientation);
+                if(!condi2)
+                    ++k;
+            }
+            if(condi2==true)
+            {
+                aretes.push_back(m_arrete[k]);
+                condi2=false;
+            }
+
+            //suppr
+            m_arrete[k]->effacer_adj(m_adjacent);
+
+            m_arrete.erase(m_arrete.begin()+k);
+            m_taille--;
+            etat = connexite(0);
+            if(etat==false)
+            {
+                ++x;
+            }
+            else if(etat==true)
+            {
+                condi = true;
+            }
+            k=0;
         }
-        k=0;
+    else if(m_orientation==1)
+    {
+        int temp = m_adjacent[index].size();
+        for(int i=0;i<temp;++i)
+        {
+            while(!condi2)
+            {
+                condi2 = m_arrete[k]->check_Sommets(m_sommet[index],m_sommet[m_adjacent[index][i]],m_orientation);
+                if(!condi2)
+                    ++k;
+            }
+            if(condi2==true)
+            {
+                aretes.push_back(m_arrete[k]);
+                condi2=false;
+            }
+            m_arrete[k]->effacer_adj(m_adjacent);
+            m_arrete.erase(m_arrete.begin()+k);
+            m_taille--;
+            k=0;
+        }
+        for(int i=0;i<memoire;++i)
+        {
+            while(!condi2)
+            {
+                condi2 = m_arrete[k]->check_Sommets(m_sommet[pred2[i]],m_sommet[m_adjacent[pred2[i]][pred1[i]]],m_orientation);
+                if(!condi2)
+                    ++k;
+            }
+            if(condi2==true)
+            {
+                aretes.push_back(m_arrete[k]);
+                condi2=false;
+            }
+            m_arrete[k]->effacer_adj(m_adjacent);
+            m_arrete.erase(m_arrete.begin()+k);
+            m_taille--;
+            k=0;
+        }
     }
 
     std::cout<<"Le composant est "<<aretes.size()<<"-aretes connexes, il faut supprimer les aretes : ";
@@ -206,27 +281,39 @@ void Graphe::afficher(int choix)
 
 void Graphe::ajout_ponderation(std::string pondFichier)
 {
-    std::ifstream ifs(pondFichier);
-    if(!ifs)
-        std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
-
-    int taille,indice,poids;
-
-    ifs >> taille;
-
-    for(int i=0; i<taille; ++i)
+    if(m_ponderation==false)
     {
-        ifs >> indice >> poids;
-        m_arrete[indice]->set_poids(poids);
-    }
+        std::ifstream ifs(pondFichier);
+        if(!ifs)
+            std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
 
-    m_ponderation = true;
+        int taille,indice,poids;
+
+        ifs >> taille;
+
+        for(int i=0; i<taille; ++i)
+        {
+            ifs >> indice >> poids;
+            m_arrete[indice]->set_poids(poids);
+        }
+        ifs.close();
+        m_ponderation = true;
+    }
+    else if(m_ponderation==true)
+    {
+        for(int i=0; i<m_taille; ++i)
+        {
+            m_arrete[i]->set_poids(1);
+        }
+        m_ponderation = false;
+    }
 }
 
 std::vector <double> Graphe::vecteur_propre()
 {
     int n;
     std::vector <double> buffer;
+    bool condi = false;
     for(n=0; n<m_ordre; ++n)
         buffer.push_back(1);
 
@@ -235,24 +322,33 @@ std::vector <double> Graphe::vecteur_propre()
     for(int k=0; k<m_ordre; ++k)
         c_Sommet[k]=0;
 
-    while(abs(pred-m_lambda)>0.1)
+    while(abs(pred-m_lambda)>0.1 && condi==false)
     {
         pred = m_lambda;
         for(int i=0; i<m_ordre; ++i)
-            for(size_t j=0; j<m_adjacent[i].size(); ++j)
-                c_Sommet[i] += buffer[m_adjacent[i][j]];
+        {
+            if(m_adjacent[i].size()>0)
+                for(size_t j=0; j<m_adjacent[i].size(); ++j)
+                    c_Sommet[i] += buffer[m_adjacent[i][j]];
+            else{
+                c_Sommet[i] = 0;
+            }
+        }
 
         for(int i=0; i<m_ordre; ++i)
             somme += (c_Sommet[i]*c_Sommet[i]);
 
         m_lambda = sqrt(somme);
-
+        if(m_lambda == 0)
+        {
+            condi=true;
+            m_lambda = pred;
+        }
         for(int i=0; i<m_ordre; ++i)
+        {
             buffer[i]= c_Sommet[i]/m_lambda;
-
-        for(int i=0; i<m_ordre; ++i)
             c_Sommet[i]=0;
-        std::cout<<"     "<< m_lambda<<std::endl;
+        }
         somme=0;
     }
     m_CVP=buffer;
@@ -268,11 +364,11 @@ std::vector <std::vector<double>> Graphe::calculdegre()
     for (int j=0; j<m_ordre; j++) // pour chaque sommet du graphe
     {
         double degre=0;  // on initialise le degré a 0
-        if (m_orientation == 0) // si le graphe n'est pas orienté
-            for(size_t i=0; i<m_arrete.size(); i++) // pour toutes les arêtes du graphe
-                if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
-                    degre++;  // on ajoute 1 à degré si la méthode calculdegre return 1
-        if (m_orientation == 1) // si le graphe est orienté
+        //if (m_orientation == 0) // si le graphe n'est pas orienté
+           // for(size_t i=0; i<m_arrete.size(); i++) // pour toutes les arêtes du graphe
+               // if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
+                //    degre++;  // on ajoute 1 à degré si la méthode calculdegre return 1
+        //if (m_orientation == 1) // si le graphe est orienté
             for(size_t i=0; i<m_arrete.size(); i++)
                 if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
                     degre++;
@@ -338,7 +434,7 @@ int Graphe::algo_dijkstra(int debut, int fin)
                 nouveau.set_indice(m_adjacent[temp][i]);
                 while(!condi2)
                 {
-                    condi2 = m_arrete[k]->check_Sommets(m_sommet[temp],m_sommet[m_adjacent[temp][i]]);
+                    condi2 = m_arrete[k]->check_Sommets(m_sommet[temp],m_sommet[m_adjacent[temp][i]],m_orientation);
                     if(!condi2)
                         ++k;
                 }
@@ -374,16 +470,22 @@ std::vector <double> Graphe::centralite_proximite()
                     somme[i] += m_nbr_aretes;
                     m_nbr_aretes = 0;
                 }
-                else if(m_ponderation==true)
+                else if(m_ponderation == true)
                 {
-                    somme[i] += algo_dijkstra(i,j);
+                    if(m_adjacent[i].size()!=0)
+                        somme[i] += algo_dijkstra(i,j);
+                    else{somme[i]=0;}
                 }
                 for(int i=0; i<100; ++i)
                     m_dec[i]=false;
             }
     }
     for(size_t i=0; i<somme.size(); ++i)
-        m_CP[i] = (m_ordre-1)/somme[i];
+    {
+        if(somme[i]!=0)
+            m_CP[i] = (m_ordre-1)/somme[i];
+        else m_CP[i] = 0;
+    }
     somme.erase(somme.begin(),somme.begin()+m_ordre);
     return m_CP;
 }
@@ -391,14 +493,22 @@ std::vector <double> Graphe::centralite_proximite()
 
 void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
 {
-    for(size_t i=0; i<pred[actuel].size(); ++i)
+    if(pred[actuel].size()>0)
     {
-        if(pred[actuel][i]!=-1)
-            recup_pred(pred,pred[actuel][i],autre);
-        if(actuel==autre)
-            m_compteur += pred[actuel].size();
-        if(pred[actuel][i]==-1)
-            ++m_ppc;
+        for(size_t i=0; i<pred[actuel].size(); ++i)
+        {
+            if(pred[actuel][i]!=-1)
+                recup_pred(pred,pred[actuel][i],autre);
+            if(actuel==autre)
+                m_compteur += pred[actuel].size();
+            if(pred[actuel][i]==-1)
+                ++m_ppc;
+        }
+    }
+    else if(pred[actuel].size()==0)
+    {
+        m_ppc=1;
+        m_compteur = 0;
     }
 }
 
@@ -441,7 +551,7 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
                 nouveau.set_indice(m_adjacent[temp][i]);
                 while(!condi2)
                 {
-                    condi2 = m_arrete[k]->check_Sommets(m_sommet[temp],m_sommet[m_adjacent[temp][i]]);
+                    condi2 = m_arrete[k]->check_Sommets(m_sommet[temp],m_sommet[m_adjacent[temp][i]],m_orientation);
                     if(!condi2)
                         ++k;
                 }
@@ -463,14 +573,26 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
 
     for(int i=0; i<m_ordre; ++i)
         if(i!=fin && i!=debut)
-            if(deja_vu[debut][i]==false && deja_vu[i][debut]==false)
-            {
-                deja_vu[debut][i]=true;
-                recup_pred(pred,i,fin);
-                somme += (m_compteur*1.0)/(m_ppc*1.0);
-                m_compteur=0;
-                m_ppc=0;
-            }
+        {
+            if(m_orientation==0)
+                if(deja_vu[debut][i]==false && deja_vu[i][debut]==false)
+                {
+                    deja_vu[debut][i]=true;
+                    recup_pred(pred,i,fin);
+                    somme += (m_compteur*1.0)/(m_ppc*1.0);
+                    m_compteur=0;
+                    m_ppc=0;
+                }
+            else if(m_orientation==1)
+                if(deja_vu[debut][i]==false)
+                {
+                    deja_vu[debut][i]=true;
+                    recup_pred(pred,i,fin);
+                    somme += (m_compteur*1.0)/(m_ppc*1.0);
+                    m_compteur=0;
+                    m_ppc=0;
+                }
+        }
 
     return somme;
 }
@@ -488,17 +610,33 @@ std::vector<double> Graphe::centralite_intermediarite()
 
     for(int x=0; x<m_ordre; ++x)
     {
+        if(m_adjacent[x].size()>0)
+        {
+            for(int y=0; y<m_ordre; ++y)
+                if(y!=x)
+                {
+                    if(m_adjacent[y].size()>0)
+                    {
+                        somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
+                        std::cout<<somme[x]<<" ";
+                        for(int i=0; i<100; ++i)
+                            m_dec[i]=false;
+                    }
+                    else if(m_adjacent[y].size()==0)
+                    {
+                        somme[x] += 0;
+                        std::cout<<somme[x]<<" ";
+                    }
+                }
+            for(int i=0; i<50; ++i)
+                for(int j=0; j<50; ++j)
+                    deja_vu[i][j]=false;
 
-        for(int y=0; y<m_ordre; ++y)
-            if(y!=x)
-            {
-                somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
-                for(int i=0; i<100; ++i)
-                    m_dec[i]=false;
-            }
-        for(int i=0; i<50; ++i)
-            for(int j=0; j<50; ++j)
-                deja_vu[i][j]=false;
+        }
+        else if(m_adjacent[x].size()==0)
+        {
+            somme[x] += 0;
+        }
     }
 
     for(int i=0; i<m_ordre; ++i)
@@ -694,19 +832,10 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
     {
         flux >> temp;
         degre.push_back(temp);
-    }
-    for(int i=0; i<ordre; ++i)
-    {
         flux >> temp;
         vecteur.push_back(temp);
-    }
-    for(int i=0; i<ordre; ++i)
-    {
         flux >> temp;
         intermediaire.push_back(temp);
-    }
-    for(int i=0; i<ordre; ++i)
-    {
         flux >> temp;
         proximite.push_back(temp);
     }

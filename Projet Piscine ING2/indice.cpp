@@ -45,10 +45,10 @@ void sauvegarder (std::vector <std::vector <double>> v1)
         std::cerr << "Error : Can't open the file" << std::endl;
 
     monFlux << v1[1].size()<<"\n";
-    for (size_t j=1; j<v1.size(); j++)
+    for (size_t j=0; j<v1[1].size(); j++)
     {
-        for (size_t i=0; i<v1[1].size(); i++)
-            monFlux<<v1[j][i]<<"  ";
+        for (size_t i=1; i<v1.size(); i++)
+            monFlux<<v1[i][j]<<"  ";
         monFlux << "\n";
     }
     monFlux.close();
@@ -59,7 +59,9 @@ std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre
     int sauv=0;
     std::vector <std::vector <double>> ensemble;
     ensemble=mongraphe.calculdegre();
+
     ensemble.push_back(mongraphe.vecteur_propre());
+    std::cout<<"LA"<<std::endl;
     ensemble.push_back(mongraphe.centralite_intermediarite());
     ensemble.push_back(mongraphe.centralite_proximite());
     if(suppr==1)

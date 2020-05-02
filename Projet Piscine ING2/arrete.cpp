@@ -14,11 +14,11 @@ Arrete::Arrete(Sommet* s1, Sommet* s2, int indice, int poids)
 void Arrete::afficher(Svgfile &svgout, int orientation)  // recoit le fichier svg afin de faire l'affichage dedans ainsi que l'orientation
 {
     std::cout<<m_indice<<"/ sommet 1 :"<<m_s1->GetIndice()<<" / sommet 2 : "<<m_s2->GetIndice()<<" / poids : "<<m_poids<<std::endl;
-    if (orientation==0)   // si le graphe n'est pas orienté
+    if (orientation==0)   // si le graphe n'est pas orientï¿½
     {
         svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
     }
-    else  // si le graphe est orienté
+    else  // si le graphe est orientï¿½
     {
         svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
         double x1,x2,y2,angle=0;
@@ -57,9 +57,9 @@ void Arrete::set_indice(int indice)
 
 int Arrete::calculdegre(Sommet* sommet, int orientation)
 {
-    if (orientation == 0)  // si le graphe est orienté ou non, le calcul de degré ne se fait pas de la même manière
+    if (orientation == 0)  // si le graphe est orientï¿½ ou non, le calcul de degrï¿½ ne se fait pas de la mï¿½me maniï¿½re
     {
-        if (m_s1->GetIndice()==sommet->GetIndice() || m_s2->GetIndice()==sommet->GetIndice()) // si le graphe n'est pas orienté, on ajoute un degré a chaque fois que l'un des deux sommets d'une arête est le même que le sommet en question
+        if (m_s1->GetIndice()==sommet->GetIndice() || m_s2->GetIndice()==sommet->GetIndice()) // si le graphe n'est pas orientï¿½, on ajoute un degrï¿½ a chaque fois que l'un des deux sommets d'une arï¿½te est le mï¿½me que le sommet en question
             return 1;
         else
             return 0;
@@ -67,20 +67,29 @@ int Arrete::calculdegre(Sommet* sommet, int orientation)
 
     if (orientation == 1)
     {
-        if (m_s1->GetIndice()==sommet->GetIndice()) // si le graphe est orienté, on ajoute un degrés a chaque fois que le sommet d'arrivé (le deuxième) est le même que le sommet en question
+        if (m_s1->GetIndice()==sommet->GetIndice()) // si le graphe est orientï¿½, on ajoute un degrï¿½s a chaque fois que le sommet d'arrivï¿½ (le deuxiï¿½me) est le mï¿½me que le sommet en question
             return 1;
         else
             return 0;
-    } // si la méthode return 1, on ajoute un degré, si elle return 0, on n'en ajoute pas
+    } // si la mï¿½thode return 1, on ajoute un degrï¿½, si elle return 0, on n'en ajoute pas
     return 0;
 }
 
-bool Arrete::check_Sommets(Sommet* s1,Sommet* s2)
+bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation)
 {
-    if((s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
-       || (s1->GetIndice()==m_s2->GetIndice() && s2->GetIndice()==m_s1->GetIndice()))
-       return true;
-    else return false;
+    if(orientation==0)
+    {
+        if((s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
+        || (s1->GetIndice()==m_s2->GetIndice() && s2->GetIndice()==m_s1->GetIndice()))
+            return true;
+        else return false;
+    }
+    else if(orientation==1)
+    {
+        if(s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
+            return true;
+        else return false;
+    }
 }
 
 void Arrete::effacer_adj(std::vector <int> m_adjacent[100])
