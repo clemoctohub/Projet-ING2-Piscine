@@ -80,26 +80,27 @@ void Graphe::k_connexite()
                 minimun = m_adjacent[i].size();
                 index = i;
             }
-            else if(m_orientation==1)
-            {
-                for(int index=0; index<m_ordre; ++index)
-                {
-                    for(int i = 0; i<m_ordre; ++i)
-                        for(int j=0; j<m_adjacent[i].size(); ++j)
-                            if(m_adjacent[i][j]==index)
-                            {
-
-                                ++compteur;
-                                pred2.push_back(i);
-                                pred1.push_back(j);
-                            }
-
-                    if(minimun>m_adjacent[i].size()+compteur)
+    else if(m_orientation==1)
+    {
+        for(int index=0;index<m_ordre;++index)
+        {
+            for(int i = 0;i<m_ordre;++i)
+                for(size_t j=0;j<m_adjacent[i].size();++j)
+                    if(m_adjacent[i][j]==index)
                     {
-                        minimun = m_adjacent[i].size()+compteur;
-                        memoire = compteur;
-                        index = i;
+
+                        ++compteur;
+                        pred2.push_back(i);
+                        pred1.push_back(j);
                     }
+
+            if(minimun>m_adjacent[i].size()+compteur)
+            {
+                minimun = m_adjacent[i].size()+compteur;
+                memoire = compteur;
+                index = i;
+            }
+           
                     else
                     {
                         for(int i=0; i<pred1.size(); ++i)
@@ -723,7 +724,7 @@ void Graphe::suppr_arete(int suppr)
 {
     if (suppr==-1)
     {
-        int i=0,maximun=0;
+        size_t i=0,maximun=0;
         size_t choix=0;
         std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
         for(size_t i=0; i<m_arrete.size(); ++i)
@@ -731,7 +732,7 @@ void Graphe::suppr_arete(int suppr)
             std::cout << "    arretes ";
             m_arrete[i]->afficherIndice();
         }
-        for(int i=0; i<m_arrete.size(); ++i)
+        for(size_t i=0;i<m_arrete.size();++i)
         {
             if(maximun < m_arrete[i]->get_indice())
                 maximun = m_arrete[i]->get_indice();
@@ -774,7 +775,7 @@ void Graphe::suppr_sommet()
         m_sommet[i]->affichernum();
         std::cout<<std::endl;
     }
-    for(int i=0; i<m_arrete.size(); ++i)
+    for(size_t i=0;i<m_arrete.size();++i)
     {
         if(maximun < m_arrete[i]->get_indice())
             maximun = m_arrete[i]->get_indice();
