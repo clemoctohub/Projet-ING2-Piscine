@@ -4,7 +4,7 @@
 #include "graphe.h"
 #include "bibliotheque.h"
 
-int menu(bool ponderation)  //menu d'affichage
+int menu(bool ponderation)  ///menu d'affichage principal
 {
     int choix=0;
     std::cout << "Choisissez votre action :" << std::endl;
@@ -28,7 +28,7 @@ int menu(bool ponderation)  //menu d'affichage
     }
     return choix;
 }
-std::string menu2()  //menu d'affichage
+std::string menu2()  ///menu d'affichage pour le choix du fichier
 {
     int choix;
     std::string fichier;
@@ -50,7 +50,7 @@ std::string menu2()  //menu d'affichage
     switch(choix)
         {
         case 1:
-            fichier="graphe1.txt";// pour chaque action, nous appellons la methode ou la fonction qui correspond
+            fichier="graphe1.txt"; /// pour chaque action, nous appellons la methode ou la fonction qui correspond
             break;
         case 2:
             fichier="graphe2.txt";
@@ -74,7 +74,7 @@ std::string menu2()  //menu d'affichage
         return fichier;
 }
 
-std::string menuPonderation()  //menu d'affichage pour le choix des ponderation
+std::string menuPonderation()  ///menu d'affichage pour le choix du fichier de ponderation
 {
     int choix;
     std::string fichier;
@@ -94,7 +94,7 @@ std::string menuPonderation()  //menu d'affichage pour le choix des ponderation
     switch(choix)
         {
         case 1:
-            fichier="ponderation_graphe1.txt"; // pour chaque action, nous appellons la methode ou la fonction qui correspond
+            fichier="ponderation_graphe1.txt"; /// pour chaque action, nous appellons la methode ou la fonction qui correspond
             break;
         case 2:
             fichier="ponderation_graphe2.txt";
@@ -112,13 +112,13 @@ std::string menuPonderation()  //menu d'affichage pour le choix des ponderation
 void boucle(int choix, Graphe mongraphe)
 {
         std::vector <std::vector <double>> ensemble;
-        while(choix!=8)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
+        while(choix!=8)              /// switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
     {
         choix=menu(mongraphe.get_ponderation());
         switch(choix)
         {
         case 1:
-            mongraphe.afficher(-1,ensemble);// pour chaque action, nous appellons la methode ou la fonction qui correspond
+            mongraphe.afficher(-1,ensemble); /// pour chaque action, nous appellons la methode ou la fonction qui correspond
             break;
         case 2:
             mongraphe.ajout_ponderation();
@@ -163,7 +163,7 @@ void boucle(int choix, Graphe mongraphe)
             }
             break;
         }
-        system("cls");  // efface la console
+        system("cls");  /// efface la console
     }
 }
 
