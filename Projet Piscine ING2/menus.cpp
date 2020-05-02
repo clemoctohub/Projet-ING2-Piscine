@@ -17,11 +17,10 @@ int menu(bool ponderation)  //menu d'affichage
     std::cout << "3: Afficher et/ou sauvegarder les indices de centralite" << std::endl;
     std::cout << "4: Afficher les composantes connexes" << std::endl;
     std::cout << "5: Supprimer une arete (affichage de la difference des indices apres suppression)" << std::endl;
-    std::cout << "6: Supprimer un sommet" << std::endl;
-    std::cout << "7: Afficher les indices sur le graphe" << std::endl;
-    std::cout << "8: Quitter" << std::endl;
+    std::cout << "6: Afficher les indices sur le graphe" << std::endl;
+    std::cout << "7: Quitter" << std::endl;
     std::cin >> choix;
-    while(choix<1 || choix>8)
+    while(choix<1 || choix>7)
     {
         std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
         std::cin >> choix;
@@ -112,7 +111,7 @@ std::string menuPonderation()  //menu d'affichage pour le choix des ponderation
 void boucle(int choix, Graphe mongraphe)
 {
         std::vector <std::vector <double>> ensemble;
-        while(choix!=8)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
+        while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
     {
         choix=menu(mongraphe.get_ponderation());
         switch(choix)
@@ -141,16 +140,6 @@ void boucle(int choix, Graphe mongraphe)
             mongraphe.difference(ensemble);
             break;
         case 6:
-            indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
-            mongraphe.suppr_sommet();
-            system("cls");
-            mongraphe.afficher(-1,ensemble);
-            system("cls");
-            std::cout<<"Voici les nouveau indices"<<std::endl;
-            ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
-            mongraphe.difference(ensemble);
-            break;
-        case 7:
             int choix1=0;
             ensemble=indicedecentralite(mongraphe, mongraphe.get_ordre(), 3);
             menuAfficherIndiceSVG();

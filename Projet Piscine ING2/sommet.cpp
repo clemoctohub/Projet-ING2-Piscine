@@ -3,7 +3,7 @@
 #include <string>
 
 Sommet::Sommet(int indice, std::string nom, double x, double y) /// constructeur
-    :m_nom{nom},m_indice{indice},m_x{x},m_y{y}
+    :m_indice{indice},m_nom{nom},m_x{x},m_y{y}
 {
 
 }
