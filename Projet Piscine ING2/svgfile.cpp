@@ -109,12 +109,6 @@ void Svgfile::addTriangle(double x1, double y1, double x2, double y2,
             << "\" />\n";
 }
 
-void Svgfile::addSkuuu()
-{
-    m_ostrm << " <rect x=\"100\" y=\"100\" width=\"20\" height=\"20\" transform=\"rotate(45)\" />";
-    //m_ostrm <<"<polygon class=\"st0\" points=\"200 200, 250 220, 300 200, 250 300\" transform=\"translate(200,-100)\" />";
-}
-
 void Svgfile::addLine(double x1, double y1, double x2, double y2, std::string color)
 {
     m_ostrm << "<line "

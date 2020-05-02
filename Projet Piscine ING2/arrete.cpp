@@ -89,6 +89,7 @@ bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation)
             return true;
         else return false;
     }
+    return true;
 }
 
 void Arrete::effacer_adj(std::vector <int> m_adjacent[100])

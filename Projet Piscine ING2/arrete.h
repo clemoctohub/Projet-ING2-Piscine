@@ -9,10 +9,10 @@
 class Arrete
 {
 private:
-    int m_indice;   // num�ro de l'arete
-    int m_poids;    // distance, ponderation de l'arete
     Sommet* m_s1;   // sommet d'origine (dans le cas ou le graphe est oriente)
     Sommet* m_s2;   // sommet d'arrive (dans le cas ou le graphe est oriente)
+    int m_indice;   // num�ro de l'arete
+    int m_poids;    // distance, ponderation de l'arete
 public:
     Arrete(Sommet* s1,Sommet* s2, int indice, int poids);
     Arrete(){}

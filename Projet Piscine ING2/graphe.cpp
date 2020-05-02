@@ -85,7 +85,7 @@ void Graphe::k_connexite()
         for(int index=0;index<m_ordre;++index)
         {
             for(int i = 0;i<m_ordre;++i)
-                for(int j=0;j<m_adjacent[i].size();++j)
+                for(size_t j=0;j<m_adjacent[i].size();++j)
                     if(m_adjacent[i][j]==index)
                     {
 
@@ -102,7 +102,7 @@ void Graphe::k_connexite()
             }
             else
             {
-                for(int i=0;i<pred1.size();++i)
+                for(size_t i=0;i<pred1.size();++i)
                 {
                     pred1.erase(pred1.begin()+i);
                     pred2.erase(pred2.begin()+i);
@@ -723,7 +723,7 @@ void Graphe::suppr_arete(int suppr)
 {
     if (suppr==-1)
     {
-        int i=0,maximun=0;
+        size_t i=0,maximun=0;
         size_t choix=0;
         std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
         for(size_t i=0; i<m_arrete.size(); ++i)
@@ -731,7 +731,7 @@ void Graphe::suppr_arete(int suppr)
             std::cout << "    arretes ";
             m_arrete[i]->afficherIndice();
         }
-        for(int i=0;i<m_arrete.size();++i)
+        for(size_t i=0;i<m_arrete.size();++i)
         {
             if(maximun < m_arrete[i]->get_indice())
                 maximun = m_arrete[i]->get_indice();
@@ -774,7 +774,7 @@ void Graphe::suppr_sommet()
         m_sommet[i]->affichernum();
         std::cout<<std::endl;
     }
-    for(int i=0;i<m_arrete.size();++i)
+    for(size_t i=0;i<m_arrete.size();++i)
     {
         if(maximun < m_arrete[i]->get_indice())
             maximun = m_arrete[i]->get_indice();
