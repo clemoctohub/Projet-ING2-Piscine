@@ -52,6 +52,9 @@ public:
     int get_ordre(){
         return m_ordre;
     }
+    int get_orientation(){
+        return m_orientation;
+    }
     void k_connexite();
     void recup_pred(std::vector<int> pred[100],int actuel,int autre);
     double algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50]);

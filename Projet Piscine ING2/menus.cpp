@@ -16,7 +16,7 @@ int menu(bool ponderation)  //menu d'affichage
         std::cout << "2: Ne plus prendre en compte le fichier ponderation" << std::endl;
     std::cout << "3: Afficher et/ou sauvegarder les indices de centralite" << std::endl;
     std::cout << "4: Afficher les composantes connexes" << std::endl;
-    std::cout << "5: Supprimer une arete" << std::endl;
+    std::cout << "5: Supprimer une arete (affichage de la difference des indices apres suppression)" << std::endl;
     std::cout << "6: Supprimer un sommet" << std::endl;
     std::cout << "7: Afficher les indices sur le graphe" << std::endl;
     std::cout << "8: Quitter" << std::endl;
