@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 
-void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal) // affichage dans la console
+void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal) /// affichage dans la console
 {
-    int h=0; // booleen evitant que "Indice de centralite normalise" s'affiche 2 fois
+    int h=0; /// booleen evitant que "Indice de centralite normalise" s'affiche 2 fois
     if(normal==0)
         std::cout<<"Indice de centralite non normalise"<<std::endl;
     else{
@@ -37,7 +37,7 @@ void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal
 }
 
 
-void sauvegarder (std::vector <std::vector <double>> v1)
+void sauvegarder (std::vector <std::vector <double>> v1) /// sauvegarde dans un fichier texte les indices
 {
     std::string const nomFichier("C:Sauvegarde.txt");
     std::ofstream monFlux(nomFichier.c_str());
@@ -54,11 +54,11 @@ void sauvegarder (std::vector <std::vector <double>> v1)
     monFlux.close();
 }
 
-std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre, int suppr)
+std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre, int suppr) /// calcul tout les indices de centralite
 {
     int sauv=0;
     std::vector <std::vector <double>> ensemble;
-    ensemble=mongraphe.calculdegre();
+    ensemble=mongraphe.calculdegre(); /// on appelle toutes les fonctions permettant de calculer les indices afin de les mettre dans le vecteur "ensemble"
     ensemble.push_back(mongraphe.vecteur_propre());
     ensemble.push_back(mongraphe.centralite_intermediarite());
     ensemble.push_back(mongraphe.centralite_proximite());
@@ -68,7 +68,7 @@ std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre
         std::cout<<std::endl<<"Voulez-vous sauvegarder ?"<<std::endl;
         std::cout<<"1:Oui   2:Non"<<std::endl;
         std::cin>>sauv;
-        while(sauv<1 || sauv>2)
+        while(sauv<1 || sauv>2) /// afin de savoir si l'utilisateur veut enregristrer les indices qu'il vient de calculer dans un ficher texte
         {
             std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
             std::cin >> sauv;
@@ -86,28 +86,4 @@ std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre
     }
 
     return ensemble;
-}
-
-void afficher_indice_svg(Graphe mongraphe)
-{
-    Svgfile svgout;
-    int choix1=0;
-    while (choix1!=5)
-    {
-        system("cls");
-        std::cout << "Choisissez l'indice que vous voulez afficher :" << std::endl;
-        std::cout << std::endl;
-        std::cout << "1: Indice de centralite de degre" << std::endl;
-        std::cout << "2: Indice de vecteur propre" << std::endl;
-        std::cout << "3: Indice de proximite" << std::endl;
-        std::cout << "4: Indice de centralite d'intermediarite" << std::endl;
-        std::cout << "5: Retour" << std::endl;
-        std::cin >> choix1;
-    }
-    switch(choix1)
-        {
-        case 1:
-            //afficher_centralite();
-            break;
-        }
 }
