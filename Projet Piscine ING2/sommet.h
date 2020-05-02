@@ -17,7 +17,7 @@ private :
 public :
     Sommet(int indice, std::string nom, double x, double y);
     ~Sommet(){};
-    void afficher(Svgfile &svgout, std::vector <int> classement,int nomin);
+    void afficher(Svgfile &svgout, std::vector <int> classement, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble);
     double GetX();
     double GetY();
     int GetIndice();

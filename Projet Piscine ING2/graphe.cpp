@@ -88,6 +88,7 @@ void Graphe::k_connexite()
                 for(int j=0;j<m_adjacent[i].size();++j)
                     if(m_adjacent[i][j]==index)
                     {
+
                         ++compteur;
                         pred2.push_back(i);
                         pred1.push_back(j);
@@ -207,7 +208,7 @@ bool Graphe::get_ponderation()
     return m_ponderation;
 }
 
-void Graphe::afficher(int choix)
+void Graphe::afficher(int indice, std::vector <std::vector <double>> ensemble)
 {
     Svgfile svgout;
     svgout.addGrid();
@@ -238,46 +239,9 @@ void Graphe::afficher(int choix)
     for(size_t i=0; i<m_sommet.size(); ++i)
     {
         std::cout << "          sommet :";
-        m_sommet[i]->afficher(svgout,classement,nomin);
+        m_sommet[i]->afficher(svgout,classement,nomin,this,indice,ensemble);
     }
     system("pause");  // afin de ne pas effacer la console
-    /*if (choix==2)
-    {
-        std::vector <std::vector <double>> ensemble;
-        int choix1=0;
-        ensemble=indicedecentralite(*this, m_ordre, 3);
-        while (choix1!=5)
-        {
-            system("cls");
-            std::cout << "Choisissez l'indice que vous voulez afficher :" << std::endl;
-            std::cout << std::endl;
-            std::cout << "1: Indice de centralite de degre" << std::endl;
-            std::cout << "2: Indice de vecteur propre" << std::endl;
-            std::cout << "3: Indice de proximite" << std::endl;
-            std::cout << "4: Indice de centralite d'intermediarite" << std::endl;
-            std::cout << "5: Retour" << std::endl;
-            std::cin >> choix1;
-
-
-            for(size_t i=0; i<ensemble[choix1].size(); i++)
-            {
-                    std::cout<< ensemble[choix1][i]<<std::endl;
-                    svgout.addText(m_sommet[i]->GetX(),m_sommet[i]->GetY(),ensemble[choix1][i],"black");
-            }
-            system("pause");
-
-            switch(choix1)
-            {
-            case 1:
-                for(size_t i=0; i<ensemble[choix1].size(); i++)
-                {
-                    svgout.addText(m_sommet[i]->GetX()*100,m_sommet[i]->GetY()*100,ensemble[choix1][i],"black");
-                }
-                break;
-
-            }
-        }
-    }*/
 }
 
 void Graphe::ajout_ponderation(std::string pondFichier)
@@ -292,7 +256,7 @@ void Graphe::ajout_ponderation(std::string pondFichier)
 
         ifs >> taille;
 
-        for(int i=0; i<taille; ++i)
+        for(int i=0; i<taille && i<m_taille; ++i)
         {
             ifs >> indice >> poids;
             m_arrete[indice]->set_poids(poids);
@@ -501,7 +465,12 @@ void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
             if(pred[actuel][i]!=-1)
                 recup_pred(pred,pred[actuel][i],autre);
             if(actuel==autre)
-                m_compteur += pred[actuel].size();
+            {
+                if(m_orientation==0)
+                    m_compteur += pred[actuel].size();
+                else if(m_orientation==1)
+                    ++m_compteur;
+            }
             if(pred[actuel][i]==-1)
                 ++m_ppc;
         }
@@ -576,6 +545,7 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
         if(i!=fin && i!=debut)
         {
             if(m_orientation==0)
+            {
                 if(deja_vu[debut][i]==false && deja_vu[i][debut]==false)
                 {
                     deja_vu[debut][i]=true;
@@ -584,7 +554,9 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
                     m_compteur=0;
                     m_ppc=0;
                 }
+            }
             else if(m_orientation==1)
+            {
                 if(deja_vu[debut][i]==false)
                 {
                     deja_vu[debut][i]=true;
@@ -593,6 +565,7 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
                     m_compteur=0;
                     m_ppc=0;
                 }
+            }
         }
 
     return somme;
@@ -619,14 +592,12 @@ std::vector<double> Graphe::centralite_intermediarite()
                     if(m_adjacent[y].size()>0)
                     {
                         somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
-                        std::cout<<somme[x]<<" ";
                         for(int i=0; i<100; ++i)
                             m_dec[i]=false;
                     }
                     else if(m_adjacent[y].size()==0)
                     {
                         somme[x] += 0;
-                        std::cout<<somme[x]<<" ";
                     }
                 }
             for(int i=0; i<50; ++i)
@@ -749,7 +720,7 @@ void Graphe::suppr_arete(int suppr)
 {
     if (suppr==-1)
     {
-        int i=0;
+        int i=0,maximun=0;
         size_t choix=0;
         std::cout<<"Saisir l'indice de l'arete que vous souhaitez supprimer"<<std::endl;
         for(size_t i=0; i<m_arrete.size(); ++i)
@@ -757,8 +728,13 @@ void Graphe::suppr_arete(int suppr)
             std::cout << "    arretes ";
             m_arrete[i]->afficherIndice();
         }
+        for(int i=0;i<m_arrete.size();++i)
+        {
+            if(maximun < m_arrete[i]->get_indice())
+                maximun = m_arrete[i]->get_indice();
+        }
         std::cin>>choix;
-        while(choix<0 || choix>m_arrete.size())
+        while(choix<0 || choix>maximun)
         {
             std::cout << "Veuillez choisir une arete existante" << std::endl;
             std::cin >> choix;
@@ -870,4 +846,9 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
         std::cout<<std::endl;
     }
     system("pause");
+}
+
+void Graphe::tarjan()
+{
+
 }

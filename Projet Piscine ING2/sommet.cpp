@@ -8,7 +8,7 @@ Sommet::Sommet(int indice, std::string nom, double x, double y) // constructeur
 
 }
 
-void Sommet::afficher(Svgfile &svgout, std::vector <int> classement, int nomin)
+void Sommet::afficher(Svgfile &svgout, std::vector <int> classement, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble)
 {
     int compteur=0;
     for(size_t i=0; i<classement.size(); ++i)
@@ -20,6 +20,11 @@ void Sommet::afficher(Svgfile &svgout, std::vector <int> classement, int nomin)
     svgout.addDisk(m_x*100, m_y*100, 4, svgout.makeRGB(255,75+(nomin*compteur),75+(nomin*compteur)));
     svgout.addText(m_x*100+10, m_y*100+15, m_nom, "black");
     svgout.addText(m_x*100-15, m_y*100-10, m_indice, "green");
+
+    if (indice>-1)
+    {
+        svgout.addText((m_x)*100+10,m_y*100-10,ensemble[indice][m_indice],"orange");
+    }
 }
 
 double Sommet::GetX()
