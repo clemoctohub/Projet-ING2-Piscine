@@ -79,23 +79,23 @@ void boucle(int choix, Graphe mongraphe)
         switch(choix)
         {
         case 1:
-            mongraphe.afficher(1);// pour chaque action, nous appellons la methode ou la fonction qui correspond
+            mongraphe.afficher(-1,ensemble);// pour chaque action, nous appellons la methode ou la fonction qui correspond
             break;
         case 2:
             mongraphe.ajout_ponderation("ponderation.txt");
-            mongraphe.afficher(1);
+            mongraphe.afficher(-1,ensemble);
             break;
         case 3:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
             break;
         case 4:
-            mongraphe.connexite(1);
+            mongraphe.connexite(-1);
             break;
         case 5:
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
             mongraphe.suppr_arete(-1);
             system("cls");
-            mongraphe.afficher(1);
+            mongraphe.afficher(-1,ensemble);
             system("cls");
             std::cout<<"Voici les nouveau indices"<<std::endl;
             ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
@@ -105,16 +105,37 @@ void boucle(int choix, Graphe mongraphe)
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
             mongraphe.suppr_sommet();
             system("cls");
-            mongraphe.afficher(1);
+            mongraphe.afficher(-1,ensemble);
             system("cls");
             std::cout<<"Voici les nouveau indices"<<std::endl;
             ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
             mongraphe.difference(ensemble);
             break;
         case 7:
-            mongraphe.afficher(2);
+            int choix1=0;
+            ensemble=indicedecentralite(mongraphe, mongraphe.get_ordre(), 3);
+            menuAfficherIndiceSVG();
+            std::cin >> choix1;
+            while (choix1!=5)
+            {
+                mongraphe.afficher(choix1,ensemble);
+                menuAfficherIndiceSVG();
+                std::cin >> choix1;
+            }
             break;
         }
         system("cls");  // efface la console
     }
+}
+
+void menuAfficherIndiceSVG()
+{
+    system("cls");
+    std::cout << "Choisissez l'indice que vous voulez afficher :" << std::endl;
+    std::cout << std::endl;
+    std::cout << "1: Indice de centralite de degre" << std::endl;
+    std::cout << "2: Indice de vecteur propre" << std::endl;
+    std::cout << "3: Indice de proximite" << std::endl;
+    std::cout << "4: Indice de centralite d'intermediarite" << std::endl;
+    std::cout << "5: Retour" << std::endl;
 }
