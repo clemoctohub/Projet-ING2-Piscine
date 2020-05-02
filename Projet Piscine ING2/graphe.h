@@ -12,22 +12,22 @@ class Arrete;
 class Graphe
 {
 private:
-    int m_orientation;  // booleen -> 1 : oriente ; 0 : non-oriente
-    int m_ordre;        // oredre du graphe
-    int m_taille;       // taille du graphe
-    double m_lambda;    // permettant la fonction "vecteur_propre()"
+    int m_orientation;  /// booleen -> 1 : oriente ; 0 : non-oriente
+    int m_ordre;        /// oredre du graphe
+    int m_taille;       /// taille du graphe
+    double m_lambda;    /// permettant la fonction "vecteur_propre()"
 
     bool m_dec[100];
     double m_compteur;
     double m_ppc;
     int m_nbr_aretes;
-    bool m_ponderation; // O : non pondere ; 1 : pondere
+    bool m_ponderation; /// O : non pondere ; 1 : pondere
 
-    std::vector <Sommet*> m_sommet; // vecteur permettant d'avoir acces a tous les sommmets du graphe
-    std::vector <Arrete*> m_arrete; // vecteur permettant d'avoir acces a toutes les aretes du graphe
+    std::vector <Sommet*> m_sommet; /// vecteur permettant d'avoir acces a tous les sommmets du graphe
+    std::vector <Arrete*> m_arrete; /// vecteur permettant d'avoir acces a toutes les aretes du graphe
     std::vector <double> m_CVP;
     std::vector <double> m_CP;
-    std::vector <int> m_adjacent[100]; // vecteur permettant d'avoir acces a toutes les adjacences du graphe
+    std::vector <int> m_adjacent[100]; /// vecteur permettant d'avoir acces a toutes les adjacences du graphe
 
 public:
     Graphe(std::string nomFichier); // constructeur
@@ -61,4 +61,4 @@ public:
     }
 };
 
-#endif // GRAPHE_H_INCLUDED
+#endif /// GRAPHE_H_INCLUDED

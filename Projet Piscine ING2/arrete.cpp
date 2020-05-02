@@ -11,14 +11,14 @@ Arrete::Arrete(Sommet* s1, Sommet* s2, int indice, int poids)
 
 }
 
-void Arrete::afficher(Svgfile &svgout, int orientation)  // recoit le fichier svg afin de faire l'affichage dedans ainsi que l'orientation
+void Arrete::afficher(Svgfile &svgout, int orientation)  /// recoit le fichier svg afin de faire l'affichage dedans ainsi que l'orientation
 {
     std::cout<<m_indice<<"/ sommet 1 :"<<m_s1->GetIndice()<<" / sommet 2 : "<<m_s2->GetIndice()<<" / poids : "<<m_poids<<std::endl;
-    if (orientation==0)   // si le graphe n'est pas orient�
+    if (orientation==0)   /// si le graphe n'est pas oriente
     {
         svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
     }
-    else  // si le graphe est orient�
+    else  /// si le graphe est orient�
     {
         svgout.addLine(m_s1->GetX()*100, m_s1->GetY()*100, m_s2->GetX()*100, m_s2->GetY()*100, "blue");
         double x1,x2,y2,angle=0;
@@ -57,24 +57,24 @@ void Arrete::set_indice(int indice)
 
 int Arrete::calculdegre(Sommet* sommet, int orientation)
 {
-    if (orientation == 0)  // si le graphe est oriente ou non, le calcul de degre ne se fait pas de la meme maniere
+    if (orientation == 0)  /// si le graphe est oriente ou non, le calcul de degre ne se fait pas de la meme maniere
     {
-        if (m_s1->GetIndice()==sommet->GetIndice() || m_s2->GetIndice()==sommet->GetIndice()) // si le graphe n'est pas oriente, on ajoute un degre a chaque fois que l'un des deux sommets d'une arete est le meme que le sommet en question
+        if (m_s1->GetIndice()==sommet->GetIndice() || m_s2->GetIndice()==sommet->GetIndice()) /// si le graphe n'est pas oriente, on ajoute un degre a chaque fois que l'un des deux sommets d'une arete est le meme que le sommet en question
             return 1;
         else
             return 0;
     }
     if (orientation == 1)
     {
-        if (m_s1->GetIndice()==sommet->GetIndice()) // si le graphe est oriente, on ajoute un degres a chaque fois que le sommet d'arrive (le deuxieme) est le meme que le sommet en question
+        if (m_s1->GetIndice()==sommet->GetIndice()) /// si le graphe est oriente, on ajoute un degres a chaque fois que le sommet d'arrive (le deuxieme) est le meme que le sommet en question
             return 1;
         else
             return 0;
-    } // si la methode return 1, on ajoute un degre, si elle return 0, on n'en ajoute pas
+    } /// si la methode return 1, on ajoute un degre, si elle return 0, on n'en ajoute pas
     return 0;
 }
 
-bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation)
+bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation) /// permet de recuperer l'arete entre deux sommets
 {
     if(orientation==0)
     {
@@ -92,7 +92,7 @@ bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation)
     return true;
 }
 
-void Arrete::effacer_adj(std::vector <int> m_adjacent[100])
+void Arrete::effacer_adj(std::vector <int> m_adjacent[100]) /// efface les adjacents d'une arete
 {
     for(size_t i=0; i<m_adjacent[m_s1->GetIndice()].size(); ++i)
         if(m_adjacent[m_s1->GetIndice()][i]==m_s2->GetIndice())
