@@ -10,7 +10,7 @@ int menu(bool ponderation)  ///menu d'affichage principal
     std::cout << "Choisissez votre action :" << std::endl;
     std::cout << std::endl;
     std::cout << "1: Afficher le graphe" << std::endl;
-    if(ponderation==false)
+    if(ponderation==false)///on affiche une phrase diff en fonction de si le fichier de ponderation a ete charge ou non
         std::cout << "2: Prendre en compte un fichier ponderation" << std::endl;
     else
         std::cout << "2: Ne plus prendre en compte le fichier ponderation" << std::endl;
@@ -20,7 +20,7 @@ int menu(bool ponderation)  ///menu d'affichage principal
     std::cout << "6: Afficher les indices sur le graphe" << std::endl;
     std::cout << "7: Quitter" << std::endl;
     std::cin >> choix;
-    while(choix<1 || choix>7)
+    while(choix<1 || choix>7)///tant que la valeur est fausse on redemande
     {
         std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
         std::cin >> choix;
@@ -46,10 +46,10 @@ std::string menu2()  ///menu d'affichage pour le choix du fichier
         std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
         std::cin >> choix;
     }
-    switch(choix)
+    switch(choix)///en fonction du chiffre entre on charge le fichier correspondant
         {
         case 1:
-            fichier="graphe1.txt"; /// pour chaque action, nous appellons la methode ou la fonction qui correspond
+            fichier="graphe1.txt";
             break;
         case 2:
             fichier="graphe2.txt";
@@ -111,38 +111,38 @@ std::string menuPonderation()  ///menu d'affichage pour le choix du fichier de p
 void boucle(int choix, Graphe mongraphe)
 {
         std::vector <std::vector <double>> ensemble;
-        while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
+        while(choix!=7)              /// switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
     {
-        choix=menu(mongraphe.get_ponderation());
+        choix=menu(mongraphe.get_ponderation()); /// pour chaque action, nous appellons la methode ou la fonction qui correspond
         switch(choix)
         {
         case 1:
-            mongraphe.afficher(-1,ensemble); /// pour chaque action, nous appellons la methode ou la fonction qui correspond
+            mongraphe.afficher(-1,ensemble);///permet d'afficher le graphe
             break;
         case 2:
-            mongraphe.ajout_ponderation();
+            mongraphe.ajout_ponderation(); ///ajoute la ponderation et affiche a nouveau les donnees du graphe
             mongraphe.afficher(-1,ensemble);
             break;
         case 3:
-            indicedecentralite(mongraphe,mongraphe.get_ordre(),1);
+            indicedecentralite(mongraphe,mongraphe.get_ordre(),1); ///appel la fonction qui calcule tous les indices et les affiche
             break;
         case 4:
-            mongraphe.connexite(1);
+            mongraphe.connexite(1);///verifie que le graphe est connexe
             break;
-        case 5:
+        case 5:///ici on calcule les indices une premiere fois pour etre sur de les avoir
             indicedecentralite(mongraphe,mongraphe.get_ordre(),0);
-            mongraphe.suppr_arete(-1);
+            mongraphe.suppr_arete(-1);///on supprime l'arrete
             system("cls");
-            mongraphe.afficher(-1,ensemble);
+            mongraphe.afficher(-1,ensemble);///on affiche le graphe
             system("cls");
             std::cout<<"Voici les nouveau indices"<<std::endl;
-            ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);
-            mongraphe.difference(ensemble);
+            ensemble=indicedecentralite(mongraphe,mongraphe.get_ordre(),2);///on recalcule les indices et on les affiche
+            mongraphe.difference(ensemble);///on calcule la difference et on l'affiche
             break;
         case 6:
             int choix1=0;
-            ensemble=indicedecentralite(mongraphe, mongraphe.get_ordre(), 3);
-            menuAfficherIndiceSVG();
+            ensemble=indicedecentralite(mongraphe, mongraphe.get_ordre(), 3);///on recupere les indices
+            menuAfficherIndiceSVG();///on les affiche sur l'output.svg
             std::cin >> choix1;
             while (choix1!=5)
             {
@@ -156,7 +156,7 @@ void boucle(int choix, Graphe mongraphe)
     }
 }
 
-void menuAfficherIndiceSVG()
+void menuAfficherIndiceSVG()///menu qui permet de choisir l'indice a afficher
 {
     system("cls");
     std::cout << "Choisissez l'indice que vous voulez afficher :" << std::endl;

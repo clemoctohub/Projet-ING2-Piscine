@@ -14,8 +14,8 @@ int main()
         std::cin>>nomFichier;
     }
     system("cls");
-    Graphe mongraphe(nomFichier); /// on ouvre de fichier choisit par l'utilisateur
-    mongraphe.k_connexite(); ///des l'ouverture du fichier on test la connexite du fichier
-    boucle(choix, mongraphe); /// boucle appellant le menu principal et les menus segondaires
+    Graphe mongraphe(nomFichier); /// on ouvre de fichier choisit par l'utilisateur et on charge le graphe
+    mongraphe.k_connexite(); ///des l'ouverture du fichier on test la connexite du graphe
+    boucle(choix, mongraphe); /// boucle appellant le menu principal et les menus secondaires
     return 0;
 }
