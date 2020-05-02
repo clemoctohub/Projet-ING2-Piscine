@@ -540,7 +540,6 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
             }
         }
     }
-
     for(int i=0; i<m_ordre; ++i)
         if(i!=fin && i!=debut)
         {
@@ -603,7 +602,6 @@ std::vector<double> Graphe::centralite_intermediarite()
             for(int i=0; i<50; ++i)
                 for(int j=0; j<50; ++j)
                     deja_vu[i][j]=false;
-
         }
         else if(m_adjacent[x].size()==0)
         {
@@ -782,6 +780,16 @@ void Graphe::suppr_sommet()
         k++;
     }
     int taille_arete = m_arrete.size();
+    for (int i=0; i<taille_arete; i++)
+    {
+        if (m_arrete[i]->calculdegre(m_sommet[k],0))
+        {
+            suppr_arete(i);
+        }
+        for (int i=0; i<taille_arete; i++)
+    {
+        }
+    }
     for (int i=0; i<taille_arete; i++)
     {
         if (m_arrete[i]->calculdegre(m_sommet[k],0))
