@@ -41,6 +41,7 @@
 		<Unit filename="graphe.h" />
 		<Unit filename="indice.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menus.cpp" />
 		<Unit filename="sommet.cpp" />
 		<Unit filename="sommet.h" />
 		<Unit filename="svgfile.cpp" />
