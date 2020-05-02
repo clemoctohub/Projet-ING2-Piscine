@@ -39,9 +39,10 @@ std::string menu2()  //menu d'affichage
     std::cout << "3: graphe3.txt" << std::endl;
     std::cout << "4: graphe4.txt" << std::endl;
     std::cout << "5: reseau_ile_reunion.txt" << std::endl;
-    std::cout << "6: Rentrer le nom du fichier a la main" << std::endl;
+    std::cout << "6: metro_lyon.txt" << std::endl;
+    std::cout << "7: Rentrer le nom du fichier a la main" << std::endl;
     std::cin >> choix;
-    while(choix<1 || choix>6)
+    while(choix<1 || choix>7)
     {
         std::cout << "Veuillez rentrer une des valeurs demandees" << std::endl;
         std::cin >> choix;
@@ -64,6 +65,9 @@ std::string menu2()  //menu d'affichage
             fichier="reseau_ile_reunion.txt";
             break;
         case 6:
+            fichier="metro_lyon.txt";
+            break;
+        case 7:
             fichier="rien";
             break;
         }
