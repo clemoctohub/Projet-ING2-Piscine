@@ -59,14 +59,14 @@ int Arrete::calculdegre(Sommet* sommet, int orientation)
 {
     if (orientation == 0)  // si le graphe est oriente ou non, le calcul de degre ne se fait pas de la meme maniere
     {
-        if (m_s1->GetIndice()==sommet->GetIndice() || m_s2->GetIndice()==sommet->GetIndice()) // si le graphe n'est pas oriente, on ajoute un degre a chaque fois que l'un des deux sommets d'une arete est le m�me que le sommet en question
+        if (m_s1->GetIndice()==sommet->GetIndice() || m_s2->GetIndice()==sommet->GetIndice()) // si le graphe n'est pas oriente, on ajoute un degre a chaque fois que l'un des deux sommets d'une arete est le meme que le sommet en question
             return 1;
         else
             return 0;
     }
     if (orientation == 1)
     {
-        if (m_s1->GetIndice()==sommet->GetIndice()) // si le graphe est oriente, on ajoute un degres a chaque fois que le sommet d'arriv� (le deuxieme) est le meme que le sommet en question
+        if (m_s1->GetIndice()==sommet->GetIndice()) // si le graphe est oriente, on ajoute un degres a chaque fois que le sommet d'arrive (le deuxieme) est le meme que le sommet en question
             return 1;
         else
             return 0;

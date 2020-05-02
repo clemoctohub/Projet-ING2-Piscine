@@ -79,7 +79,7 @@ std::string menuPonderation()  //menu d'affichage pour le choix des ponderation
     int choix;
     std::string fichier;
     system("cls");
-    std::cout << "Choisissez un des fichiers suivants ou rentrer le nom du fichier :" << std::endl;
+    std::cout << "Choisissez un des fichiers de ponderation suivants ou rentrer le nom du fichier :" << std::endl;
     std::cout << std::endl;
     std::cout << "1: ponderation_graphe1.txt" << std::endl;
     std::cout << "2: ponderation_graphe2.txt" << std::endl;
