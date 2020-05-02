@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-Sommet::Sommet(int indice, std::string nom, int x, int y) // constructeur
+Sommet::Sommet(int indice, std::string nom, double x, double y) // constructeur
     :m_nom{nom},m_indice{indice},m_x{x},m_y{y}
 {
 
@@ -27,12 +27,12 @@ void Sommet::afficher(Svgfile &svgout, std::vector <int> classement, int nomin, 
     }
 }
 
-int Sommet::GetX()
+double Sommet::GetX()
 {
     return m_x;
 }
 
-int Sommet::GetY()
+double Sommet::GetY()
 {
     return m_y;
 }

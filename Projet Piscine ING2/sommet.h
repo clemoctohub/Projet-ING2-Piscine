@@ -12,14 +12,14 @@ class Sommet
 private :
     std::string m_nom;
     int m_indice;
-    int m_x;  // coordonnee pour affichage dans fichier svg
-    int m_y;  // coordonnee pour affichage dans fichier svg
+    double m_x;  // coordonnee pour affichage dans fichier svg
+    double m_y;  // coordonnee pour affichage dans fichier svg
 public :
-    Sommet(int indice, std::string nom, int x, int y);
+    Sommet(int indice, std::string nom, double x, double y);
     ~Sommet(){};
     void afficher(Svgfile &svgout, std::vector <int> classement, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble);
-    int GetX();
-    int GetY();
+    double GetX();
+    double GetY();
     int GetIndice();
     void BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe);
     void affichernum();
