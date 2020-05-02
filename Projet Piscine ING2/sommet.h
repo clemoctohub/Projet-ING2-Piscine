@@ -10,19 +10,19 @@
 class Sommet
 {
 private :
-    std::string m_nom;
     int m_indice;
     double m_x;  // coordonnee pour affichage dans fichier svg
     double m_y;  // coordonnee pour affichage dans fichier svg
+    std::string m_nom;
 public :
     Sommet(int indice, std::string nom, double x, double y);
     ~Sommet(){};
+    void affichernum();
+    void BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe);
     void afficher(Svgfile &svgout, std::vector <int> classement, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble);
+    int GetIndice();
     double GetX();
     double GetY();
-    int GetIndice();
-    void BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe);
-    void affichernum();
 };
 
 #endif // SOMMET_H_INCLUDED
