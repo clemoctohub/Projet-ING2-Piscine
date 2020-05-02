@@ -55,11 +55,10 @@
 <text x="1005" y="15" fill="lightgrey" >1000</text>
 <line x1="1100" y1="0" x2="1100" y2="1400" stroke="lightgrey" />
 <text x="1105" y="15" fill="lightgrey" >1100</text>
-<line x1="200" y1="100" x2="200" y2="200" stroke="blue" />
 <line x1="100" y1="200" x2="200" y2="200" stroke="blue" />
 <line x1="200" y1="200" x2="300" y2="200" stroke="blue" />
 <line x1="200" y1="200" x2="200" y2="300" stroke="blue" />
-<circle cx="200" cy="100" r="4" fill="rgb(255,111,111)" />
+<circle cx="200" cy="100" r="4" fill="rgb(255,219,219)" />
 <text x="210" y="115" fill="black" >A</text>
 <text x="185" y="90" fill="green" >0</text>
 <circle cx="100" cy="200" r="4" fill="rgb(255,111,111)" />

@@ -291,7 +291,7 @@ void Graphe::ajout_ponderation(std::string pondFichier)
 
         ifs >> taille;
 
-        for(int i=0; i<taille; ++i)
+        for(int i=0; i<taille && i<m_taille; ++i)
         {
             ifs >> indice >> poids;
             m_arrete[indice]->set_poids(poids);
@@ -500,7 +500,12 @@ void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
             if(pred[actuel][i]!=-1)
                 recup_pred(pred,pred[actuel][i],autre);
             if(actuel==autre)
-                m_compteur += pred[actuel].size();
+            {
+                if(m_orientation==0)
+                    m_compteur += pred[actuel].size();
+                else if(m_orientation==1)
+                    ++m_compteur;
+            }
             if(pred[actuel][i]==-1)
                 ++m_ppc;
         }
@@ -575,6 +580,7 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
         if(i!=fin && i!=debut)
         {
             if(m_orientation==0)
+            {
                 if(deja_vu[debut][i]==false && deja_vu[i][debut]==false)
                 {
                     deja_vu[debut][i]=true;
@@ -583,7 +589,9 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
                     m_compteur=0;
                     m_ppc=0;
                 }
+            }
             else if(m_orientation==1)
+            {
                 if(deja_vu[debut][i]==false)
                 {
                     deja_vu[debut][i]=true;
@@ -592,6 +600,7 @@ double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][
                     m_compteur=0;
                     m_ppc=0;
                 }
+            }
         }
 
     return somme;
@@ -618,14 +627,12 @@ std::vector<double> Graphe::centralite_intermediarite()
                     if(m_adjacent[y].size()>0)
                     {
                         somme[x] += algo_dijkstra_intermediarite(y,x,deja_vu);
-                        std::cout<<somme[x]<<" ";
                         for(int i=0; i<100; ++i)
                             m_dec[i]=false;
                     }
                     else if(m_adjacent[y].size()==0)
                     {
                         somme[x] += 0;
-                        std::cout<<somme[x]<<" ";
                     }
                 }
             for(int i=0; i<50; ++i)
