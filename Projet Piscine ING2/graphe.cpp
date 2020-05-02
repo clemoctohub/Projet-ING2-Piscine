@@ -24,7 +24,8 @@ Graphe::Graphe(std::string nomFichier)
     for (int i=0; i<m_ordre; ++i)
     {
         std::string nom;
-        int indice, x, y;
+        int indice;
+        double x, y;
         flux>> indice >> nom >> x >> y;
         m_sommet.push_back(new Sommet{indice, nom, x, y});
 
