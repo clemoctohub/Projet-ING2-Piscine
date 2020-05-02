@@ -10,19 +10,19 @@
 class Sommet
 {
 private :
-    int m_indice;
-    double m_x;  // coordonnee pour affichage dans fichier svg
-    double m_y;  // coordonnee pour affichage dans fichier svg
-    std::string m_nom;
+    int m_indice; /// indice du sommet
+    double m_x;  /// coordonnee pour affichage dans fichier svg
+    double m_y;  /// coordonnee pour affichage dans fichier svg
+    std::string m_nom; /// nom du sommet
 public :
     Sommet(int indice, std::string nom, double x, double y);
     ~Sommet(){};
-    void affichernum();
-    void BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe);
-    void afficher(Svgfile &svgout, std::vector <int> classement, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble);
-    int GetIndice();
-    double GetX();
-    double GetY();
+    void affichernum(); /// affiche l'indice sur la console
+    void BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe); /// parcour BFS
+    void afficher(Svgfile &svgout, std::vector <int> classement, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble); /// affiche le sommet dans le fichier svg et en console
+    int GetIndice(); /// renvoi l'indice du sommet
+    double GetX(); /// renvoi la coordonnee x du sommet
+    double GetY(); /// renvoi la coordonnee y du sommet
 };
 
 #endif // SOMMET_H_INCLUDED

@@ -13,11 +13,11 @@
 
 Graphe::Graphe(std::string nomFichier)
 {
-    std::ifstream flux(nomFichier); // ouverture du fichier
+    std::ifstream flux(nomFichier); /// ouverture du fichier
     if(!flux)
-        std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
+        std::cerr << "Impossible d'ouvrir le fichier"; /// message d'erreur si l'ouverture du fichier ne se fait pas correctement
 
-///////////////////  Lecture du fichier et remplissage des differents attributs de la classe graphe/////////////////////////
+////////////////////////////  Lecture du fichier et remplissage des differents attributs de la classe graphe/////////////////////////////////////
 
     flux >> m_orientation >> m_ordre;
 
@@ -32,14 +32,14 @@ Graphe::Graphe(std::string nomFichier)
         m_CP.push_back(0);
     }
     flux>>m_taille;
-    //faire le cas pour les graphes orientes
+    ///faire le cas pour les graphes orientes
     for (int i=0; i<m_taille; ++i)
     {
         int indice,s1,s2;
         flux >> indice >> s1 >> s2;
         m_arrete.push_back(new Arrete{m_sommet[s1],m_sommet[s2],indice,1});
 
-        //cas graphe non oriente a faire
+        ///cas graphe non oriente a faire
         if(m_orientation==0)
         {
             m_adjacent[s1].push_back(s2);
@@ -74,43 +74,43 @@ void Graphe::k_connexite()
     std::vector<Arrete*> aretes;
 
     if(m_orientation==0)
-        for(int i = 0;i<m_ordre;++i)
+        for(int i = 0; i<m_ordre; ++i)
             if(minimun>m_adjacent[i].size() && m_adjacent[i].size()>0)
             {
                 minimun = m_adjacent[i].size();
                 index = i;
             }
-    else if(m_orientation==1)
-    {
-        for(int index=0;index<m_ordre;++index)
-        {
-            for(int i = 0;i<m_ordre;++i)
-                for(int j=0;j<m_adjacent[i].size();++j)
-                    if(m_adjacent[i][j]==index)
-                    {
-
-                        ++compteur;
-                        pred2.push_back(i);
-                        pred1.push_back(j);
-                    }
-
-            if(minimun>m_adjacent[i].size()+compteur)
+            else if(m_orientation==1)
             {
-                minimun = m_adjacent[i].size()+compteur;
-                memoire = compteur;
-                index = i;
-            }
-            else
-            {
-                for(int i=0;i<pred1.size();++i)
+                for(int index=0; index<m_ordre; ++index)
                 {
-                    pred1.erase(pred1.begin()+i);
-                    pred2.erase(pred2.begin()+i);
+                    for(int i = 0; i<m_ordre; ++i)
+                        for(int j=0; j<m_adjacent[i].size(); ++j)
+                            if(m_adjacent[i][j]==index)
+                            {
+
+                                ++compteur;
+                                pred2.push_back(i);
+                                pred1.push_back(j);
+                            }
+
+                    if(minimun>m_adjacent[i].size()+compteur)
+                    {
+                        minimun = m_adjacent[i].size()+compteur;
+                        memoire = compteur;
+                        index = i;
+                    }
+                    else
+                    {
+                        for(int i=0; i<pred1.size(); ++i)
+                        {
+                            pred1.erase(pred1.begin()+i);
+                            pred2.erase(pred2.begin()+i);
+                        }
+                    }
+                    compteur=0;
                 }
             }
-            compteur=0;
-        }
-    }
     if(m_orientation==0)
         while(condi==false)
         {
@@ -126,7 +126,7 @@ void Graphe::k_connexite()
                 condi2=false;
             }
 
-            //suppr
+            ///suppr
             m_arrete[k]->effacer_adj(m_adjacent);
 
             m_arrete.erase(m_arrete.begin()+k);
@@ -145,7 +145,7 @@ void Graphe::k_connexite()
     else if(m_orientation==1)
     {
         int temp = m_adjacent[index].size();
-        for(int i=0;i<temp;++i)
+        for(int i=0; i<temp; ++i)
         {
             while(!condi2)
             {
@@ -163,7 +163,7 @@ void Graphe::k_connexite()
             m_taille--;
             k=0;
         }
-        for(int i=0;i<memoire;++i)
+        for(int i=0; i<memoire; ++i)
         {
             while(!condi2)
             {
@@ -240,14 +240,14 @@ void Graphe::afficher(int indice, std::vector <std::vector <double>> ensemble)
         std::cout << "          sommet :";
         m_sommet[i]->afficher(svgout,classement,nomin,this,indice,ensemble);
     }
-    system("pause");  // afin de ne pas effacer la console
+    system("pause");  /// afin de ne pas effacer la console
 }
 
 void Graphe::ajout_ponderation()
 {
     std::string pondFichier;
     pondFichier=menuPonderation();
-    if(pondFichier=="rien") // on permet a l'utilisateur de choisir le fichier qu'il veut ouvrir
+    if(pondFichier=="rien") /// on permet a l'utilisateur de choisir le fichier qu'il veut ouvrir
     {
         std::cout << "Rentrez le nom du fichier" << std::endl;
         std::cin>>pondFichier;
@@ -256,7 +256,7 @@ void Graphe::ajout_ponderation()
     {
         std::ifstream ifs(pondFichier);
         if(!ifs)
-            std::cerr << "Impossible d'ouvrir le fichier"; // message d'erreur si l'ouverture du fichier ne se fait pas correctement
+            std::cerr << "Impossible d'ouvrir le fichier"; /// message d'erreur si l'ouverture du fichier ne se fait pas correctement
 
         int taille,indice,poids;
 
@@ -301,7 +301,8 @@ std::vector <double> Graphe::vecteur_propre()
             if(m_adjacent[i].size()>0)
                 for(size_t j=0; j<m_adjacent[i].size(); ++j)
                     c_Sommet[i] += buffer[m_adjacent[i][j]];
-            else{
+            else
+            {
                 c_Sommet[i] = 0;
             }
         }
@@ -329,27 +330,22 @@ std::vector <double> Graphe::vecteur_propre()
 
 std::vector <std::vector<double>> Graphe::calculdegre()
 {
-    std::vector <std::vector <double>> ensemble; // vecteur de degrés normalisés et non normalisés
-    std::vector <double> degres; // vecteur de degrés
-    std::vector <double> degresnormalise; // vecteur de degrés normalisés
-    for (int j=0; j<m_ordre; j++) // pour chaque sommet du graphe
+    std::vector <std::vector <double>> ensemble; /// vecteur de degrés normalisés et non normalisés
+    std::vector <double> degres; /// vecteur de degrés
+    std::vector <double> degresnormalise; /// vecteur de degrés normalisés
+    for (int j=0; j<m_ordre; j++) /// pour chaque sommet du graphe
     {
-        double degre=0;  // on initialise le degré a 0
-        //if (m_orientation == 0) // si le graphe n'est pas orienté
-           // for(size_t i=0; i<m_arrete.size(); i++) // pour toutes les arêtes du graphe
-               // if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
-                //    degre++;  // on ajoute 1 à degré si la méthode calculdegre return 1
-        //if (m_orientation == 1) // si le graphe est orienté
-            for(size_t i=0; i<m_arrete.size(); i++)
-                if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
-                    degre++;
-        degres.push_back(degre); // on pushback le degré du sommet calculé dans le vecteur de degrés
-        degre=degre/(m_ordre-1); // afin de normaliser le degré, on le divise par le nombre de sommets-1
-        degresnormalise.push_back(degre); // on pushback le degré normalisé dans le vecteur de degrés normalisés
+        double degre=0;  /// on initialise le degré a 0
+        for(size_t i=0; i<m_arrete.size(); i++)
+            if (m_arrete[i]->calculdegre(m_sommet[j], m_orientation)==1)
+                degre++;
+        degres.push_back(degre); /// on pushback le degré du sommet calculé dans le vecteur de degrés
+        degre=degre/(m_ordre-1); /// afin de normaliser le degré, on le divise par le nombre de sommets-1
+        degresnormalise.push_back(degre); /// on pushback le degré normalisé dans le vecteur de degrés normalisés
     }
     ensemble.push_back(degres);
     ensemble.push_back(degresnormalise);
-    return ensemble; // on return le vecteur contenant les degrés normalisés et non-normalisés
+    return ensemble; /// on return le vecteur contenant les degrés normalisés et non-normalisés
 }
 
 void Graphe::parcour_DFS_no_ponderation(int numS,int fin,int nbr_aretes)
@@ -427,7 +423,7 @@ int Graphe::algo_dijkstra(int debut, int fin)
 
 std::vector <double> Graphe::centralite_proximite()
 {
-    //faire le cas si il y a les ponderations + cas normalise et non normalise
+    ///faire le cas si il y a les ponderations + cas normalise et non normalise
     std::vector<double> somme;
     for(int i=0; i<m_ordre; ++i)
     {
@@ -445,7 +441,10 @@ std::vector <double> Graphe::centralite_proximite()
                 {
                     if(m_adjacent[i].size()!=0)
                         somme[i] += algo_dijkstra(i,j);
-                    else{somme[i]=0;}
+                    else
+                    {
+                        somme[i]=0;
+                    }
                 }
                 for(int i=0; i<100; ++i)
                     m_dec[i]=false;
@@ -455,7 +454,8 @@ std::vector <double> Graphe::centralite_proximite()
     {
         if(somme[i]!=0)
             m_CP[i] = (m_ordre-1)/somme[i];
-        else m_CP[i] = 0;
+        else
+            m_CP[i] = 0;
     }
     somme.erase(somme.begin(),somme.begin()+m_ordre);
     return m_CP;
@@ -649,7 +649,7 @@ std::vector <int> Graphe::parcourBFS(int start)
     etats[start]=1;
     file.push_back(start);
 
-    while(file.size())
+    while(file.size()) /// tant que la file n'est pas vide
     {
         m_sommet[file[0]]->BFS(etats,predecesseurs,file,this);
     }
@@ -731,7 +731,7 @@ void Graphe::suppr_arete(int suppr)
             std::cout << "    arretes ";
             m_arrete[i]->afficherIndice();
         }
-        for(int i=0;i<m_arrete.size();++i)
+        for(int i=0; i<m_arrete.size(); ++i)
         {
             if(maximun < m_arrete[i]->get_indice())
                 maximun = m_arrete[i]->get_indice();
@@ -774,7 +774,7 @@ void Graphe::suppr_sommet()
         m_sommet[i]->affichernum();
         std::cout<<std::endl;
     }
-    for(int i=0;i<m_arrete.size();++i)
+    for(int i=0; i<m_arrete.size(); ++i)
     {
         if(maximun < m_arrete[i]->get_indice())
             maximun = m_arrete[i]->get_indice();
@@ -797,7 +797,7 @@ void Graphe::suppr_sommet()
             suppr_arete(i);
         }
         for (int i=0; i<taille_arete; i++)
-    {
+        {
         }
     }
     for (int i=0; i<taille_arete; i++)
@@ -817,7 +817,7 @@ void Graphe::suppr_sommet()
 
 void Graphe::difference(std::vector <std::vector <double>> ensemble)
 {
-    std::ifstream flux("Sauvegarde.txt"); // ouverture du fichier
+    std::ifstream flux("Sauvegarde.txt"); /// ouverture du fichier
     if(!flux)
         std::cerr << "Impossible d'ouvrir le fichier";
 
