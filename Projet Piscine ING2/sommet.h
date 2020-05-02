@@ -11,9 +11,10 @@ class Sommet
 {
 private :
     int m_indice; /// indice du sommet
+    std::string m_nom; /// nom du sommet
     double m_x;  /// coordonnee pour affichage dans fichier svg
     double m_y;  /// coordonnee pour affichage dans fichier svg
-    std::string m_nom; /// nom du sommet
+
 public :
     Sommet(int indice, std::string nom, double x, double y);
     ~Sommet(){};

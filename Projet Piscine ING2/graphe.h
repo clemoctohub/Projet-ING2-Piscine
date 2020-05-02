@@ -32,9 +32,7 @@ private:
 public:
     Graphe(std::string nomFichier); // constructeur
     ~Graphe(){}
-    void tarjan();
     void k_connexite();
-    void suppr_sommet();
     void ajout_ponderation(); // ajoute du fichier contenant les ponderations
     void suppr_arete(int suppr);
     void affichercompo(std::vector <int> predecesseurs,int nb);

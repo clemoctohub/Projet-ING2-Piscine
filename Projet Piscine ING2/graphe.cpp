@@ -100,10 +100,10 @@ void Graphe::k_connexite()
                 memoire = compteur;
                 index = i;
             }
-           
+
                     else
                     {
-                        for(int i=0; i<pred1.size(); ++i)
+                        for(size_t i=0; i<pred1.size(); ++i)
                         {
                             pred1.erase(pred1.begin()+i);
                             pred2.erase(pred2.begin()+i);
@@ -424,7 +424,6 @@ int Graphe::algo_dijkstra(int debut, int fin)
 
 std::vector <double> Graphe::centralite_proximite()
 {
-    ///faire le cas si il y a les ponderations + cas normalise et non normalise
     std::vector<double> somme;
     for(int i=0; i<m_ordre; ++i)
     {
@@ -432,9 +431,9 @@ std::vector <double> Graphe::centralite_proximite()
         for(int j=0; j<m_ordre; ++j)
             if(j!=i)
             {
-                if(m_ponderation == false)
+                if(m_ponderation == false) ///On adapte le cose en fonction de la ponderation
                 {
-                    parcour_DFS_no_ponderation(i,j,0);
+                    parcour_DFS_no_ponderation(i,j,0); ///On utilise le DFS pour cet indice
                     somme[i] += m_nbr_aretes;
                     m_nbr_aretes = 0;
                 }
@@ -463,7 +462,7 @@ std::vector <double> Graphe::centralite_proximite()
 }
 
 
-void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
+void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre) ///Recuperer les prececeurs d'un sommet
 {
     if(pred[actuel].size()>0)
     {
@@ -489,7 +488,7 @@ void Graphe::recup_pred(std::vector<int> pred[100],int actuel,int autre)
     }
 }
 
-double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50])
+double Graphe::algo_dijkstra_intermediarite(int debut, int fin,bool deja_vu[50][50]) ///Algoritme de dijkstra adapter pour l'indice d'intermediarite
 {
     std::queue<Arrete> que;
     Arrete actuel,initial;
@@ -607,7 +606,7 @@ std::vector<double> Graphe::centralite_intermediarite()
                 }
             for(int i=0; i<50; ++i)
                 for(int j=0; j<50; ++j)
-                    deja_vu[i][j]=false;
+                    deja_vu[i][j]=false; ///On remet les cases du tableau a false pour la prochaine boucle
         }
         else if(m_adjacent[x].size()==0)
         {
@@ -622,7 +621,7 @@ std::vector<double> Graphe::centralite_intermediarite()
 }
 
 
-void Graphe::affichercompo(std::vector <int> predecesseurs,int nb)
+void Graphe::affichercompo(std::vector <int> predecesseurs,int nb) ///Fonction affichage des composantes connexes
 {
     std::cout << "Composante connexe " << nb << ": ";
     for(size_t i=0; i<predecesseurs.size(); ++i)
@@ -658,7 +657,7 @@ std::vector <int> Graphe::parcourBFS(int start)
 }
 
 
-bool Graphe::connexite(int truc)
+bool Graphe::connexite(int truc) ///Calcul des composantes connexes
 {
     int nb=0;
     int parcours=0;
@@ -704,7 +703,7 @@ std::vector <int> Graphe::get_adjacent(int sommet)
 }
 
 
-void Graphe::afficherBFS(std::vector <int> predecesseur, int start)
+void Graphe::afficherBFS(std::vector <int> predecesseur, int start) ///Fonction d'affichage du BFS
 {
     for(size_t i=0; i<m_sommet.size(); ++i)
     {
@@ -720,9 +719,9 @@ void Graphe::afficherBFS(std::vector <int> predecesseur, int start)
     system("pause");
 }
 
-void Graphe::suppr_arete(int suppr)
+void Graphe::suppr_arete(int suppr) ///Recois en parametre l'arete a effacer
 {
-    if (suppr==-1)
+    if (suppr==-1) ///Condition pour utiliser cette mathode de plusieurs manieres
     {
         size_t i=0,maximun=0;
         size_t choix=0;
@@ -738,7 +737,7 @@ void Graphe::suppr_arete(int suppr)
                 maximun = m_arrete[i]->get_indice();
         }
         std::cin>>choix;
-        while(choix<0 || choix>maximun)
+        while(choix<0 || choix>maximun) ///Blindage
         {
             std::cout << "Veuillez choisir une arete existante" << std::endl;
             std::cin >> choix;
@@ -763,59 +762,7 @@ void Graphe::suppr_arete(int suppr)
         m_taille--;
     }
 }
-
-void Graphe::suppr_sommet()
-{
-    size_t choix=0,maximun=0;
-    int k=0;
-    std::cout<<"Saisir l'indice du sommet que vous souhaitez supprimer"<<std::endl;
-    for(size_t i=0; i<m_sommet.size(); ++i)
-    {
-        std::cout << "    sommet ";
-        m_sommet[i]->affichernum();
-        std::cout<<std::endl;
-    }
-    for(size_t i=0;i<m_arrete.size();++i)
-    {
-        if(maximun < m_arrete[i]->get_indice())
-            maximun = m_arrete[i]->get_indice();
-    }
-    std::cin>>choix;
-    while(choix<0 || choix>maximun)
-    {
-        std::cout << "Veuillez choisir une arete existante" << std::endl;
-        std::cin >> choix;
-    }
-    while(m_sommet[k]->GetIndice()!=choix)
-    {
-        k++;
-    }
-    int taille_arete = m_arrete.size();
-    for (int i=0; i<taille_arete; i++)
-    {
-        if (m_arrete[i]->calculdegre(m_sommet[k],0))
-        {
-            suppr_arete(i);
-        }
-        for (int i=0; i<taille_arete; i++)
-        {
-        }
-    }
-    for (int i=0; i<taille_arete; i++)
-    {
-        if (m_arrete[i]->calculdegre(m_sommet[k],0))
-        {
-            suppr_arete(i);
-        }
-    }
-    if(m_orientation==1)
-    {
-
-    }
-    m_sommet.erase(m_sommet.begin()+k);
-    m_ordre--;
-}
-
+//ce ssprg permet de faire la difference entre les anciennes donnees du graphe (avant suppression) et celle apres suppression
 void Graphe::difference(std::vector <std::vector <double>> ensemble)
 {
     std::ifstream flux("Sauvegarde.txt"); /// ouverture du fichier
@@ -827,7 +774,7 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
     std::vector<double> degre,vecteur,intermediaire,proximite;
 
     flux >> ordre;
-
+    //on reouvre le fichier ou toutes les anciennes donnees sont ecrits et on les met dans des vecteurs
     for(int i=0; i<ordre; ++i)
     {
         flux >> temp;
@@ -839,7 +786,7 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
         flux >> temp;
         proximite.push_back(temp);
     }
-
+    //on affiche la difference en utilisant les donnees du fichier et celles recalculees et contenu dans le vecteur ensemble
     system("pause");
     system("cls");
     std::cout<<"DIFFERENCE ENTRE LE INDICES PRECEDENTS ET LES ACTUELS : "<<std::endl<<std::endl;
@@ -869,9 +816,4 @@ void Graphe::difference(std::vector <std::vector <double>> ensemble)
         std::cout<<std::endl;
     }
     system("pause");
-}
-
-void Graphe::tarjan()
-{
-
 }
