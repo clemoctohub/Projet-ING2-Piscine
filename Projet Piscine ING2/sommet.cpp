@@ -7,7 +7,7 @@ Sommet::Sommet(int indice, std::string nom, double x, double y) /// constructeur
 {
 
 }
-
+///affiche tous les sommets sur le output.svg et en console
 void Sommet::afficher(Svgfile &svgout, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble)
 {
     int compteur=0;
@@ -31,25 +31,25 @@ void Sommet::afficher(Svgfile &svgout, int nomin, Graphe* mongraphe,int indice, 
         svgout.addCircle(m_x*100, m_y*100,4,1,"black");
         svgout.addText(m_x*100+10, m_y*100+15, m_nom, "black"); /// affiche le nom
         svgout.addText(m_x*100-15, m_y*100-10, m_indice, "green"); /// affiche l'indice du sommet
-        svgout.addText((m_x)*100+10,m_y*100-10,ensemble[indice][m_indice],"orange"); /// affiche l'indice de centralité
+        svgout.addText((m_x)*100+10,m_y*100-10,ensemble[indice][m_indice],"orange"); /// affiche l'indice de centralitï¿½
     }
 }
 
-double Sommet::GetX()
+double Sommet::GetX()///retourne la coordonee x
 {
     return m_x;
 }
 
-double Sommet::GetY()
+double Sommet::GetY()///retourne la coordonee y
 {
     return m_y;
 }
 
-int Sommet::GetIndice()
+int Sommet::GetIndice()///retourne l'indice
 {
     return m_indice;
 }
-
+///parcour BFS des sommets
 void Sommet::BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe)
 {
     std::vector <int> buffer;
@@ -66,7 +66,7 @@ void Sommet::BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::
     file.erase(file.begin()); /// on supprime le sommet de la file
 }
 
-void Sommet::affichernum()
+void Sommet::affichernum()///affiche les indices
 {
     std::cout << m_indice << "<--";
 }

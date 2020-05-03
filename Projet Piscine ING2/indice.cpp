@@ -6,7 +6,8 @@
 #include <vector>
 
 void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal) /// affichage dans la console
-{
+{///l'ordre nous permet d'afficher les indices non normalise puisque dans le tableau ils sont enregistres sous forme non normalise
+    ///normal nous permet de savoir quoi afficher ou enregistre en fonction de la ou on appel le graphe
     int h=0; /// booleen evitant que "Indice de centralite normalise" s'affiche 2 fois
     if(normal==0)
         std::cout<<"Indice de centralite non normalise"<<std::endl;
@@ -37,13 +38,13 @@ void afficher_indice (std::vector <std::vector <double>> v1,int ordre,int normal
 }
 
 
-void sauvegarder (std::vector <std::vector <double>> v1) /// sauvegarde dans un fichier texte les indices
+void sauvegarder(std::vector <std::vector <double>> v1) /// sauvegarde dans un fichier texte les indices
 {
     std::string const nomFichier("C:Sauvegarde.txt");
     std::ofstream monFlux(nomFichier.c_str());
     if(!monFlux)
         std::cerr << "Error : Can't open the file" << std::endl;
-
+///enregistre les donnees : une ligne par sommet et tous les indices d'un sommet a la suite
     monFlux << v1[1].size()<<"\n";
     for (size_t j=0; j<v1[1].size(); j++)
     {
@@ -55,7 +56,7 @@ void sauvegarder (std::vector <std::vector <double>> v1) /// sauvegarde dans un 
 }
 
 std::vector <std::vector <double>> indicedecentralite(Graphe mongraphe,int ordre, int suppr) /// calcul tout les indices de centralite
-{
+{/// le suppr est une variable qui fait tourner le code differement selon  sa valeur
     int sauv=0;
     std::vector <std::vector <double>> ensemble;
     ensemble=mongraphe.calculdegre(); /// on appelle toutes les fonctions permettant de calculer les indices afin de les mettre dans le vecteur "ensemble"

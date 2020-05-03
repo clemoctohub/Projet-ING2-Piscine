@@ -35,22 +35,22 @@ void Arrete::afficher(Svgfile &svgout, int orientation)  /// recoit le fichier s
     }
 }
 
-void Arrete::afficher()
+void Arrete::afficher() ///affiche seulement le poids
 {
     std::cout<<m_poids<<std::endl;
 }
 
-void Arrete::afficherIndice()
+void Arrete::afficherIndice() ///affiche l'ensemble des indices d'une arete
 {
     std::cout<<m_indice<<"/ sommet 1 :"<<m_s1->GetIndice()<<" / sommet 2 : "<<m_s2->GetIndice()<<" / poids : "<<m_poids<<std::endl;
 }
 
-void Arrete::set_poids(int poids)
+void Arrete::set_poids(int poids) ///change le poids
 {
     m_poids = poids;
 }
 
-void Arrete::set_indice(int indice)
+void Arrete::set_indice(int indice)///modifie l'indice d'une arete
 {
     m_indice = indice;
 }
@@ -77,14 +77,14 @@ int Arrete::calculdegre(Sommet* sommet, int orientation)
 bool Arrete::check_Sommets(Sommet* s1,Sommet* s2,int orientation) /// permet de verifier l'existance d'une arete
 {
     if(orientation==0) /// si le graphe n'est pas oriente
-    {
+    { ///on verifie si l'arete qui appelle ce ssprg relie bien les deux sommets envoye. Dans ce cas on verifie le tableau d'adjacence dans les deux sens
         if((s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
         || (s1->GetIndice()==m_s2->GetIndice() && s2->GetIndice()==m_s1->GetIndice()))
             return true;
         else return false;
     }
     else if(orientation==1) /// si le graphe est oriente
-    {
+    {///on fait la meme chose mais on verifie dans un seul sens car l'arete ne va que dans un sens
         if(s1->GetIndice()==m_s1->GetIndice() && s2->GetIndice()==m_s2->GetIndice())
             return true;
         else return false;

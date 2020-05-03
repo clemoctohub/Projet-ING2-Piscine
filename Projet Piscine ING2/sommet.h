@@ -16,7 +16,7 @@ private :
     double m_y;  /// coordonnee pour affichage dans fichier svg
 
 public :
-    Sommet(int indice, std::string nom, double x, double y);
+    Sommet(int indice, std::string nom, double x, double y);///constructeur qui recoit un indice, un nom et deux coordonnees
     ~Sommet(){};
     void affichernum(); /// affiche l'indice sur la console
     void BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe); /// parcour BFS
