@@ -8,22 +8,30 @@ Sommet::Sommet(int indice, std::string nom, double x, double y) /// constructeur
 
 }
 ///affiche tous les sommets sur le output.svg et en console
-void Sommet::afficher(Svgfile &svgout, std::vector <int> classement, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble)
+void Sommet::afficher(Svgfile &svgout, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble)
 {
     int compteur=0;
-    for(size_t i=0; i<classement.size(); ++i)
+    if(indice==-1)
     {
-        if(classement[i]>classement[m_indice])
-            ++compteur;
+        std::cout<<m_indice<<" :    nom : "<< m_nom <<", X : "<<m_x<<", Y : "<<m_y<< std::endl; /// affichage en console
+        svgout.addDisk(m_x*100, m_y*100, 4, svgout.makeRGB(255,0,0)); /// affiche le cercle du sommet
+        svgout.addText(m_x*100+10, m_y*100+15, m_nom, "black"); /// affiche le nom
+        svgout.addText(m_x*100-15, m_y*100-10, m_indice, "green"); /// affiche l'indice du sommet
     }
-    std::cout<<m_indice<<" :    nom : "<< m_nom <<", X : "<<m_x<<", Y : "<<m_y<< std::endl; /// affichage en console
-    svgout.addDisk(m_x*100, m_y*100, 4, svgout.makeRGB(255,75+(nomin*compteur),75+(nomin*compteur))); /// affiche le cercle du sommet
-    svgout.addText(m_x*100+10, m_y*100+15, m_nom, "black"); /// affiche le nom
-    svgout.addText(m_x*100-15, m_y*100-10, m_indice, "green"); /// affiche l'indice du sommet
-
     if (indice>-1)
     {
-        svgout.addText((m_x)*100+10,m_y*100-10,ensemble[indice][m_indice],"orange"); /// affiche l'indice de centralité
+        int compteur=0;
+        for(size_t i=0; i<ensemble[indice].size(); ++i)
+        {
+            if(ensemble[indice][i]>ensemble[indice][m_indice])
+                ++compteur;
+        }
+        std::cout<<m_indice<<" :    nom : "<< m_nom <<", X : "<<m_x<<", Y : "<<m_y<< std::endl; /// affichage en console
+        svgout.addDisk(m_x*100, m_y*100, 4, svgout.makeRGB(255,60+(nomin*compteur),60+(nomin*compteur))); /// affiche le cercle du sommet
+        svgout.addCircle(m_x*100, m_y*100,4,1,"black");
+        svgout.addText(m_x*100+10, m_y*100+15, m_nom, "black"); /// affiche le nom
+        svgout.addText(m_x*100-15, m_y*100-10, m_indice, "green"); /// affiche l'indice du sommet
+        svgout.addText((m_x)*100+10,m_y*100-10,ensemble[indice][m_indice],"orange"); /// affiche l'indice de centralitï¿½
     }
 }
 
