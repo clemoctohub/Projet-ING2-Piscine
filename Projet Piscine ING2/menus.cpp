@@ -111,7 +111,7 @@ std::string menuPonderation()  ///menu d'affichage pour le choix du fichier de p
 void boucle(int choix, Graphe mongraphe)
 {
         std::vector <std::vector <double>> ensemble;
-        while(choix!=7)              // switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
+        while(choix!=7)              /// switch permettant de choisir l'action voulut en fonction du menu enonnce plus haut
     {
         choix=menu(mongraphe.get_ponderation());
         switch(choix)

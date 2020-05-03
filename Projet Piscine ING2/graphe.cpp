@@ -212,9 +212,10 @@ void Graphe::afficher(int indice, std::vector <std::vector <double>> ensemble)
 {
     Svgfile svgout;
     svgout.addGrid();
-    std::vector <int> classement;
     int h=0;
-    int nomin=180/m_ordre;
+    int nomin=0;
+    if(ensemble.size()!=0)
+        nomin=195/ensemble.size();
     if(m_orientation==0)
         std::cout << "Graphe non oriente"<<std::endl;
     else
@@ -228,18 +229,8 @@ void Graphe::afficher(int indice, std::vector <std::vector <double>> ensemble)
     std::cout << "      Ordre = "<<m_ordre<<std::endl;
     for(size_t i=0; i<m_sommet.size(); ++i)
     {
-        for(size_t j=0; j<m_arrete.size(); ++j)
-        {
-            if(m_arrete[j]->calculdegre(m_sommet[i],0))
-                ++h;
-        }
-        classement.push_back(h);
-        h=0;
-    }
-    for(size_t i=0; i<m_sommet.size(); ++i)
-    {
         std::cout << "          sommet :";
-        m_sommet[i]->afficher(svgout,classement,nomin,this,indice,ensemble);
+        m_sommet[i]->afficher(svgout,nomin,this,indice,ensemble);
     }
     system("pause");  /// afin de ne pas effacer la console
 }

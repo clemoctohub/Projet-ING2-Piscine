@@ -20,7 +20,7 @@ public :
     ~Sommet(){};
     void affichernum(); /// affiche l'indice sur la console
     void BFS(std::vector <int>& etats,std::vector <int>& predecesseurs,std::vector <int>& file, Graphe* mongraphe); /// parcour BFS
-    void afficher(Svgfile &svgout, std::vector <int> classement, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble); /// affiche le sommet dans le fichier svg et en console
+    void afficher(Svgfile &svgout, int nomin, Graphe* mongraphe,int indice, std::vector <std::vector <double>> ensemble); /// affiche le sommet dans le fichier svg et en console
     int GetIndice(); /// renvoi l'indice du sommet
     double GetX(); /// renvoi la coordonnee x du sommet
     double GetY(); /// renvoi la coordonnee y du sommet
