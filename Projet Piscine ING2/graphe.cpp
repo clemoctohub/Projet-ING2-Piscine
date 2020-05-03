@@ -443,20 +443,11 @@ std::vector <double> Graphe::centralite_proximite()
         for(int j=0; j<m_ordre; ++j)
             if(j!=i)
             {
-                if(m_ponderation == false) ///On adapte le cose en fonction de la ponderation
+                if(m_adjacent[i].size()!=0)
+                    somme[i] += algo_dijkstra(i,j);///retourne la plus petite distance entre les points i et j
+                else
                 {
-                    parcour_DFS_no_ponderation(i,j,0); ///On utilise le DFS pour cet indice, on parcourt tous les chemins
-                    somme[i] += m_nbr_aretes;   ///on fait la somme du nbr d'aretes si on a pas les ponderations car la distance se calcul en nbr d'arc
-                    m_nbr_aretes = 0;
-                }
-                else if(m_ponderation == true) ///si la ponderation a ete charge on calcule la plus petite distance entre deux points avec dijkstra
-                {
-                    if(m_adjacent[i].size()!=0)
-                        somme[i] += algo_dijkstra(i,j);///retourne la plus petite distance entre les points i et j
-                    else
-                    {
-                        somme[i]=0;
-                    }
+                    somme[i]=0;
                 }
                 for(int i=0; i<100; ++i)
                     m_dec[i]=false;
